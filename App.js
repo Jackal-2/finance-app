@@ -88,12 +88,12 @@ export default function App() {
               </TouchableOpacity>
 
               <TouchableOpacity>
-                 <Image style={{ height: "100", width: "100", borderRadius: 20, paddingLeft: "5"  }} source={require("./assets/peak1.jpg")} />
+                <Image style={{ height: "100", width: "100", borderRadius: 20, paddingLeft: "5" }} source={require("./assets/peak1.jpg")} />
 
               </TouchableOpacity>
 
               <TouchableOpacity>
-                <Image style={{ height: "100", width: "100", borderRadius: 20,paddingLeft: "5"  }} source={require("./assets/peak4.jpg")} />
+                <Image style={{ height: "100", width: "100", borderRadius: 20, paddingLeft: "5" }} source={require("./assets/peak4.jpg")} />
 
               </TouchableOpacity>
 
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0F0F0F',
-    alignItems: 'center',
+    alignItems: 'left',
 
 
   },
