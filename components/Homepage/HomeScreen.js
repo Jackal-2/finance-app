@@ -15,6 +15,13 @@ import CustomButton from "../CustomButton";
 import SendMoneyScreen from "../SendMoneyScreen";
 
 const HomeScreen = ({ navigation }) => {
+  const images = [
+    { id: 1, source: require("../../assets/peak3.jpg"), navigateTo: "Send" },
+    { id: 2, source: require("../../assets/peak2.jpg") },
+    { id: 3, source: require("../../assets/peak1.jpg"), navigateTo: "Send" },
+    { id: 4, source: require("../../assets/peak4.jpg") },
+  ];
+
   return (
     <View style={styles.container}>
       <View
@@ -62,9 +69,13 @@ const HomeScreen = ({ navigation }) => {
           </View>
 
           <TouchableOpacity>
-
             <View style={{}}>
-              <Ionicons style={{}} name="notifications" size={25} color="white" />
+              <Ionicons
+                style={{}}
+                name="notifications"
+                size={25}
+                color="white"
+              />
             </View>
           </TouchableOpacity>
         </SafeAreaView>
@@ -115,7 +126,6 @@ const HomeScreen = ({ navigation }) => {
               justifyContent: "center",
             }}
             textStyle={{ color: "#FFFFFF", fontSize: 16, fontWeight: "bold" }}
-
           />
           <CustomButton
             buttonStyle={{
@@ -128,7 +138,6 @@ const HomeScreen = ({ navigation }) => {
             }}
             textStyle={{ color: "black", fontSize: 16, fontWeight: "bold" }}
             title="send"
-
           />
         </View>
       </View>
@@ -198,48 +207,25 @@ const HomeScreen = ({ navigation }) => {
                   </Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity>
-                <Image
-                  style={{ height: "100", width: "100", borderRadius: 20 }}
-                  source={require("../../assets/peak3.jpg")}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity>
-                <Image
-                  style={{
-                    height: "100",
-                    width: "100",
-                    borderRadius: 20,
-                    paddingLeft: "5",
-                  }}
-                  source={require("../../assets/peak2.jpg")}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity>
-                <Image
-                  style={{
-                    height: "100",
-                    width: "100",
-                    borderRadius: 20,
-                    paddingLeft: "5",
-                  }}
-                  source={require("../../assets/peak1.jpg")}
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity>
-                <Image
-                  style={{
-                    height: "100",
-                    width: "100",
-                    borderRadius: 20,
-                    paddingLeft: "5",
-                  }}
-                  source={require("../../assets/peak4.jpg")}
-                />
-              </TouchableOpacity>
+              {images.map((image) => (
+                <TouchableOpacity
+                  key={image.id}
+                  onPress={
+                    image.navigateTo
+                      ? () => navigation.navigate(image.navigateTo)
+                      : null
+                  }
+                >
+                  <Image
+                    style={{
+                      height: 100,
+                      width: 100,
+                      borderRadius: 20,
+                    }}
+                    source={image.source}
+                  />
+                </TouchableOpacity>
+              ))}
             </View>
           </ScrollView>
         </View>
@@ -543,7 +529,7 @@ const HomeScreen = ({ navigation }) => {
       <StatusBar style="auto" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

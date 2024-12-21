@@ -1,10 +1,9 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'; // Import Stack Navigator
-import HomeScreen from './components/Homepage/HomeScreen';
-import SettingsScreen from './components/Homepage/SettingsScreen';
-import SendMoneyScreen from './components/SendMoneyScreen';
-
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack"; // Import Stack Navigator
+import HomeScreen from "./components/Homepage/HomeScreen";
+import SettingsScreen from "./components/Homepage/SettingsScreen";
+import SendMoneyScreen from "./components/SendMoneyScreen";
 
 const Stack = createStackNavigator(); // Create Stack Navigator
 
