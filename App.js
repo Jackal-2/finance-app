@@ -1,72 +1,27 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack'; // Import Stack Navigator
 import HomeScreen from './components/Homepage/HomeScreen';
 import SettingsScreen from './components/Homepage/SettingsScreen';
 import SendMoneyScreen from './components/SendMoneyScreen';
-import CardsScreen from './components/CardsScreen';
 
-const Tab = createBottomTabNavigator();
+
+const Stack = createStackNavigator(); // Create Stack Navigator
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home"
+      <Stack.Navigator
+        initialRouteName="Home" // Set the initial route
         screenOptions={{
-          tabBarStyle: {
-            backgroundColor: '#0F0F0F',
-            borderTopWidth: 0,
-            position: 'absolute',
-            height: 60,
-          },
-          tabBarInactiveTintColor: 'gray',
-          tabBarActiveTintColor: '#fff',
-          headerShown: false,
+          headerShown: false, // Hide headers if needed
         }}
       >
-
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home-outline" size={size} color={color} />
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name="Cards"
-          component={CardsScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="card-outline" size={size} color={color} />
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name="Send Money"
-          component={SendMoneyScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="send-outline" size={size} color={color} />
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name="Settings"
-          component={SettingsScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="settings-outline" size={size} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+        {/* Define the screens in the stack navigator */}
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Send" component={SendMoneyScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

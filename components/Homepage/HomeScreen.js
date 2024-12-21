@@ -115,6 +115,7 @@ const HomeScreen = ({ navigation }) => {
               justifyContent: "center",
             }}
             textStyle={{ color: "#FFFFFF", fontSize: 16, fontWeight: "bold" }}
+
           />
           <CustomButton
             buttonStyle={{
@@ -127,6 +128,7 @@ const HomeScreen = ({ navigation }) => {
             }}
             textStyle={{ color: "black", fontSize: 16, fontWeight: "bold" }}
             title="send"
+
           />
         </View>
       </View>
