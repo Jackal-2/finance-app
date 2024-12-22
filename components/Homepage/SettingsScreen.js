@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, Switch, Button, Alert, TouchableOpacity } from 'react-native';
+import { ArrowLeft } from "lucide-react-native";
 
-const SettingsScreen = () => {
+const SettingsScreen = ({ navigation }) => {
   // Always call hooks at the top level of your component
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -21,6 +22,10 @@ const SettingsScreen = () => {
     <View style={[styles.container, isDarkMode && styles.darkMode]}>
       {/* Settings title */}
       <Text style={[styles.title, isDarkMode && styles.darkTitle]}>Settings</Text>
+
+      <TouchableOpacity style={{ marginBottom: 20 }} onPress={() => navigation.navigate('Home')}>
+        <ArrowLeft color="#D3D3D3" />
+      </TouchableOpacity>
 
       {/* Profile Info */}
       <View style={styles.settingItem}>

@@ -51,7 +51,7 @@ const HomeScreen = ({ navigation }) => {
             }}
           >
             <View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
                 <Ionicons name="options" size={25} color="white" />
               </TouchableOpacity>
             </View>
@@ -115,29 +115,41 @@ const HomeScreen = ({ navigation }) => {
             marginTop: 28,
           }}
         >
+          {/* Increased button sizes and made them even */}
           <CustomButton
-            title="request"
+            title="Request"
             buttonStyle={{
               backgroundColor: "black",
-              paddingVertical: 20,
-              paddingHorizontal: 40,
-              borderRadius: 20,
+              paddingVertical: 25,  // Increased padding for larger button
+              paddingHorizontal: 50,  // Increased padding for larger button
+              borderRadius: 30,
               alignItems: "center",
               justifyContent: "center",
+              width: "45%",  // Ensures both buttons have the same width
             }}
-            textStyle={{ color: "#FFFFFF", fontSize: 16, fontWeight: "bold" }}
+            textStyle={{
+              color: "#FFFFFF",
+              fontSize: 18,  // Increased font size for better readability
+              fontWeight: "bold",
+            }}
           />
           <CustomButton
+            title="Send"
             buttonStyle={{
               backgroundColor: "white",
-              paddingVertical: 20,
-              paddingHorizontal: 40,
-              borderRadius: 20,
+              paddingVertical: 25,  // Increased padding for larger button
+              paddingHorizontal: 50,  // Increased padding for larger button
+              borderRadius: 30,
               alignItems: "center",
               justifyContent: "center",
+              width: "45%",  // Ensures both buttons have the same width
             }}
-            textStyle={{ color: "black", fontSize: 16, fontWeight: "bold" }}
-            title="send"
+            textStyle={{
+              color: "black",
+              fontSize: 18,  // Increased font size for better readability
+              fontWeight: "bold",
+            }}
+            onPress={() => navigation.navigate('Send')}
           />
         </View>
       </View>

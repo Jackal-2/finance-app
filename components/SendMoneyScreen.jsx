@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+import React, { useState, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,114 +6,166 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  Animated,
+  PanResponder,
   Image,
-  FlatList,
-  Button,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { ArrowLeft } from "lucide-react-native";
+import { ArrowLeft } from "lucide-react-native"; // Assuming this is the correct import for the ArrowLeft icon
 
-const HomeScreen = ({ navigation }) => {
+const SendMoneyScreen = ({ navigation }) => {
+  const [amount, setAmount] = useState("0");
+  const [swiped, setSwiped] = useState(false); // To track if the button has been swiped fully
+  const slideAnimation = useRef(new Animated.Value(0)).current; // Slide position
+  const shakeAnimation = useRef(new Animated.Value(0)).current; // Shake animation reference
+
+  // Function to format the number with commas
+  const formatAmount = (amount) => {
+    const number = parseFloat(amount.replace(/,/g, "")); // Remove commas before formatting
+    return number.toLocaleString(); // Format with commas
+  };
+
+  // Function to handle button press and update the amount
+  const handleKeypadPress = (value) => {
+    // Check if the user is trying to input more than 7 digits
+    if (amount.replace(/,/g, "").length >= 7 && value !== "DEL") {
+      // Trigger the shake animation if the amount exceeds 7 digits
+      triggerShake();
+      return;
+    }
+
+    if (value === "DEL") {
+      // If "DEL" is pressed, remove the last character from the amount
+      setAmount((prevAmount) => prevAmount.slice(0, -1) || "0");
+    } else {
+      // Otherwise, append the pressed value to the amount
+      setAmount((prevAmount) => (prevAmount === "0" ? value : prevAmount + value));
+    }
+  };
+
+  // Function to trigger shake animation
+  const triggerShake = () => {
+    Animated.sequence([
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  // Function to handle swipe gesture
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event(
+        [
+          null, // React Native now supports this syntax instead of using e => e.nativeEvent
+          { dx: slideAnimation }, // Horizontal sliding
+        ],
+        { useNativeDriver: false }
+      ),
+      onPanResponderRelease: (e, gestureState) => {
+        // Trigger an action when the swipe is complete (e.g., when the button reaches a certain position)
+        if (gestureState.dx > 150) {
+          setSwiped(true);
+          setAmount("0"); // Reset the amount to 0 after successful swipe
+          // Trigger any action, e.g., send the money
+          console.log("Money Sent!");
+
+          // Animate the swipeable button back to the default position
+          Animated.spring(slideAnimation, {
+            toValue: 0, // Return to default position
+            useNativeDriver: true,
+          }).start();
+
+          // Reset "Money Sent!" message after 2 seconds
+          setTimeout(() => {
+            setSwiped(false); // Hide the "Money Sent!" message and return to "Swipe to send"
+          }, 500);
+        } else {
+          // Reset the position if the swipe is incomplete
+          Animated.spring(slideAnimation, {
+            toValue: 0,
+            useNativeDriver: true,
+          }).start();
+          setSwiped(false);
+        }
+      },
+    })
+  ).current;
+
   const renderKeypadButton = (value) => (
-    <TouchableOpacity style={styles.keypadButton}>
+    <TouchableOpacity
+      style={styles.keypadButton}
+      onPress={() => handleKeypadPress(value)} // Update amount when a key is pressed
+    >
       <Text style={styles.keypadButtonText}>{value}</Text>
     </TouchableOpacity>
   );
+
   return (
-    // <View style={styles.container}>
-
-    //     <SafeAreaView
-    //         style={{
-    //             display: "flex",
-    //             flexDirection: "row",
-    //             alignItems: "center",
-    //             justifyContent: "space-between",
-    //             marginHorizontal: 20,
-    //             marginTop: "35",
-    //         }}
-    //     >
-
-    //         <TouchableOpacity style={{
-    //             display: "flex",
-    //             flexDirection: "row",
-    //             alignItems: "center",
-    //             justifyContent: "space-between",
-
-    //         }}>
-    //             <View
-    //                 style={{
-    //                     height: "90",
-    //                     width: "410",
-    //                     borderRadius: 12,
-    //                     marginTop: 10,
-    //                     alignItems: "left",
-    //                     backgroundColor: "#0F0F0F"
-    //                 }}
-    //             >
-    //                 <Image
-    //                     style={{ height: "80", width: "60", borderRadius: 20 }}
-    //                     source={require("../assets/peak3.jpg")}
-    //                 />
-
-    //             </View>
-    //         </TouchableOpacity>
-
-    //     </SafeAreaView>
-
-    //     <StatusBar style="auto" />
-    // </View>
     <SafeAreaView style={{ backgroundColor: "black", flex: 1 }}>
-      <ScrollView>
         <View style={styles.topBar}>
-          <ArrowLeft color="#D3D3D3" />
+          {/* Wrap the ArrowLeft in a TouchableOpacity for navigation */}
+          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <ArrowLeft color="#D3D3D3" />
+          </TouchableOpacity>
         </View>
+
+        {/* Modified "Roger Whatever" view with image and transparent cancel button */}
         <View style={styles.nameArea}>
-          <View>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 20,
-              }}
-            >
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: "red",
-                  padding: 33,
-                  marginLeft: 15,
-                  borderRadius: 10,
-                }}
-              ></View>
-              <View style={{ gap: 8 }}>
-                <Text
-                  style={{ color: "white", fontWeight: "900", fontSize: 15 }}
-                >
-                  Roger Whatever
-                </Text>
-                <Text style={{ color: "gray", fontSize: 15 }}>****5498</Text>
-              </View>
+          <View style={styles.profileContainer}>
+            {/* Display an image */}
+            <Image
+              source={require("../assets/peak3.jpg")} // Replace with a valid image URL or a local image
+              style={styles.profileImage}
+            />
+            <View style={styles.textInfo}>
+              <Text style={styles.nameText}>Roger Whatever</Text>
+              <Text style={styles.cardText}>****5498</Text>
             </View>
           </View>
-          <View>
-            <Text style={{ color: "white", marginRight: 15 }}>X</Text>
-          </View>
+
+          {/* Transparent Cancel Button */}
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.transparentCancelButton}>
+            <Text style={styles.cancelButtonText}>X</Text>
+          </TouchableOpacity>
         </View>
+
         <View style={styles.secondBar}>
-          <Text
+          {/* Display the current amount with a dollar sign and formatted with commas */}
+          <Animated.View
             style={{
-              fontWeight: "700",
-              fontSize: 75,
-              color: "white",
-              marginBottom: 5,
+              transform: [{ translateX: shakeAnimation }], // Apply shake animation
             }}
           >
-            $150
-          </Text>
-          <Text style={{ fontWeight: "600", fontSize: 20, color: "gray" }}>
-            no tax
-          </Text>
+            <Text
+              style={{
+                fontWeight: "700",
+                fontSize: 75,
+                color: "white",
+                marginBottom: 5,
+              }}
+            >
+              ${formatAmount(amount)}
+            </Text>
+          </Animated.View>
         </View>
         <View style={styles.keypadContainer}>
           {[
@@ -122,27 +174,33 @@ const HomeScreen = ({ navigation }) => {
             ["7", "8", "9"],
             [".", "0", "DEL"],
           ].map((row, rowIndex) => (
-            <View key={`row-${rowIndex}`} style={styles.keypadRow}>
+            <View key={rowIndex} style={styles.keypadRow}>
               {row.map((value) => renderKeypadButton(value))}
             </View>
           ))}
         </View>
         <View style={styles.bottomRectangle}>
-          <Text style={{ color: "gray", fontSize: 20 }}>swipe to send </Text>
+          {/* Create a swipeable button */}
+          <View style={styles.swipeContainer}>
+            <Text style={{ color: "gray", fontSize: 20 }}>
+              {swiped ? "Sent!" : "Swipe to send"}
+            </Text>
+            <Animated.View
+              {...panResponder.panHandlers}
+              style={[
+                styles.swipeButton,
+                {
+                  transform: [{ translateX: slideAnimation }],
+                },
+              ]}
+            />
+          </View>
         </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "black",
-    alignItems: "center",
-  },
-  container1: {
-    backgroundColor: "black",
-  },
   topBar: {
     height: "6%",
     backgroundColor: "black",
@@ -159,8 +217,43 @@ const styles = StyleSheet.create({
     height: "12%",
     backgroundColor: "#1B1B1B",
   },
+  profileContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  profileImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 25,
+  },
+  textInfo: {
+    gap: 8,
+    marginLeft: 15,
+  },
+  nameText: {
+    color: "white",
+    fontWeight: "900",
+    fontSize: 15,
+  },
+  cardText: {
+    color: "gray",
+    fontSize: 15,
+  },
+  transparentCancelButton: {
+    backgroundColor: "transparent", // Set the background to transparent
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cancelButtonText: {
+    color: "white", // Text color to make it visible
+    fontSize: 18,
+    fontWeight: "bold",
+  },
   secondBar: {
-    // height: "25%",
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 10,
@@ -191,7 +284,6 @@ const styles = StyleSheet.create({
   },
   keypadButtonText: {
     color: "white",
-
     fontSize: 24,
     fontWeight: "bold",
   },
@@ -200,12 +292,23 @@ const styles = StyleSheet.create({
     backgroundColor: "#1B1B1B",
     paddingHorizontal: 10,
     paddingVertical: 23,
-
     borderWidth: 1,
     borderRadius: 25,
-
     marginTop: 0,
+  },
+  swipeContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+  },
+  swipeButton: {
+    width: 120,
+    height: 50,
+    backgroundColor: "#34D399", // Green color
+    borderRadius: 25,
+    position: "absolute",
+    left: 0,
   },
 });
 
-export default HomeScreen;
+export default SendMoneyScreen;
