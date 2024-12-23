@@ -149,7 +149,7 @@ const SendMoneyScreen = () => {
         </View>
 
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.transparentCancelButton}>
-          <Text style={styles.cancelButtonText}>X</Text>
+          <Text style={styles.cancelButtonText}>x</Text>
         </TouchableOpacity>
       </View>
 
@@ -254,6 +254,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+    paddingRight:"10",
+    color:"grey",
+    fontSize:25
   },
   secondBar: {
     justifyContent: "center",
