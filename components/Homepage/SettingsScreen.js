@@ -1,68 +1,52 @@
 import React from 'react';
-import { View, Text, StyleSheet, Switch, Button, Alert, TouchableOpacity } from 'react-native';
-import { ArrowLeft } from "lucide-react-native";
-
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { ArrowLeft } from 'lucide-react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const SettingsScreen = ({ navigation }) => {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();  // Use the context
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
-  const [isNotificationsEnabled, setIsNotificationsEnabled] = React.useState(true);
+  const handleAccountManagement = () => {
+    console.log('Navigating to Account Management');
+  };
 
-  const toggleNotifications = () => setIsNotificationsEnabled((prev) => !prev);
+  const handlePaymentMethods = () => {
+    console.log('Navigating to Payment Methods');
+  };
+
+  const handleSecurity = () => {
+    console.log('Navigating to Security');
+  };
 
   const handleLogOut = () => {
-    Alert.alert('Log Out', 'Are you sure you want to log out?', [
-      { text: 'Cancel' },
-      { text: 'Log Out', onPress: () => setIsLoggedIn(false) },
-    ]);
+    console.log('Logging out...');
   };
 
   return (
-    <View style={[styles.container, isDarkMode && styles.darkMode]}>
-      <TouchableOpacity style={{ marginBottom: 20 }} onPress={() => navigation.navigate('Home')}>
-        <ArrowLeft color="#D3D3D3" />
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <ArrowLeft color="#D3D3D3" size={24} />
       </TouchableOpacity>
 
-      {/* Profile Info */}
-      <View style={styles.settingItem}>
-        <Text style={[styles.settingLabel, isDarkMode && styles.darkText]}>Profile:</Text>
-        <Text style={[styles.settingValue, isDarkMode && styles.darkText]}>Malone</Text>
+      <TouchableOpacity style={styles.optionItem} onPress={handleAccountManagement}>
+        <MaterialIcons name="account-circle" size={24} color="white" />
+        <Text style={styles.optionText}>Account Management</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.optionItem} onPress={handlePaymentMethods}>
+        <MaterialIcons name="payment" size={24} color="white" />
+        <Text style={styles.optionText}>Payment Methods</Text>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity style={styles.optionItem} onPress={handleSecurity}>
+        <MaterialIcons name="security" size={24} color="white" />
+        <Text style={styles.optionText}>Security</Text>
+      </TouchableOpacity>
+
+
+      <View style={styles.logOutContainer}>
+        <Button title="Log Out" onPress={handleLogOut} color="red" />
       </View>
-
-      {/* Dark Mode Toggle */}
-      <View style={styles.settingItem}>
-        <Text style={[styles.settingLabel, isDarkMode && styles.darkText]}>Enable Dark Mode</Text>
-        <Switch
-          trackColor={{ false: '#767577', true: '#50db46' }}
-          thumbColor={isDarkMode ? 'white' : '#f4f3f4'}
-          onValueChange={toggleDarkMode}
-          value={isDarkMode}
-        />
-      </View>
-
-      {/* Notifications Toggle */}
-      <View style={styles.settingItem}>
-        <Text style={[styles.settingLabel, isDarkMode && styles.darkText]}>Enable Notifications</Text>
-        <Switch
-          trackColor={{ false: '#767577', true: '#50db46' }}
-          thumbColor={isNotificationsEnabled ? 'white' : '#f4f3f4'}
-          onValueChange={toggleNotifications}
-          value={isNotificationsEnabled}
-        />
-      </View>
-
-      {/* Log Out Button */}
-      {isLoggedIn && (
-        <View style={styles.settingItem}>
-          <Button title="Log Out" onPress={handleLogOut} color="red" />
-        </View>
-      )}
-
-      {/* If the user is logged out */}
-      {!isLoggedIn && (
-        <Text style={[styles.loggedOutText, isDarkMode && styles.darkText]}>You are logged out</Text>
-      )}
     </View>
   );
 };
@@ -70,45 +54,30 @@ const SettingsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    justifyContent: 'flex-start',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
+    paddingTop: 40,
+    paddingHorizontal: 20,
   },
-  darkMode: {
-    backgroundColor: '#121212',
+  backButton: {
+    paddingTop: 20,
+    paddingBottom: 20,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
+  optionItem: {
     marginBottom: 20,
-    textAlign: 'center',
-    color: 'black',
-  },
-  darkTitle: {
-    color: 'white',
-  },
-  settingItem: {
-    marginBottom: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    backgroundColor: '#333',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+
   },
-  settingLabel: {
+  optionText: {
     fontSize: 18,
-    color: 'black',
-  },
-  darkText: {
     color: 'white',
+    marginLeft: 10,
   },
-  settingValue: {
-    fontSize: 18,
-    color: 'gray',
-  },
-  loggedOutText: {
-    fontSize: 18,
-    color: 'gray',
-    textAlign: 'center',
-    marginTop: 20,
+  logOutContainer: {
+    marginTop: 40,
   },
 });
 

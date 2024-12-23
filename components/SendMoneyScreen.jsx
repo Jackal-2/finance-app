@@ -12,37 +12,49 @@ import {
 import { useRoute, useNavigation } from "@react-navigation/native"; 
 import { ArrowLeft } from "lucide-react-native"; 
 
+
 const SendMoneyScreen = () => {
+
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { contactName, contactPhoto, contactCard } = route.params || {}; // Receive the contact card
+  const { contactName, contactPhoto, contactCard } = route.params || {};
 
+  // State for the entered amount and swipe action status
   const [amount, setAmount] = useState("0");
-  const [swiped, setSwiped] = useState(false); 
+  const [swiped, setSwiped] = useState(false);
+
+  // Animated values for swipe and shake animations
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const shakeAnimation = useRef(new Animated.Value(0)).current;
 
+  // Function to format the entered amount as currency
   const formatAmount = (amount) => {
     const number = parseFloat(amount.replace(/,/g, ""));
-    return number.toLocaleString();
+    return number.toLocaleString(); // Format number with commas
   };
 
+  // Handles the keypad press (value being pressed)
   const handleKeypadPress = (value) => {
+    // If the amount is 7 digits and user tries to add more, trigger shake animation
     if (amount.replace(/,/g, "").length >= 7 && value !== "DEL") {
       triggerShake();
       return;
     }
 
+    // If 'DEL' is pressed, remove the last character, or set to "0" if empty
     if (value === "DEL") {
       setAmount((prevAmount) => prevAmount.slice(0, -1) || "0");
     } else {
+      // Otherwise, append the value to the amount, or set as the first digit
       setAmount((prevAmount) => (prevAmount === "0" ? value : prevAmount + value));
     }
   };
 
+  // Function to trigger shake animation when input is invalid
   const triggerShake = () => {
     Animated.sequence([
+      // Shake left-right animation for invalid input
       Animated.timing(shakeAnimation, {
         toValue: 10,
         duration: 50,
@@ -63,35 +75,40 @@ const SendMoneyScreen = () => {
         duration: 50,
         useNativeDriver: true,
       }),
-    ]).start();
+    ]).start(); // Start the shake animation sequence
   };
 
+  // PanResponder setup to handle swipe gesture for sending money
   const panResponder = useRef(
     PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => true, // Allow touch start event
+      onMoveShouldSetPanResponder: () => true, // Allow move event
       onPanResponderMove: Animated.event(
         [
           null,
-          { dx: slideAnimation },
+          { dx: slideAnimation }, // Animate horizontal movement
         ],
         { useNativeDriver: false }
       ),
       onPanResponderRelease: (e, gestureState) => {
+        // If swipe distance is greater than 150px, mark the money as sent
         if (gestureState.dx > 150) {
           setSwiped(true);
-          setAmount("0");
-          console.log("Money Sent!");
+          setAmount("0"); // Reset amount
+          console.log("Money Sent!"); // Log the money sent message
 
+          // Reset the swipe animation position
           Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: true,
           }).start();
 
+          // Reset swiped status after 500ms
           setTimeout(() => {
             setSwiped(false);
           }, 500);
         } else {
+          // If swipe is not sufficient, reset the swipe animation
           Animated.spring(slideAnimation, {
             toValue: 0,
             useNativeDriver: true,
@@ -102,10 +119,11 @@ const SendMoneyScreen = () => {
     })
   ).current;
 
+
   const renderKeypadButton = (value) => (
     <TouchableOpacity
       style={styles.keypadButton}
-      onPress={() => handleKeypadPress(value)}
+      onPress={() => handleKeypadPress(value)} 
     >
       <Text style={styles.keypadButtonText}>{value}</Text>
     </TouchableOpacity>
@@ -113,61 +131,67 @@ const SendMoneyScreen = () => {
 
   return (
     <SafeAreaView style={{ backgroundColor: "black", flex: 1 }}>
+      {/* Top Bar with back button */}
       <View style={styles.topBar}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <ArrowLeft color="#D3D3D3" />
         </TouchableOpacity>
       </View>
 
+
       <View style={styles.nameArea}>
         <View style={styles.profileContainer}>
           <Image source={contactPhoto} style={styles.profileImage} />
           <View style={styles.textInfo}>
             <Text style={styles.nameText}>{contactName}</Text>
-            <Text style={styles.cardText}>{contactCard}</Text> {/* Display passed card number */}
+            <Text style={styles.cardText}>{contactCard}</Text>
           </View>
         </View>
+
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.transparentCancelButton}>
           <Text style={styles.cancelButtonText}>X</Text>
         </TouchableOpacity>
       </View>
 
+      {/* Display entered amount */}
       <View style={styles.secondBar}>
         <Animated.View
           style={{
-            transform: [{ translateX: shakeAnimation }],
+            transform: [{ translateX: shakeAnimation }], 
           }}
         >
           <Text style={{ fontWeight: "700", fontSize: 75, color: "white", marginBottom: 5 }}>
-            ${formatAmount(amount)}
+            ${formatAmount(amount)} 
           </Text>
         </Animated.View>
       </View>
 
+      {/* Keypad container */}
       <View style={styles.keypadContainer}>
         {[
           ["1", "2", "3"],
           ["4", "5", "6"],
           ["7", "8", "9"],
-          [".", "0", "DEL"],
+          [".", "0", "DEL"], 
         ].map((row, rowIndex) => (
           <View key={rowIndex} style={styles.keypadRow}>
-            {row.map((value) => renderKeypadButton(value))}
+            {row.map((value) => renderKeypadButton(value))} 
           </View>
         ))}
       </View>
 
+  
       <View style={styles.bottomRectangle}>
         <View style={styles.swipeContainer}>
           <Text style={{ color: "gray", fontSize: 20 }}>
             {swiped ? "Sent!" : "Swipe to send"}
           </Text>
           <Animated.View
-            {...panResponder.panHandlers}
+            {...panResponder.panHandlers} 
             style={[
               styles.swipeButton,
               {
-                transform: [{ translateX: slideAnimation }],
+                transform: [{ translateX: slideAnimation }], // Move swipe button horizontally based on swipe gesture
               },
             ]}
           />
@@ -203,7 +227,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 70,
     borderRadius: 25,
-    paddingLeft:"10"
+    paddingLeft: "10",
   },
   textInfo: {
     gap: 8,

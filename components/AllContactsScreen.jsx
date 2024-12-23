@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient'; // For gradient background
-import { BlurView } from 'expo-blur'; // For blurred background effect
+import { LinearGradient } from 'expo-linear-gradient';
+import { BlurView } from 'expo-blur'; 
 
 const AllContactsScreen = ({ route, navigation }) => {
-  const { imagesData } = route.params; // Access passed data
+  const { imagesData } = route.params; 
 
-  // Handle the button press for adding a new contact
+
   const handleAddContact = () => {
     console.log("Add new contact");
   };
@@ -14,19 +14,22 @@ const AllContactsScreen = ({ route, navigation }) => {
   // Handle the contact press (this is where you could navigate to a contact details screen, for example)
   const handleContactPress = (contact) => {
     console.log(`Contact pressed: ${contact.name}`);
-    // Navigate to a contact details screen, for example
-    // navigation.navigate('ContactDetails', { contactId: contact.id });
+    // Navigate to the SendMoneyScreen with selected contact info
+    navigation.navigate('Send', {
+      contactName: contact.name,
+      contactPhoto: contact.source,
+      contactCard: contact.cardNumber,
+    });
   };
 
   return (
     <View style={styles.container}>
-      {/* Gradient background with blur effect */}
+
       <LinearGradient
-        colors={['#266A61', '#0F0F0F']} // Green and black
+        colors={['#266A61', '#0F0F0F']} 
         style={styles.background}
       >
         <BlurView intensity={50} style={styles.blurContainer}>
-          {/* The header and content */}
           <View style={styles.header}>
             <Text style={styles.headerText}>All Contacts</Text>
             <TouchableOpacity style={styles.addButton} onPress={handleAddContact}>
@@ -41,7 +44,7 @@ const AllContactsScreen = ({ route, navigation }) => {
           <TouchableOpacity 
             key={contact.id} 
             style={styles.contactContainer} 
-            onPress={() => handleContactPress(contact)} // Handle the contact press
+            onPress={() => handleContactPress(contact)} 
           >
             <Image source={contact.source} style={styles.contactImage} />
             <View style={styles.contactInfo}>
@@ -68,14 +71,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     width: '100%',
-    paddingTop: 60, // Adjust padding for header
+    paddingTop: 60, 
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
-    paddingTop: 20, // Adjust top padding
+    paddingTop: 20, 
   },
   headerText: {
     color: 'white',
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10, // Add space on the right edge
+    marginRight: 10, 
   },
   addButtonText: {
     color: 'white',

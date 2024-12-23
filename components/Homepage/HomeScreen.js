@@ -18,35 +18,35 @@ const HomeScreen = ({ navigation }) => {
       source: require("../../assets/peak3.jpg"),
       name: "Wendy",
       navigateTo: "Send",
-      cardNumber: "**** 1234", // Static card number for Wendy
+      cardNumber: "**** 1234",
     },
     {
       id: 2,
       source: require("../../assets/peak2.jpg"),
       name: "Denise",
       navigateTo: "Send",
-      cardNumber: "**** 5678", // Static card number for Denise
+      cardNumber: "**** 5678",
     },
     {
       id: 3,
       source: require("../../assets/peak1.jpg"),
       name: "Pablo",
       navigateTo: "Send",
-      cardNumber: "**** 9012", // Static card number for Pablo
+      cardNumber: "**** 9012",
     },
     {
       id: 4,
       source: require("../../assets/peak4.jpg"),
       name: "Thugger",
       navigateTo: "Send",
-      cardNumber: "**** 3456", // Static card number for Thugger
+      cardNumber: "**** 3456",
     },
     {
       id: 5,
       source: require("../../assets/peak.jpg"),
       name: "Estaban",
       navigateTo: "Send",
-      cardNumber: "**** 7890", // Static card number for Estaban
+      cardNumber: "**** 7890",
     },
 
 
@@ -160,13 +160,13 @@ const HomeScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('Send', {
               contactName: "Wendy",
               contactPhoto: require("../../assets/peak3.jpg"),
-              contactCard: "**** 1234", // Pass the static card number for Wendy
+              contactCard: "**** 1234",
             })}
           />
         </View>
       </View>
 
-      {/* Quick Send section */}
+
       <View style={{ marginTop: 30 }}>
         <View
           style={{
@@ -187,7 +187,6 @@ const HomeScreen = ({ navigation }) => {
         <View style={{ height: 130, marginLeft: 10 }}>
           <ScrollView horizontal showsVerticalScrollIndicator={false}>
             <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-              {/* "+" Button */}
               <TouchableOpacity>
                 <View
                   style={{
@@ -204,7 +203,7 @@ const HomeScreen = ({ navigation }) => {
                 </View>
               </TouchableOpacity>
 
-              {/* Existing Contacts in Quick Send */}
+
               {imagesData.map((item) => (
                 <TouchableOpacity
                   key={item.id}
@@ -212,7 +211,7 @@ const HomeScreen = ({ navigation }) => {
                     navigation.navigate(item.navigateTo, {
                       contactName: item.name,
                       contactPhoto: item.source,
-                      contactCard: item.cardNumber, // Pass the static card number
+                      contactCard: item.cardNumber,
                     })
                   }
                 >
@@ -230,7 +229,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
       </View>
 
-      {/* Transactions section */}
+
       <View style={{ paddingTop: 20, paddingBottom: 10, alignItems: "center" }}>
         <Text style={{ color: "#dce0e6", fontSize: 20 }}>Transactions</Text>
       </View>

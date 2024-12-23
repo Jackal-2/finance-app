@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack"; // Import Stack Navigator
+import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./components/Homepage/HomeScreen";
 import SettingsScreen from "./components/Homepage/SettingsScreen";
 import SendMoneyScreen from "./components/SendMoneyScreen";
@@ -14,9 +14,9 @@ const App = () => {
 
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home" // Initial route when the app is opened
+        initialRouteName="Home"
         screenOptions={{
-          headerShown: false, // Hide header for all screens
+          headerShown: false,
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
