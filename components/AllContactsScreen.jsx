@@ -61,11 +61,13 @@ const AllContactsScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:"#babcbf"
   },
   background: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+ 
   },
   blurContainer: {
     flex: 1,
@@ -102,6 +104,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flexGrow: 1,
+    backgroundColor:"#babcbf"
   },
   contactContainer: {
     flexDirection: 'row',
@@ -127,7 +130,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   contactCardNumber: {
-    color: '#979ea8',
+    color: 'black',
     fontSize: 14,
   },
 });
