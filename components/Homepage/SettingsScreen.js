@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Switch, Button, Alert, TouchableOpacity } from 'react-native';
 import { ArrowLeft } from "lucide-react-native";
 
+
 const SettingsScreen = ({ navigation }) => {
-  // Always call hooks at the top level of your component
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
-  // Toggle functions
-  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();  // Use the context
+
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isNotificationsEnabled, setIsNotificationsEnabled] = React.useState(true);
+
   const toggleNotifications = () => setIsNotificationsEnabled((prev) => !prev);
+
   const handleLogOut = () => {
-    // Show a confirmation alert before logging out
     Alert.alert('Log Out', 'Are you sure you want to log out?', [
       { text: 'Cancel' },
       { text: 'Log Out', onPress: () => setIsLoggedIn(false) },
@@ -20,9 +20,6 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <View style={[styles.container, isDarkMode && styles.darkMode]}>
-      {/* Settings title */}
-      <Text style={[styles.title, isDarkMode && styles.darkTitle]}>Settings</Text>
-
       <TouchableOpacity style={{ marginBottom: 20 }} onPress={() => navigation.navigate('Home')}>
         <ArrowLeft color="#D3D3D3" />
       </TouchableOpacity>

@@ -7,23 +7,64 @@ import {
   ScrollView,
   SafeAreaView,
   Image,
-  FlatList,
-  Button,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import CustomButton from "../CustomButton";
-import SendMoneyScreen from "../SendMoneyScreen";
 
 const HomeScreen = ({ navigation }) => {
-  const images = [
-    { id: 1, source: require("../../assets/peak3.jpg"), navigateTo: "Send" },
-    { id: 2, source: require("../../assets/peak2.jpg") },
-    { id: 3, source: require("../../assets/peak1.jpg"), navigateTo: "Send" },
-    { id: 4, source: require("../../assets/peak4.jpg") },
+  const imagesData = [
+    {
+      id: 1,
+      source: require("../../assets/peak3.jpg"),
+      name: "Wendy",
+      navigateTo: "Send",
+      cardNumber: "**** 1234", // Static card number for Wendy
+    },
+    {
+      id: 2,
+      source: require("../../assets/peak2.jpg"),
+      name: "Denise",
+      navigateTo: "Send",
+      cardNumber: "**** 5678", // Static card number for Denise
+    },
+    {
+      id: 3,
+      source: require("../../assets/peak1.jpg"),
+      name: "Pablo",
+      navigateTo: "Send",
+      cardNumber: "**** 9012", // Static card number for Pablo
+    },
+    {
+      id: 4,
+      source: require("../../assets/peak4.jpg"),
+      name: "Thugger",
+      navigateTo: "Send",
+      cardNumber: "**** 3456", // Static card number for Thugger
+    },
+    {
+      id: 5,
+      source: require("../../assets/peak.jpg"),
+      name: "Estaban",
+      navigateTo: "Send",
+      cardNumber: "**** 7890", // Static card number for Estaban
+    },
+
+
+
+  ];
+
+  const transactionData = [
+    { id: 1, source: require("../../assets/peak3.jpg"), name: "Wendy", date: "Today", amount: "$1,850.98" },
+    { id: 2, source: require("../../assets/peak2.jpg"), name: "Denise", date: "18/12/24", amount: "$2,400.98" },
+    { id: 3, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/11/24", amount: "$100.67" },
+    { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/12/24", amount: "$800.78" },
+    { id: 5, source: require("../../assets/peak.jpg"), name: "Estaban", date: "22/11/24", amount: "$50.12" },
+    { id: 6, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/09/24", amount: "$390.31" },
   ];
 
   return (
     <View style={styles.container}>
+      {/* Top header section */}
       <View
         style={{
           backgroundColor: "#266A61",
@@ -50,86 +91,53 @@ const HomeScreen = ({ navigation }) => {
               alignItems: "center",
             }}
           >
+            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+              <Ionicons name="options" size={25} color="white" />
+            </TouchableOpacity>
             <View>
-              <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-                <Ionicons name="options" size={25} color="white" />
-              </TouchableOpacity>
-            </View>
-            <View>
-              <Text
-                style={{
-                  color: "#979ea8",
-                  fontSize: "20",
-                }}
-              >
-                Good Morning
-              </Text>
-              <Text style={{ color: "white", fontSize: "20" }}>Malone</Text>
+              <Text style={{ color: "#979ea8", fontSize: 20 }}>Good Morning</Text>
+              <Text style={{ color: "white", fontSize: 20 }}>Malone</Text>
             </View>
           </View>
 
           <TouchableOpacity>
-            <View style={{}}>
-              <Ionicons
-                style={{}}
-                name="notifications"
-                size={25}
-                color="white"
-              />
-            </View>
+            <Ionicons name="notifications" size={25} color="white" />
           </TouchableOpacity>
         </SafeAreaView>
+
         <View style={{ display: "flex", marginHorizontal: 20 }}>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Text style={{ color: "#979ea8", fontSize: "20" }}>
-              Your Total Balance
-            </Text>
-            <TouchableOpacity style={{}}>
+          <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+            <Text style={{ color: "#979ea8", fontSize: 20 }}>Your Total Balance</Text>
+            <TouchableOpacity>
               <Ionicons name="eye-off" size={30} color="white" />
             </TouchableOpacity>
           </View>
-          <View>
-            <Text
-              style={{
-                color: "white",
-                fontSize: "30",
-                fontWeight: "bold",
-              }}
-            >
-              $12,739.58
-            </Text>
-          </View>
+          <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>$12,739.58</Text>
         </View>
+
         <View
           style={{
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
-            marginHorizontal: "20",
+            marginHorizontal: 20,
             marginTop: 28,
           }}
         >
-          {/* Increased button sizes and made them even */}
           <CustomButton
             title="Request"
             buttonStyle={{
               backgroundColor: "black",
-              paddingVertical: 25,  // Increased padding for larger button
-              paddingHorizontal: 50,  // Increased padding for larger button
+              paddingVertical: 25,
+              paddingHorizontal: 50,
               borderRadius: 30,
               alignItems: "center",
               justifyContent: "center",
-              width: "45%",  // Ensures both buttons have the same width
+              width: "45%",
             }}
             textStyle={{
               color: "#FFFFFF",
-              fontSize: 18,  // Increased font size for better readability
+              fontSize: 18,
               fontWeight: "bold",
             }}
           />
@@ -137,28 +145,29 @@ const HomeScreen = ({ navigation }) => {
             title="Send"
             buttonStyle={{
               backgroundColor: "white",
-              paddingVertical: 25,  // Increased padding for larger button
-              paddingHorizontal: 50,  // Increased padding for larger button
+              paddingVertical: 25,
+              paddingHorizontal: 50,
               borderRadius: 30,
               alignItems: "center",
               justifyContent: "center",
-              width: "45%",  // Ensures both buttons have the same width
+              width: "45%",
             }}
             textStyle={{
               color: "black",
-              fontSize: 18,  // Increased font size for better readability
+              fontSize: 18,
               fontWeight: "bold",
             }}
-            onPress={() => navigation.navigate('Send')}
+            onPress={() => navigation.navigate('Send', {
+              contactName: "Wendy",
+              contactPhoto: require("../../assets/peak3.jpg"),
+              contactCard: "**** 1234", // Pass the static card number for Wendy
+            })}
           />
         </View>
       </View>
 
-      <View
-        style={{
-          marginTop: 30,
-        }}
-      >
+      {/* Quick Send section */}
+      <View style={{ marginTop: 30 }}>
         <View
           style={{
             display: "flex",
@@ -166,76 +175,54 @@ const HomeScreen = ({ navigation }) => {
             alignItems: "center",
             justifyContent: "space-between",
             marginHorizontal: 15,
+            marginBottom: 10,
           }}
         >
-          <Text
-            style={{
-              color: "#dce0e6",
-              fontSize: 25,
-              fontWeight: "600",
-            }}
-          >
-            Quick send
-          </Text>
-          <TouchableOpacity>
-            <Text
-              style={{
-                color: "#979ea8",
-                fontSize: 14,
-              }}
-            >
-              View all
-            </Text>
+          <Text style={{ color: "#dce0e6", fontSize: 25, fontWeight: "600" }}>Quick send</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Contacts', { imagesData })}>
+            <Text style={{ color: "#979ea8", fontSize: 14 }}>View all</Text>
           </TouchableOpacity>
         </View>
 
         <View style={{ height: 130, marginLeft: 10 }}>
-          <ScrollView horizontal={true} showsVerticalScrollIndicator={false}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 5,
-              }}
-            >
+          <ScrollView horizontal showsVerticalScrollIndicator={false}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+              {/* "+" Button */}
               <TouchableOpacity>
                 <View
                   style={{
                     backgroundColor: "gray",
-                    height: "100",
-                    width: "100",
+                    height: 100,
+                    width: 100,
                     borderRadius: 20,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: -22,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontSize: 40,
-                      color: "white",
-                      paddingLeft: "37",
-                      paddingTop: "25",
-                    }}
-                  >
-                    +
-                  </Text>
+                  <Text style={{ fontSize: 40, color: "white" }}>+</Text>
                 </View>
               </TouchableOpacity>
-              {images.map((image) => (
+
+              {/* Existing Contacts in Quick Send */}
+              {imagesData.map((item) => (
                 <TouchableOpacity
-                  key={image.id}
-                  onPress={
-                    image.navigateTo
-                      ? () => navigation.navigate(image.navigateTo)
-                      : null
+                  key={item.id}
+                  onPress={() =>
+                    navigation.navigate(item.navigateTo, {
+                      contactName: item.name,
+                      contactPhoto: item.source,
+                      contactCard: item.cardNumber, // Pass the static card number
+                    })
                   }
                 >
-                  <Image
-                    style={{
-                      height: 100,
-                      width: 100,
-                      borderRadius: 20,
-                    }}
-                    source={image.source}
-                  />
+                  <View style={{ alignItems: "center" }}>
+                    <Image
+                      style={{ height: 100, width: 100, borderRadius: 20 }}
+                      source={item.source}
+                    />
+                    <Text style={{ color: "white", marginTop: 8 }}>{item.name}</Text>
+                  </View>
                 </TouchableOpacity>
               ))}
             </View>
@@ -243,302 +230,40 @@ const HomeScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <View style={{ paddingTop: "20" }}>
-        <Text
-          style={{
-            color: "#dce0e6",
-            fontSize: 20,
-          }}
-        >
-          Transactions
-        </Text>
+      {/* Transactions section */}
+      <View style={{ paddingTop: 20, paddingBottom: 10, alignItems: "center" }}>
+        <Text style={{ color: "#dce0e6", fontSize: 20 }}>Transactions</Text>
       </View>
 
-      <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
-        <TouchableOpacity>
-          <View
-            style={{
-              height: "100",
-              width: "440",
-              borderRadius: 12,
-              marginTop: 10,
-              alignItems: "left",
-            }}
-          >
-            <Image
-              style={{ height: "100", width: "100", borderRadius: 20 }}
-              source={require("../../assets/peak3.jpg")}
-            />
-            <Text
-              style={{
-                color: "#dce0e6",
-                paddingLeft: "110",
-                marginTop: -80,
-                fontSize: "20",
-              }}
-            >
-              Wendy
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "110",
-                marginTop: 10,
-                fontSize: "15",
-              }}
-            >
-              Today
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "350",
-                marginTop: -35,
-                fontSize: "15",
-              }}
-            >
-              $1,850.98
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View
-            style={{
-              height: "100",
-              width: "440",
-              borderRadius: 12,
-              marginTop: 10,
-              alignItems: "left",
-            }}
-          >
-            <Image
-              style={{ height: "100", width: "100", borderRadius: 20 }}
-              source={require("../../assets/peak3.jpg")}
-            />
-            <Text
-              style={{
-                color: "#dce0e6",
-                paddingLeft: "110",
-                marginTop: -80,
-                fontSize: "20",
-              }}
-            >
-              Wendy
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "110",
-                marginTop: 10,
-                fontSize: "15",
-              }}
-            >
-              18/12/24
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "350",
-                marginTop: -35,
-                fontSize: "15",
-              }}
-            >
-              $2,400.98
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View
-            style={{
-              height: "100",
-              width: "440",
-              borderRadius: 12,
-              marginTop: 10,
-              alignItems: "left",
-            }}
-          >
-            <Image
-              style={{ height: "100", width: "100", borderRadius: 20 }}
-              source={require("../../assets/peak2.jpg")}
-            />
-            <Text
-              style={{
-                color: "#dce0e6",
-                paddingLeft: "110",
-                marginTop: -80,
-                fontSize: "20",
-              }}
-            >
-              Denise
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "110",
-                marginTop: 10,
-                fontSize: "15",
-              }}
-            >
-              18/12/24
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "350",
-                marginTop: -35,
-                fontSize: "15",
-              }}
-            >
-              $400.65
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View
-            style={{
-              height: "100",
-              width: "440",
-              borderRadius: 12,
-              marginTop: 10,
-              alignItems: "left",
-            }}
-          >
-            <Image
-              style={{ height: "100", width: "100", borderRadius: 20 }}
-              source={require("../../assets/peak4.jpg")}
-            />
-            <Text
-              style={{
-                color: "#dce0e6",
-                paddingLeft: "110",
-                marginTop: -80,
-                fontSize: "20",
-              }}
-            >
-              Thugger
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "110",
-                marginTop: 10,
-                fontSize: "15",
-              }}
-            >
-              01/12/24
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "350",
-                marginTop: -35,
-                fontSize: "15",
-              }}
-            >
-              $800.78
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View
-            style={{
-              height: "100",
-              width: "440",
-              borderRadius: 12,
-              marginTop: 10,
-              alignItems: "left",
-            }}
-          >
-            <Image
-              style={{ height: "100", width: "100", borderRadius: 20 }}
-              source={require("../../assets/peak1.jpg")}
-            />
-            <Text
-              style={{
-                color: "#dce0e6",
-                paddingLeft: "110",
-                marginTop: -80,
-                fontSize: "20",
-              }}
-            >
-              Pablo
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "110",
-                marginTop: 10,
-                fontSize: "15",
-              }}
-            >
-              31/11/24
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "350",
-                marginTop: -35,
-                fontSize: "15",
-              }}
-            >
-              $100.67
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View
-            style={{
-              height: "100",
-              width: "440",
-              borderRadius: 12,
-              marginTop: 10,
-              alignItems: "left",
-            }}
-          >
-            <Image
-              style={{ height: "100", width: "100", borderRadius: 20 }}
-              source={require("../../assets/peak.jpg")}
-            />
-            <Text
-              style={{
-                color: "#dce0e6",
-                paddingLeft: "110",
-                marginTop: -80,
-                fontSize: "20",
-              }}
-            >
-              Estaban
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "110",
-                marginTop: 10,
-                fontSize: "15",
-              }}
-            >
-              22/11/24
-            </Text>
-            <Text
-              style={{
-                color: "#979ea8",
-                paddingLeft: "350",
-                marginTop: -35,
-                fontSize: "15",
-              }}
-            >
-              $50.12
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
-
-      <StatusBar style="auto" />
+      <SafeAreaView style={{ height: 500 }}>
+        <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
+          {transactionData.map((transaction) => (
+            <TouchableOpacity key={transaction.id}>
+              <View
+                style={{
+                  height: 100,
+                  width: 440,
+                  borderRadius: 12,
+                  marginTop: 10,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingLeft: 15,
+                  position: "relative",
+                }}
+              >
+                <Image style={{ height: 100, width: 100, borderRadius: 20 }} source={transaction.source} />
+                <View style={{ marginLeft: 15 }}>
+                  <Text style={{ color: "#dce0e6", fontSize: 20 }}>{transaction.name}</Text>
+                  <Text style={{ color: "#979ea8", fontSize: 15, marginTop: 5 }}>{transaction.date}</Text>
+                </View>
+                <Text style={{ position: "absolute", right: 15, fontSize: 15, color: "#979ea8" }}>
+                  {transaction.amount}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };
@@ -546,8 +271,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0F0F0F",
-    alignItems: "center",
+    backgroundColor: "black",
   },
 });
 
