@@ -40,6 +40,10 @@ const LoginScreen = () => {
             <TouchableOpacity>
                 <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
             </TouchableOpacity>
+            <TouchableOpacity>
+                <Text style={styles.signupText}>Sign Up</Text>
+            </TouchableOpacity>
+
         </View>
     );
 };
@@ -84,6 +88,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     forgotPasswordText: {
+        color: '#266A61', // Green text
+        marginTop: 10,
+        textDecorationLine: 'underline',
+    },
+    signupText: {
         color: '#266A61', // Green text
         marginTop: 10,
         textDecorationLine: 'underline',
