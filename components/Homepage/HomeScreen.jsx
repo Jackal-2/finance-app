@@ -209,7 +209,7 @@ const HomeScreen = ({ route, navigation }) => {
         <View style={{ height: 130, marginLeft: 10 }}>
           <ScrollView horizontal showsVerticalScrollIndicator={false}>
             <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Newcontact')}>
                 <View
                   style={{
                     backgroundColor: "gray",

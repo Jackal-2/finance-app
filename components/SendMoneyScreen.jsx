@@ -12,7 +12,6 @@ import {
 import { useRoute, useNavigation } from "@react-navigation/native"; 
 import { ArrowLeft } from "lucide-react-native"; 
 
-
 const SendMoneyScreen = () => {
 
   const route = useRoute();
@@ -119,7 +118,6 @@ const SendMoneyScreen = () => {
     })
   ).current;
 
-
   const renderKeypadButton = (value) => (
     <TouchableOpacity
       style={styles.keypadButton}
@@ -137,7 +135,6 @@ const SendMoneyScreen = () => {
           <ArrowLeft color="#D3D3D3" />
         </TouchableOpacity>
       </View>
-
 
       <View style={styles.nameArea}>
         <View style={styles.profileContainer}>
@@ -157,7 +154,7 @@ const SendMoneyScreen = () => {
       <View style={styles.secondBar}>
         <Animated.View
           style={{
-            transform: [{ translateX: shakeAnimation }], 
+            transform: [{ translateX: shakeAnimation }],
           }}
         >
           <Text style={{ fontWeight: "700", fontSize: 75, color: "white", marginBottom: 5 }}>
@@ -175,12 +172,19 @@ const SendMoneyScreen = () => {
           [".", "0", "DEL"], 
         ].map((row, rowIndex) => (
           <View key={rowIndex} style={styles.keypadRow}>
-            {row.map((value) => renderKeypadButton(value))} 
+            {row.map((value, buttonIndex) => (
+              <TouchableOpacity
+                key={buttonIndex} // Add a unique key for each button
+                style={styles.keypadButton}
+                onPress={() => handleKeypadPress(value)} 
+              >
+                <Text style={styles.keypadButtonText}>{value}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         ))}
       </View>
 
-  
       <View style={styles.bottomRectangle}>
         <View style={styles.swipeContainer}>
           <Text style={{ color: "gray", fontSize: 20 }}>
@@ -254,9 +258,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-    paddingRight:"10",
-    color:"grey",
-    fontSize:25
+    paddingRight: "10",
+    color: "grey",
+    fontSize: 25
   },
   secondBar: {
     justifyContent: "center",

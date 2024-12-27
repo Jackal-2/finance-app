@@ -32,7 +32,7 @@ const AllContactsScreen = ({ route, navigation }) => {
         <BlurView intensity={50} style={styles.blurContainer}>
           <View style={styles.header}>
             <Text style={styles.headerText}>All Contacts</Text>
-            <TouchableOpacity style={styles.addButton} onPress={handleAddContact}>
+            <TouchableOpacity onPress={() => navigation.navigate('Newcontact')} style={styles.addButton}>
               <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>
           </View>
@@ -61,7 +61,7 @@ const AllContactsScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#babcbf"
+    backgroundColor:"white"
   },
   background: {
     flex: 1,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flexGrow: 1,
-    backgroundColor:"#babcbf"
+    backgroundColor:"#white"
   },
   contactContainer: {
     flexDirection: 'row',
