@@ -8,7 +8,7 @@ const PersonalDetailsScreen = ({ navigation }) => {
     // Initial details
     const [name, setName] = useState("Phil Foden");
     const [email, setEmail] = useState("Philfoden@gmail.com");
-    const [dob, setDob] = useState("1990-01-01");
+    const [dob, setDob] = useState("20-11-1990");
     const [phone, setPhone] = useState("123-456-7890");  // New state for phone number
 
     // Edit modes
@@ -38,11 +38,6 @@ const PersonalDetailsScreen = ({ navigation }) => {
                 </BlurView>
             </LinearGradient>
 
-            <View>
-                <TouchableOpacity style={{ paddingTop: 10 }} onPress={() => navigation.goBack()}>
-                    <ArrowLeft color="black" size={30} />
-                </TouchableOpacity>
-            </View>
 
             {/* Name */}
             <View style={styles.inputGroup}>
