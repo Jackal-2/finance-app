@@ -3,9 +3,8 @@ import { View, Text, TextInput, Button, Alert, StyleSheet, ScrollView } from 're
 import { Card, Title, Paragraph } from 'react-native-paper'; // Import Paper components for UI
 
 // Sample bank account data (this would usually come from an API)
-const existingBankAccounts = [
+let existingBankAccounts = [
     { id: 1, accountNumber: '1234-5678-9876', routingNumber: '111000025', type: 'Checking' },
-    { id: 2, accountNumber: '9876-5432-1234', routingNumber: '111000050', type: 'Savings' },
 ];
 
 const BankAccountsPage = () => {
@@ -13,11 +12,17 @@ const BankAccountsPage = () => {
     const [routingNumber, setRoutingNumber] = useState('');
     const [accountType, setAccountType] = useState(''); // User will manually type "Checking" or "Savings"
     const [isLinking, setIsLinking] = useState(false);
+    const [accountLinked, setAccountLinked] = useState(false); // Track if account is already linked
 
     // Simulated API call for linking the bank account
     const linkBankAccount = async () => {
         if (!accountNumber || !routingNumber || !accountType) {
             Alert.alert('Error', 'Please provide account number, routing number, and account type.');
+            return;
+        }
+
+        if (accountLinked) {
+            Alert.alert('Error', 'Only one bank account can be linked at a time.');
             return;
         }
 
@@ -37,6 +42,7 @@ const BankAccountsPage = () => {
                 setRoutingNumber('');
                 setAccountType('');
                 setIsLinking(false);
+                setAccountLinked(true); // Mark as linked once successful
             }, 2000); // Simulating a network request delay
         } catch (error) {
             setIsLinking(false);
@@ -46,21 +52,21 @@ const BankAccountsPage = () => {
 
     return (
         <ScrollView style={styles.container}>
-
             {/* Display existing linked bank accounts */}
             <View style={styles.accountsList}>
+                <Text style={styles.linkedTitle}>Linked Accounts</Text>
                 {existingBankAccounts.length > 0 ? (
                     existingBankAccounts.map((account) => (
                         <Card key={account.id} style={styles.card}>
                             <Card.Content>
-                                <Title>{account.type} Account</Title>
-                                <Paragraph>Account Number: {account.accountNumber}</Paragraph>
-                                <Paragraph>Routing Number: {account.routingNumber}</Paragraph>
+                                <Title style={styles.cardTitle}>{account.type} Account</Title>
+                                <Paragraph style={styles.cardText}>Account Number: {account.accountNumber}</Paragraph>
+                                <Paragraph style={styles.cardText}>Routing Number: {account.routingNumber}</Paragraph>
                             </Card.Content>
                         </Card>
                     ))
                 ) : (
-                    <Text>No linked bank accounts found.</Text>
+                    <Text style={styles.noAccountsText}>No linked bank accounts found.</Text>
                 )}
             </View>
 
@@ -101,7 +107,8 @@ const BankAccountsPage = () => {
                 <Button
                     title={isLinking ? 'Linking...' : 'Link Bank Account'}
                     onPress={linkBankAccount}
-                    disabled={isLinking}
+                    disabled={isLinking || accountLinked} // Disable if linking or account already linked
+                    color="#FFFFFF" // Set button text color to white
                 />
             </View>
         </ScrollView>
@@ -112,43 +119,66 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#fff',
-        paddingTop: "100"
+        backgroundColor: '#0F0F0F', // Dark background for the container
+        paddingTop: 20,
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 20,
+        color: '#fff', // White text for title
     },
     subtitle: {
         fontSize: 18,
         fontWeight: 'bold',
         marginVertical: 15,
+        color: '#266A61', // Green color for subtitle
     },
     label: {
         fontSize: 16,
         fontWeight: 'bold',
         marginVertical: 5,
+        color: '#266A61', // White color for label text
     },
     input: {
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#266A61', // Green border for inputs
         padding: 10,
         marginBottom: 15,
         borderRadius: 5,
+        color: '#fff', // White text inside input
     },
     accountsList: {
         marginBottom: 30,
+        paddingTop: "60"
     },
     card: {
         marginBottom: 15,
+        backgroundColor: '#333', // Dark background for card
+    },
+    cardTitle: {
+        color: '#266A61', // Green text for account title
+    },
+    cardText: {
+        color: '#fff', // White text for card details
+    },
+    noAccountsText: {
+        color: '#fff', // White text when no accounts are found
+        fontSize: 16,
+        fontStyle: 'italic',
     },
     sectionContainer: {
         marginBottom: 25, // Adds space between each section (inputs, picker, button)
     },
     buttonContainer: {
         marginTop: 20, // Adds space between the input and the button
+    },
+    linkedTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginVertical: 15,
+        color: '#266A61', // Green color for subtitle
     },
 });
 
