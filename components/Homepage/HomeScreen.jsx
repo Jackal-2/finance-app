@@ -11,8 +11,8 @@ import {
   Button,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useState, useEffect } from "react"; // Import useState and useEffect
-import CustomButton from "../CustomButton"; // Assuming this is your custom button component
+import { useState, useEffect } from "react"; 
+import CustomButton from "../CustomButton"; 
 
 const HomeScreen = ({ route, navigation }) => {
   // Define the initial transaction data
@@ -350,33 +350,33 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.7)", // Dark transparent background
+    backgroundColor: "rgba(0, 0, 0, 0.7)", 
   },
   modalContent: {
     width: "80%",
-    backgroundColor: "#1d1d1d", // Dark background for modal content
+    backgroundColor: "#1d1d1d", 
     padding: 20,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: "#266A61", // Green border color
-    shadowColor: "#000", // Optional shadow effect
+    borderColor: "#266A61", 
+    shadowColor: "#000", 
     shadowOffset: {
       width: 0,
       height: 4,
     },
     shadowOpacity: 0.3,
     shadowRadius: 5,
-    elevation: 5, // For Android shadow
+    elevation: 5, 
   },
   modalTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#dce0e6", // Light gray text color
+    color: "#dce0e6",
     marginBottom: 10,
   },
   modalText: {
     fontSize: 18,
-    color: "#979ea8", // Slightly darker gray text for details
+    color: "#979ea8", 
     marginBottom: 5,
   },
   statusContainer: {

@@ -52,7 +52,7 @@ const SettingsScreen = ({ navigation }) => {
         <MaterialIcons name="payment" size={24} color="white" />
         <Text style={styles.optionText}>Payment Methods</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.optionItem} onPress={() => navigation.navigate('Transfer')}>
+      <TouchableOpacity style={styles.optionItem} onPress={() => navigation.navigate('')}>
         <MaterialIcons name="compare-arrows" size={24} color="white" />
         <Text style={styles.optionText}>Transfer</Text>
       </TouchableOpacity>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
 
   profileSection: {
     alignItems: 'center',
-    marginBottom: 30, // Space between profile and options
+    marginBottom: 30,
 
 
   },

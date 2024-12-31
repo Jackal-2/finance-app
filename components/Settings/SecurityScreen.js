@@ -63,7 +63,7 @@ const SecurityHandlingOptions = () => {
 
     return (
         <View style={styles.container}>
-            {/* Top Part with Gradient and Blur */}
+
             <LinearGradient colors={['#266A61', '#0F0F0F']} style={styles.gradientContainer}>
                 <BlurView intensity={50} style={styles.blurContainer}>
                     <View style={styles.topSection}>
@@ -72,9 +72,7 @@ const SecurityHandlingOptions = () => {
                 </BlurView>
             </LinearGradient>
 
-            {/* Bottom Part without Gradient/Blur */}
             <View style={styles.formContainer}>
-                {/* Change Current Password */}
                 <View style={styles.section}>
                     <Text style={styles.label}>Current Password</Text>
                     <TextInput
@@ -106,13 +104,12 @@ const SecurityHandlingOptions = () => {
                     <Button title="Change Password" onPress={handleChangePassword} />
                 </View>
 
-                {/* Enable 2FA */}
+
                 <View style={styles.section}>
                     <Text style={styles.label}>Enable 2-Factor Authentication</Text>
                     <Switch value={is2FAEnabled} onValueChange={handle2FAEnable} />
                 </View>
 
-                {/* Enable Face ID Login */}
                 <View style={styles.section}>
                     <Text style={styles.label}>Enable Face ID Login</Text>
                     <TouchableOpacity
@@ -135,12 +132,12 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     gradientContainer: {
-        height: 180, // Set height for the gradient section
+        height: 180,
     },
     blurContainer: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'flex-start', // Align children (the title) to the left
+        alignItems: 'flex-start',
         paddingLeft: 20
     },
     topSection: {
@@ -179,7 +176,7 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     button: {
-        backgroundColor: '#266A61', // Green background for button
+        backgroundColor: '#266A61',
         padding: 12,
         borderRadius: 5,
         alignItems: 'center',

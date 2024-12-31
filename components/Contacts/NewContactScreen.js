@@ -17,7 +17,7 @@ const NewContactScreen = () => {
         <View style={styles.container}>
             <Text style={styles.title}>Add New Contact</Text>
 
-            {/* Username Input */}
+
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Username</Text>
                 <View style={styles.inputWrapper}>
@@ -34,7 +34,7 @@ const NewContactScreen = () => {
                 </View>
             </View>
 
-            {/* Save Button */}
+
             <TouchableOpacity style={styles.saveButton} onPress={handleSaveContact}>
                 <Text style={styles.saveButtonText}>Save Contact</Text>
             </TouchableOpacity>
@@ -45,14 +45,14 @@ const NewContactScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0F0F0F', // Black background
+        backgroundColor: '#0F0F0F',
         padding: 20,
         justifyContent: 'center',
     },
     title: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#266A61', // Green title
+        color: '#266A61',
         textAlign: 'center',
         marginBottom: 40,
     },
@@ -61,38 +61,37 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        color: '#fff', // White label
+        color: '#fff',
         marginBottom: 8,
     },
     inputWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#333', // Dark background for input
+        backgroundColor: '#333',
         borderRadius: 8,
         paddingHorizontal: 10,
     },
     atSymbol: {
-        color: '#266A61', // Green "@" symbol
+        color: '#266A61',
         fontSize: 18,
-        fontWeight: 'bold', 
+        fontWeight: 'bold',
     },
     input: {
         flex: 1,
         height: 40,
         fontSize: 16,
-        color: '#fff', // White text input
+        color: '#fff',
         paddingHorizontal: 8,
     },
     saveButton: {
-        backgroundColor: '#266A61', // Green button
-        paddingVertical: 12,
+        backgroundColor: '#266A61',
         borderRadius: 8,
         alignItems: 'center',
     },
     saveButtonText: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#0F0F0F', // Black text on button
+        color: '#0F0F0F',
     },
 });
 

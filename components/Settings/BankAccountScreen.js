@@ -108,7 +108,7 @@ const BankAccountsPage = () => {
                     title={isLinking ? 'Linking...' : 'Link Bank Account'}
                     onPress={linkBankAccount}
                     disabled={isLinking || accountLinked} // Disable if linking or account already linked
-                    color="black" // Set button text color to white
+                    color="black"
                 />
             </View>
         </ScrollView>
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: 'white', // Dark background for the container
+        backgroundColor: 'white',
         paddingTop: 20,
     },
     title: {
@@ -127,13 +127,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 20,
-        color: '#fff', // White text for title
+        color: '#fff',
     },
     subtitle: {
         fontSize: 18,
         fontWeight: 'bold',
         marginVertical: 15,
-        color: '#266A61', // Green color for subtitle
+        color: '#266A61',
     },
     label: {
         fontSize: 16,
@@ -143,11 +143,10 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
-        borderColor: '#266A61', // Green border for inputs
         padding: 10,
         marginBottom: 15,
         borderRadius: 5,
-        color: '#fff', // White text inside input
+        color: '#fff',
     },
     accountsList: {
         marginBottom: 30,
@@ -155,16 +154,16 @@ const styles = StyleSheet.create({
     },
     card: {
         marginBottom: 15,
-        backgroundColor: '#333', // Dark background for card
+        backgroundColor: '#333',
     },
     cardTitle: {
-        color: '#266A61', // Green text for account title
+        color: '#266A61',
     },
     cardText: {
-        color: '#fff', // White text for card details
+        color: '#fff',
     },
     noAccountsText: {
-        color: '#fff', // White text when no accounts are found
+        color: '#fff',
         fontSize: 16,
         fontStyle: 'italic',
     },
@@ -172,13 +171,13 @@ const styles = StyleSheet.create({
         marginBottom: 25, // Adds space between each section (inputs, picker, button)
     },
     buttonContainer: {
-        marginTop: 20, // Adds space between the input and the button
+        marginTop: 20,
     },
     linkedTitle: {
         fontSize: 18,
         fontWeight: 'bold',
         marginVertical: 15,
-        color: '#266A61', // Green color for subtitle
+        color: '#266A61',
     },
 });
 

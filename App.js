@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Provider as PaperProvider } from "react-native-paper"; // Import PaperProvider from react-native-paper
+import { Provider as PaperProvider } from "react-native-paper";
 import HomeScreen from "./components/Homepage/HomeScreen";
 import SettingsScreen from "./components/Settings/SettingsScreen";
 import SendMoneyScreen from "./components/SendMoneyScreen";

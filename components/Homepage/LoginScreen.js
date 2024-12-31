@@ -7,7 +7,6 @@ const LoginScreen = () => {
     const [password, setPassword] = useState('');
 
     const handleLogin = ({ navigation }) => {
-        // Logic for handling login can be added here
         console.log('Logging in with:', email, password);
     };
 
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     input: {
         width: '100%',
         height: 50,
-        borderColor: '#266A61', // Green border color
+        borderColor: '#266A61',
         borderWidth: 1,
         borderRadius: 10,
         marginBottom: 20,
@@ -76,25 +75,24 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 50,
-        backgroundColor: '#266A61', // Green background
+        backgroundColor: '#266A61',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10,
         marginBottom: 20,
     },
     buttonText: {
-        color: '#000', // Black text for contrast
+        color: '#000',
         fontSize: 18,
         fontWeight: 'bold',
     },
     forgotPasswordText: {
-        color: '#266A61', // Green text
+        color: '#266A61',
         marginTop: 10,
         textDecorationLine: 'underline',
     },
     signupText: {
-        color: '#266A61', // Green text
-        marginTop: 10,
+        color: '#266A61',
         textDecorationLine: 'underline',
     },
 });

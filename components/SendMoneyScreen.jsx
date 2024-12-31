@@ -129,7 +129,6 @@ const SendMoneyScreen = () => {
 
   return (
     <SafeAreaView style={{ backgroundColor: "black", flex: 1 }}>
-      {/* Top Bar with back button */}
       <View style={styles.topBar}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <ArrowLeft color="#D3D3D3" />
@@ -149,7 +148,7 @@ const SendMoneyScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Display entered amount */}
+
       <View style={styles.secondBar}>
         <Animated.View
           style={{
@@ -162,7 +161,6 @@ const SendMoneyScreen = () => {
         </Animated.View>
       </View>
 
-      {/* Keypad container */}
       <View style={styles.keypadContainer}>
         {[
           ["1", "2", "3"],
