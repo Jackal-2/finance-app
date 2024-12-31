@@ -108,7 +108,7 @@ const BankAccountsPage = () => {
                     title={isLinking ? 'Linking...' : 'Link Bank Account'}
                     onPress={linkBankAccount}
                     disabled={isLinking || accountLinked} // Disable if linking or account already linked
-                    color="#FFFFFF" // Set button text color to white
+                    color="black" // Set button text color to white
                 />
             </View>
         </ScrollView>
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#0F0F0F', // Dark background for the container
+        backgroundColor: 'white', // Dark background for the container
         paddingTop: 20,
     },
     title: {
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginVertical: 5,
-        color: '#266A61', // White color for label text
+        color: '#266A61',
     },
     input: {
         borderWidth: 1,

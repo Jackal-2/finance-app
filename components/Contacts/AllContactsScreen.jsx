@@ -49,7 +49,6 @@ const AllContactsScreen = ({ route, navigation }) => {
             <Image source={contact.source} style={styles.contactImage} />
             <View style={styles.contactInfo}>
               <Text style={styles.contactName}>{contact.name}</Text>
-              <Text style={styles.contactCardNumber}>{contact.cardNumber}</Text>
             </View>
           </TouchableOpacity>
         ))}

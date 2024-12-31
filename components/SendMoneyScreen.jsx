@@ -141,7 +141,6 @@ const SendMoneyScreen = () => {
           <Image source={contactPhoto} style={styles.profileImage} />
           <View style={styles.textInfo}>
             <Text style={styles.nameText}>{contactName}</Text>
-            <Text style={styles.cardText}>{contactCard}</Text>
           </View>
         </View>
 

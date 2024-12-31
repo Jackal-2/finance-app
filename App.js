@@ -12,6 +12,7 @@ import BankAccountsPage from "./components/Settings/BankAccountScreen";
 import LoginScreen from "./components/Homepage/LoginScreen";
 import NewContactScreen from "./components/Contacts/NewContactScreen";
 
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
         <Stack.Screen name="Bank" component={BankAccountsPage} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Newcontact" component={NewContactScreen} />
+
 
       </Stack.Navigator>
     </NavigationContainer>

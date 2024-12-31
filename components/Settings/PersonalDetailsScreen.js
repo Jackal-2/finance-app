@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
+import { Ionicons } from '@expo/vector-icons';
 
 
 const PersonalDetailsScreen = ({ navigation }) => {
@@ -42,13 +43,17 @@ const PersonalDetailsScreen = ({ navigation }) => {
             {/* Name */}
             <View style={styles.inputGroup}>
                 <Text style={styles.label}>Name</Text>
-
                 <Text style={styles.value}>{name}</Text>
             </View>
 
             {/* Email */}
             <View style={styles.inputGroup}>
-                <Text style={styles.label}>Email</Text>
+                <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.label}>Email</Text>
+                    <Text style={styles.verified} >verified</Text>
+                    <Ionicons name="checkmark-circle" size={15} color="green" />
+
+                </View>
                 {isEditingEmail ? (
                     <TextInput
                         style={styles.input}
@@ -69,7 +74,13 @@ const PersonalDetailsScreen = ({ navigation }) => {
 
             {/* Phone Number */}
             <View style={styles.inputGroup}>
-                <Text style={styles.label}>Phone Number</Text>
+
+                <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.label}>Phone Number</Text>
+                    <Text style={styles.verified} >verified</Text>
+                    <Ionicons name="checkmark-circle" size={15} color="green" />
+                </View>
+
                 {isEditingPhone ? (
                     <TextInput
                         style={styles.input}
@@ -115,6 +126,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 40
 
     },
     blurContainer: {
@@ -160,6 +172,12 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: '#333',
         marginBottom: 8,
+    },
+    verified: {
+        fontSize: 12,
+        color: '#333',
+        marginBottom: 8,
+        paddingLeft: "10"
     },
     value: {
         fontSize: 16,

@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     atSymbol: {
         color: '#266A61', // Green "@" symbol
         fontSize: 18,
-        fontWeight: 'bold',
+        fontWeight: 'bold', 
     },
     input: {
         flex: 1,

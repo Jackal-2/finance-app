@@ -7,6 +7,8 @@ import {
   ScrollView,
   SafeAreaView,
   Image,
+  Modal,
+  Button,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useEffect } from "react"; // Import useState and useEffect
@@ -15,16 +17,23 @@ import CustomButton from "../CustomButton"; // Assuming this is your custom butt
 const HomeScreen = ({ route, navigation }) => {
   // Define the initial transaction data
   const [transactionData, setTransactionData] = useState([
-    { id: 1, source: require("../../assets/peak3.jpg"), name: "Wendy", date: "21/12/2024", amount: "$1,850.98" },
-    { id: 2, source: require("../../assets/peak2.jpg"), name: "Denise", date: "18/12/24", amount: "$2,400.98" },
-    { id: 3, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/11/24", amount: "$100.67" },
-    { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/12/24", amount: "$800.78" },
-    { id: 5, source: require("../../assets/peak.jpg"), name: "Estaban", date: "22/11/24", amount: "$50.12" },
-    { id: 6, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/09/24", amount: "$390.31" },
+    { id: 1, source: require("../../assets/peak3.jpg"), name: "Wendy", date: "21/12/2024", amount: "$1,850.98", status: "completed" },
+    { id: 2, source: require("../../assets/peak2.jpg"), name: "Denise", date: "18/12/24", amount: "$2,400.98", status: "failed" },
+    { id: 3, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/11/24", amount: "$100.67", status: "completed" },
+    { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/12/24", amount: "$800.78", status: "failed" },
+    { id: 5, source: require("../../assets/peak.jpg"), name: "Estaban", date: "22/11/24", amount: "$50.12", status: "completed" },
+    { id: 6, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/09/24", amount: "$390.31", status: "completed" },
   ]);
 
   const [totalBalance, setTotalBalance] = useState(12739.58); // Set initial total balance
   const [isBalanceVisible, setIsBalanceVisible] = useState(true); // State to toggle visibility of total balance
+  const [isModalVisible, setIsModalVisible] = useState(false); // State to toggle modal visibility
+  const [selectedTransaction, setSelectedTransaction] = useState(null); // Store selected transaction
+
+  // Function to format the number with commas
+  const formatBalance = (amount) => {
+    return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+  };
 
   // Listen for the new transaction data from SendMoneyScreen
   useEffect(() => {
@@ -36,7 +45,7 @@ const HomeScreen = ({ route, navigation }) => {
     if (route.params?.updatedBalance) {
       setTotalBalance(route.params.updatedBalance); // Update the total balance if it's passed from SendMoneyScreen
     }
-  }, [route.params?.newTransaction, route.params?.updatedBalance]); // Run when `newTransaction` or `updatedBalance` is updated in route.params
+  }, [route.params?.newTransaction, route.params?.updatedBalance]); // Run when newTransaction or updatedBalance is updated in route.params
 
   // Define quick send contacts
   const imagesData = [
@@ -45,37 +54,48 @@ const HomeScreen = ({ route, navigation }) => {
       source: require("../../assets/peak3.jpg"),
       name: "Wendy",
       navigateTo: "Send",
-      cardNumber: "**** 1234",
     },
     {
       id: 2,
       source: require("../../assets/peak2.jpg"),
       name: "Denise",
       navigateTo: "Send",
-      cardNumber: "**** 5678",
     },
     {
       id: 3,
       source: require("../../assets/peak1.jpg"),
       name: "Pablo",
       navigateTo: "Send",
-      cardNumber: "**** 9012",
     },
     {
       id: 4,
       source: require("../../assets/peak4.jpg"),
       name: "Thugger",
       navigateTo: "Send",
-      cardNumber: "**** 3456",
     },
     {
       id: 5,
       source: require("../../assets/peak.jpg"),
       name: "Estaban",
       navigateTo: "Send",
-      cardNumber: "**** 7890",
+
     },
   ];
+
+  // Function to handle the opening of the modal with transaction details
+  const handleTransactionPress = (transaction) => {
+    setSelectedTransaction(transaction);
+    // Delay modal visibility change to avoid "state update during render"
+    setTimeout(() => {
+      setIsModalVisible(true);
+    }, 0);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setSelectedTransaction(null); // Clear the selected transaction when modal is closed
+  };
 
   const toggleBalanceVisibility = () => {
     setIsBalanceVisible(prevState => !prevState); // Toggle the visibility
@@ -131,7 +151,7 @@ const HomeScreen = ({ route, navigation }) => {
             </TouchableOpacity>
           </View>
           <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
-            {isBalanceVisible ? `$${totalBalance.toFixed(2)}` : "****"}
+            {isBalanceVisible ? formatBalance(totalBalance) : "****"}
           </Text>
         </View>
 
@@ -255,9 +275,12 @@ const HomeScreen = ({ route, navigation }) => {
       </View>
 
       <SafeAreaView style={{ height: 500 }}>
-        <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
+        <ScrollView horizontal={false} showsVerticalScrollIndicator={false} style={{marginBottom: 130 }}>
           {transactionData.map((transaction) => (
-            <TouchableOpacity key={transaction.id}>
+            <TouchableOpacity
+              key={transaction.id}
+              onPress={() => handleTransactionPress(transaction)}
+            >
               <View
                 style={{
                   height: 100,
@@ -283,6 +306,37 @@ const HomeScreen = ({ route, navigation }) => {
           ))}
         </ScrollView>
       </SafeAreaView>
+
+      {/* Modal for transaction details */}
+      <Modal
+        visible={isModalVisible}
+        onRequestClose={closeModal}
+        animationType="fade"
+        transparent={true}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            {selectedTransaction && (
+              <>
+                <Text style={styles.modalTitle}>{selectedTransaction.name}</Text>
+                <Text style={styles.modalText}>Date: {selectedTransaction.date}</Text>
+                <Text style={styles.modalText}>Amount: {selectedTransaction.amount}</Text>
+                <View style={styles.statusContainer}>
+                  {selectedTransaction.status === "completed" ? (
+                    <Ionicons name="checkmark-circle" size={40} color="green" />
+                  ) : (
+                    <Ionicons name="close-circle" size={40} color="red" />
+                  )}
+                  <Text style={styles.statusText}>
+                    {selectedTransaction.status === "completed" ? "Completed" : "failed"}
+                  </Text>
+                </View>
+              </>
+            )}
+            <Button title="Close" onPress={closeModal} />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -291,6 +345,49 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.7)", // Dark transparent background
+  },
+  modalContent: {
+    width: "80%",
+    backgroundColor: "#1d1d1d", // Dark background for modal content
+    padding: 20,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: "#266A61", // Green border color
+    shadowColor: "#000", // Optional shadow effect
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5, // For Android shadow
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#dce0e6", // Light gray text color
+    marginBottom: 10,
+  },
+  modalText: {
+    fontSize: 18,
+    color: "#979ea8", // Slightly darker gray text for details
+    marginBottom: 5,
+  },
+  statusContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  statusText: {
+    fontSize: 18,
+    color: "#dce0e6",
+    marginLeft: 10,
   },
 });
 
