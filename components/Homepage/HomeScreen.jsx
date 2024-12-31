@@ -323,12 +323,12 @@ const HomeScreen = ({ route, navigation }) => {
                 <Text style={styles.modalText}>Amount: {selectedTransaction.amount}</Text>
                 <View style={styles.statusContainer}>
                   {selectedTransaction.status === "completed" ? (
-                    <Ionicons name="checkmark-circle" size={40} color="green" />
+                    <Ionicons name="close-circle" size={40} color="green" />
                   ) : (
-                    <Ionicons name="close-circle" size={40} color="red" />
+                    <Ionicons name="checkmark-circle" size={40} color="green" />
                   )}
                   <Text style={styles.statusText}>
-                    {selectedTransaction.status === "completed" ? "Completed" : "failed"}
+                    {selectedTransaction.status === "completed" ? "Completed" : "Completed"}
                   </Text>
                 </View>
               </>
