@@ -9,9 +9,9 @@ import { BlurView } from 'expo-blur';
 const notifications = [
   { id: '1', type: 'success', title: 'Payment Successful', message: 'You have successfully sent $1,850 to Wendy.', time: '3 days ago' },
   { id: '2', type: 'error', title: 'Payment Failed', message: 'Your payment to John was unsuccessful.', time: '3 hours ago' },
-  { id: '3', type: 'info', title: 'New Offer', message: 'Check out our new special offer for your next purchase.', time: '5 hours ago' },
-  { id: '4', type: 'success', title: 'Profile Updated', message: 'Your profile has been successfully updated.', time: '1 day ago' },
-  { id: '5', type: 'info', title: 'System Update', message: 'A new version of the app is available for download.', time: '2 days ago' },
+  { id: '3', type: 'success', title: 'Profile Updated', message: 'Your profile has been successfully updated.', time: '1 day ago' },
+  { id: '4', type: 'info', title: 'System Update', message: 'A new version of the app is available for download.', time: '2 days ago' },
+  { id: '5', type: 'error', title: 'Payment Failed', message: 'Your payment to Pablo was unsuccessful.', time: '3 months ago' },
 ];
 
 const NotificationsScreen = () => {

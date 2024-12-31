@@ -18,11 +18,12 @@ const HomeScreen = ({ route, navigation }) => {
   // Define the initial transaction data
   const [transactionData, setTransactionData] = useState([
     { id: 1, source: require("../../assets/peak3.jpg"), name: "Wendy", date: "21/12/2024", amount: "$1,850.98", status: "completed" },
-    { id: 2, source: require("../../assets/peak2.jpg"), name: "Denise", date: "18/12/24", amount: "$2,400.98", status: "failed" },
+    { id: 2, source: require("../../assets/peak2.jpg"), name: "Denise", date: "18/12/24", amount: "$2,400.98", status: "completed" },
     { id: 3, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/11/24", amount: "$100.67", status: "completed" },
-    { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/12/24", amount: "$800.78", status: "failed" },
+    { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/12/24", amount: "$800.78", status: "completed" },
     { id: 5, source: require("../../assets/peak.jpg"), name: "Estaban", date: "22/11/24", amount: "$50.12", status: "completed" },
     { id: 6, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/09/24", amount: "$390.31", status: "completed" },
+    { id: 7, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/90/24", amount: "$0", status: "failed" },
   ]);
 
   const [totalBalance, setTotalBalance] = useState(12739.58); // Set initial total balance
@@ -323,12 +324,12 @@ const HomeScreen = ({ route, navigation }) => {
                 <Text style={styles.modalText}>Amount: {selectedTransaction.amount}</Text>
                 <View style={styles.statusContainer}>
                   {selectedTransaction.status === "completed" ? (
-                    <Ionicons name="close-circle" size={40} color="green" />
-                  ) : (
                     <Ionicons name="checkmark-circle" size={40} color="green" />
+                  ) : (
+                    <Ionicons name="close-circle" size={40} color="red" />
                   )}
                   <Text style={styles.statusText}>
-                    {selectedTransaction.status === "completed" ? "Completed" : "Completed"}
+                    {selectedTransaction.status === "completed" ? "Completed" : "failed"}
                   </Text>
                 </View>
               </>

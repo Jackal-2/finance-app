@@ -10,7 +10,7 @@ const PersonalDetailsScreen = ({ navigation }) => {
     const [name, setName] = useState("Phil Foden");
     const [email, setEmail] = useState("Philfoden@gmail.com");
     const [dob, setDob] = useState("20-11-1990");
-    const [phone, setPhone] = useState("123-456-7890");  // New state for phone number
+    const [phone, setPhone] = useState("0247568990");
 
     // Edit modes
     const [isEditingName, setIsEditingName] = useState(false);
