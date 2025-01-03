@@ -103,18 +103,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: width * 0.05, // Adjust padding horizontally based on screen width
   },
   backButton: {
-    paddingTop: height * 0.03, // Adjust top padding based on screen height
-    paddingBottom: height * 0.02, // Adjust bottom padding based on screen height
+    paddingTop: height * 0.03,
+    paddingBottom: height * 0.02,
   },
   profileSection: {
     alignItems: "center",
     marginBottom: height * 0.05, // Adjust margin bottom based on screen height
   },
   profileImage: {
-    width: width * 0.25, // Adjust image size based on screen width
-    height: width * 0.25, // Adjust image size based on screen width
-    borderRadius: width * 0.125, // Adjust border radius for circular image
-    marginBottom: height * 0.02, // Adjust margin bottom based on screen height
+    width: width * 0.25,
+    height: width * 0.25,
+    borderRadius: width * 0.125,
+    marginBottom: height * 0.02,
   },
   profileName: {
     fontSize: width * 0.05, // Adjust font size based on screen width

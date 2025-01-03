@@ -25,6 +25,11 @@ const SignUpScreen = () => {
       return;
     }
 
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "Passwords do not match");
+      return;
+    }
+
     // Here you can handle the actual sign-up logic (API call, validation, etc.)
     Alert.alert("Success", "Sign-up successful");
   };
@@ -51,7 +56,7 @@ const SignUpScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.header}>Sign Up</Text>
 
       <TextInput
@@ -101,15 +106,38 @@ const SignUpScreen = () => {
         value={phone}
         onChangeText={setPhone}
       />
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        placeholderTextColor="#ccc"
+        value={username}
+        onChangeText={setUsername}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        placeholderTextColor="#ccc"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Confirm Password"
+        placeholderTextColor="#ccc"
+        secureTextEntry
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+      />
 
       <Button title="Sign Up" onPress={handleSignUp} color="#266A61" />
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     padding: 20,
     justifyContent: "center",
     backgroundColor: "#0F0F0F",
@@ -139,7 +167,7 @@ const styles = StyleSheet.create({
     color: "#266A61",
   },
   datePicker: {
-    flex: 1, // This can be adjusted as per your design preferences
+    flex: 1,
     marginVertical: 20,
   },
 });

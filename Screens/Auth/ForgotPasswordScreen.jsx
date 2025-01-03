@@ -36,7 +36,6 @@ const ForgotPasswordScreen = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>Forgot Password</Text>
 
-      {/* Description Text */}
       <Text style={styles.descriptionText}>
         Enter your email address, and we'll send you a link to reset your
         password. If your email is associated with an account, you'll receive a
@@ -51,14 +50,12 @@ const ForgotPasswordScreen = () => {
         onChangeText={setEmail}
         keyboardType="email-address"
       />
-
-      {/* Message Text */}
       <Text style={styles.messageText}>{message}</Text>
 
       <Button
         title="Reset Password"
         onPress={handleResetPassword}
-        color="#266A61" // Green color
+        color="#266A61"
       />
     </ScrollView>
   );

@@ -18,7 +18,7 @@ import CustomButton from "../CustomButton";
 const { width, height } = Dimensions.get("window"); // Get screen width and height
 
 const HomeScreen = ({ route, navigation }) => {
-  // Define the initial transaction data
+  // Define the initial transaction data with a type field
   const [transactionData, setTransactionData] = useState([
     {
       id: 1,
@@ -82,6 +82,15 @@ const HomeScreen = ({ route, navigation }) => {
   const [isBalanceVisible, setIsBalanceVisible] = useState(true); // State to toggle visibility of total balance
   const [isModalVisible, setIsModalVisible] = useState(false); // State to toggle modal visibility
   const [selectedTransaction, setSelectedTransaction] = useState(null); // Store selected transaction
+
+  // Define imagesData here
+  // const imagesData = [
+  //   { id: 1, source: require("../../assets/peak3.jpg"), name: "Wendy", navigateTo: "Send" },
+  //   { id: 2, source: require("../../assets/peak2.jpg"), name: "Denise", navigateTo: "Send" },
+  //   { id: 3, source: require("../../assets/peak1.jpg"), name: "Pablo", navigateTo: "Send" },
+  //   { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", navigateTo: "Send" },
+  //   { id: 5, source: require("../../assets/peak.jpg"), name: "Estaban", navigateTo: "Send" },
+  // ];
 
   // Function to format the number with commas
   const formatBalance = (amount) => {
@@ -154,6 +163,15 @@ const HomeScreen = ({ route, navigation }) => {
 
   const toggleBalanceVisibility = () => {
     setIsBalanceVisible((prevState) => !prevState); // Toggle the visibility
+  };
+
+  // Function to format the amount with a negative sign for sent transactions
+  const formatTransactionAmount = (amount, type) => {
+    // Remove non-numeric characters and check if it should be negative
+    const numericAmount = parseFloat(amount.replace(/[^0-9.-]+/g, ""));
+    return type === "sent"
+      ? `-$${numericAmount.toLocaleString()}`
+      : `$${numericAmount.toLocaleString()}`;
   };
 
   return (
@@ -258,6 +276,7 @@ const HomeScreen = ({ route, navigation }) => {
               fontSize: width * 0.04,
               fontWeight: "bold",
             }}
+            onPress={() => navigation.navigate("Request")}
           />
           <CustomButton
             title="Send"
@@ -389,7 +408,7 @@ const HomeScreen = ({ route, navigation }) => {
               <View
                 style={{
                   height: 100,
-                  width: width * 0.9, // Adjust width based on screen size
+                  width: 430,
                   borderRadius: 12,
                   marginTop: 10,
                   flexDirection: "row",
