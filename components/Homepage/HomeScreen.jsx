@@ -1,21 +1,81 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, Image, Modal, Button, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+  Image,
+  Modal,
+  Button,
+  Dimensions,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useState, useEffect } from "react"; 
-import CustomButton from "../CustomButton"; 
+import { useState, useEffect } from "react";
+import CustomButton from "../CustomButton";
 
-const { width, height } = Dimensions.get('window'); // Get screen width and height
+const { width, height } = Dimensions.get("window"); // Get screen width and height
 
 const HomeScreen = ({ route, navigation }) => {
   // Define the initial transaction data
   const [transactionData, setTransactionData] = useState([
-    { id: 1, source: require("../../assets/peak3.jpg"), name: "Wendy", date: "21/12/2024", amount: "$1,850.98", status: "completed" },
-    { id: 2, source: require("../../assets/peak2.jpg"), name: "Denise", date: "18/12/24", amount: "$2,400.98", status: "completed" },
-    { id: 3, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/11/24", amount: "$100.67", status: "completed" },
-    { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/12/24", amount: "$800.78", status: "completed" },
-    { id: 5, source: require("../../assets/peak.jpg"), name: "Estaban", date: "22/11/24", amount: "$50.12", status: "completed" },
-    { id: 6, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/09/24", amount: "$390.31", status: "completed" },
-    { id: 7, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/90/24", amount: "$0", status: "failed" },
+    {
+      id: 1,
+      source: require("../../assets/peak3.jpg"),
+      name: "Wendy",
+      date: "21/12/2024",
+      amount: "$1,850.98",
+      status: "completed",
+    },
+    {
+      id: 2,
+      source: require("../../assets/peak2.jpg"),
+      name: "Denise",
+      date: "18/12/24",
+      amount: "$2,400.98",
+      status: "completed",
+    },
+    {
+      id: 3,
+      source: require("../../assets/peak1.jpg"),
+      name: "Pablo",
+      date: "31/11/24",
+      amount: "$100.67",
+      status: "completed",
+    },
+    {
+      id: 4,
+      source: require("../../assets/peak4.jpg"),
+      name: "Thugger",
+      date: "01/12/24",
+      amount: "$800.78",
+      status: "completed",
+    },
+    {
+      id: 5,
+      source: require("../../assets/peak.jpg"),
+      name: "Estaban",
+      date: "22/11/24",
+      amount: "$50.12",
+      status: "completed",
+    },
+    {
+      id: 6,
+      source: require("../../assets/peak4.jpg"),
+      name: "Thugger",
+      date: "01/09/24",
+      amount: "$390.31",
+      status: "completed",
+    },
+    {
+      id: 7,
+      source: require("../../assets/peak1.jpg"),
+      name: "Pablo",
+      date: "31/90/24",
+      amount: "$0",
+      status: "failed",
+    },
   ]);
 
   const [totalBalance, setTotalBalance] = useState(12739.58); // Set initial total balance
@@ -25,7 +85,10 @@ const HomeScreen = ({ route, navigation }) => {
 
   // Function to format the number with commas
   const formatBalance = (amount) => {
-    return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    return amount.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    });
   };
 
   // Listen for the new transaction data from SendMoneyScreen
@@ -71,7 +134,6 @@ const HomeScreen = ({ route, navigation }) => {
       source: require("../../assets/peak.jpg"),
       name: "Estaban",
       navigateTo: "Send",
-
     },
   ];
 
@@ -91,7 +153,7 @@ const HomeScreen = ({ route, navigation }) => {
   };
 
   const toggleBalanceVisibility = () => {
-    setIsBalanceVisible(prevState => !prevState); // Toggle the visibility
+    setIsBalanceVisible((prevState) => !prevState); // Toggle the visibility
   };
 
   return (
@@ -122,28 +184,52 @@ const HomeScreen = ({ route, navigation }) => {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+            <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
               <Ionicons name="options" size={25} color="white" />
             </TouchableOpacity>
             <View>
-              <Text style={{ color: "#979ea8", fontSize: width * 0.05 }}>Good Morning</Text>
-              <Text style={{ color: "white", fontSize: width * 0.05 }}>Malone</Text>
+              <Text style={{ color: "#979ea8", fontSize: width * 0.05 }}>
+                Good Morning
+              </Text>
+              <Text style={{ color: "white", fontSize: width * 0.05 }}>
+                Malone
+              </Text>
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Notifications")}
+          >
             <Ionicons name="notifications" size={25} color="white" />
           </TouchableOpacity>
         </SafeAreaView>
 
-        <View style={{ display: "flex", marginHorizontal: 20 }}>
-          <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-            <Text style={{ color: "#979ea8", fontSize: width * 0.05 }}>Your Total Balance</Text>
+        <View style={{ display: "flex", marginHorizontal: 20, paddingTop: 15 }}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={{ color: "#979ea8", fontSize: width * 0.05 }}>
+              Your Total Balance
+            </Text>
             <TouchableOpacity onPress={toggleBalanceVisibility}>
-              <Ionicons name={isBalanceVisible ? "eye-off" : "eye"} size={30} color="white" />
+              <Ionicons
+                name={isBalanceVisible ? "eye-off" : "eye"}
+                size={30}
+                color="white"
+              />
             </TouchableOpacity>
           </View>
-          <Text style={{ color: "white", fontSize: width * 0.08, fontWeight: "bold" }}>
+          <Text
+            style={{
+              color: "white",
+              fontSize: width * 0.08,
+              fontWeight: "bold",
+            }}
+          >
             {isBalanceVisible ? formatBalance(totalBalance) : "****"}
           </Text>
         </View>
@@ -154,16 +240,15 @@ const HomeScreen = ({ route, navigation }) => {
             flexDirection: "row",
             justifyContent: "space-between",
             marginHorizontal: 20,
-            marginTop: 28,
+            marginTop: 30,
           }}
         >
           <CustomButton
             title="Request"
             buttonStyle={{
               backgroundColor: "black",
-              paddingVertical: 25,
-              paddingHorizontal: 50,
-              borderRadius: 30,
+              paddingVertical: 10,
+              borderRadius: 25,
               alignItems: "center",
               justifyContent: "center",
               width: width * 0.4,
@@ -180,7 +265,8 @@ const HomeScreen = ({ route, navigation }) => {
               backgroundColor: "white",
               paddingVertical: 25,
               paddingHorizontal: 50,
-              borderRadius: 30,
+              borderRadius: 25,
+
               alignItems: "center",
               justifyContent: "center",
               width: width * 0.4,
@@ -190,14 +276,16 @@ const HomeScreen = ({ route, navigation }) => {
               fontSize: width * 0.04,
               fontWeight: "bold",
             }}
-            onPress={() => navigation.navigate('Send', {
-              contactName: "Wendy",
-              contactPhoto: require("../../assets/peak3.jpg"),
-              contactCard: "**** 1234",
-              totalBalance,
-              setTotalBalance,
-              setTransactionData,
-            })}
+            onPress={() =>
+              navigation.navigate("Send", {
+                contactName: "Wendy",
+                contactPhoto: require("../../assets/peak3.jpg"),
+                contactCard: "**** 1234",
+                totalBalance,
+                setTotalBalance,
+                setTransactionData,
+              })
+            }
           />
         </View>
       </View>
@@ -213,16 +301,32 @@ const HomeScreen = ({ route, navigation }) => {
             marginBottom: 10,
           }}
         >
-          <Text style={{ color: "#dce0e6", fontSize: width * 0.06, fontWeight: "600" }}>Quick send</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Contacts', { imagesData })}>
-            <Text style={{ color: "#979ea8", fontSize: width * 0.04 }}>View all</Text>
+          <Text
+            style={{
+              color: "#dce0e6",
+              fontSize: width * 0.06,
+              fontWeight: "600",
+            }}
+          >
+            Quick send
+          </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Contacts", { imagesData })}
+          >
+            <Text style={{ color: "#979ea8", fontSize: width * 0.04 }}>
+              View all
+            </Text>
           </TouchableOpacity>
         </View>
 
         <View style={{ height: 130, marginLeft: 10 }}>
           <ScrollView horizontal showsVerticalScrollIndicator={false}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-              <TouchableOpacity onPress={() => navigation.navigate('Newcontact')}>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+            >
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Newcontact")}
+              >
                 <View
                   style={{
                     backgroundColor: "gray",
@@ -254,7 +358,9 @@ const HomeScreen = ({ route, navigation }) => {
                       style={{ height: 100, width: 100, borderRadius: 20 }}
                       source={item.source}
                     />
-                    <Text style={{ color: "white", marginTop: 8 }}>{item.name}</Text>
+                    <Text style={{ color: "white", marginTop: 8 }}>
+                      {item.name}
+                    </Text>
                   </View>
                 </TouchableOpacity>
               ))}
@@ -264,11 +370,17 @@ const HomeScreen = ({ route, navigation }) => {
       </View>
 
       <View style={{ paddingTop: 20, paddingBottom: 10, alignItems: "center" }}>
-        <Text style={{ color: "#dce0e6", fontSize: width * 0.05 }}>Transactions</Text>
+        <Text style={{ color: "#dce0e6", fontSize: width * 0.05 }}>
+          Transactions
+        </Text>
       </View>
 
       <SafeAreaView style={{ height: 500 }}>
-        <ScrollView horizontal={false} showsVerticalScrollIndicator={false} style={{marginBottom: 130 }}>
+        <ScrollView
+          horizontal={false}
+          showsVerticalScrollIndicator={false}
+          style={{ marginBottom: 130 }}
+        >
           {transactionData.map((transaction) => (
             <TouchableOpacity
               key={transaction.id}
@@ -286,12 +398,32 @@ const HomeScreen = ({ route, navigation }) => {
                   position: "relative",
                 }}
               >
-                <Image style={{ height: 100, width: 100, borderRadius: 20 }} source={transaction.source} />
+                <Image
+                  style={{ height: 100, width: 100, borderRadius: 20 }}
+                  source={transaction.source}
+                />
                 <View style={{ marginLeft: 15 }}>
-                  <Text style={{ color: "#dce0e6", fontSize: width * 0.05 }}>{transaction.name}</Text>
-                  <Text style={{ color: "#979ea8", fontSize: width * 0.04, marginTop: 5 }}>{transaction.date}</Text>
+                  <Text style={{ color: "#dce0e6", fontSize: width * 0.05 }}>
+                    {transaction.name}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#979ea8",
+                      fontSize: width * 0.04,
+                      marginTop: 5,
+                    }}
+                  >
+                    {transaction.date}
+                  </Text>
                 </View>
-                <Text style={{ position: "absolute", right: 15, fontSize: width * 0.04, color: "#979ea8" }}>
+                <Text
+                  style={{
+                    position: "absolute",
+                    right: 15,
+                    fontSize: width * 0.04,
+                    color: "#979ea8",
+                  }}
+                >
                   {transaction.amount}
                 </Text>
               </View>
@@ -311,9 +443,15 @@ const HomeScreen = ({ route, navigation }) => {
           <View style={styles.modalContent}>
             {selectedTransaction && (
               <>
-                <Text style={styles.modalTitle}>{selectedTransaction.name}</Text>
-                <Text style={styles.modalText}>Date: {selectedTransaction.date}</Text>
-                <Text style={styles.modalText}>Amount: {selectedTransaction.amount}</Text>
+                <Text style={styles.modalTitle}>
+                  {selectedTransaction.name}
+                </Text>
+                <Text style={styles.modalText}>
+                  Date: {selectedTransaction.date}
+                </Text>
+                <Text style={styles.modalText}>
+                  Amount: {selectedTransaction.amount}
+                </Text>
                 <View style={styles.statusContainer}>
                   {selectedTransaction.status === "completed" ? (
                     <Ionicons name="checkmark-circle" size={40} color="green" />
@@ -321,7 +459,9 @@ const HomeScreen = ({ route, navigation }) => {
                     <Ionicons name="close-circle" size={40} color="red" />
                   )}
                   <Text style={styles.statusText}>
-                    {selectedTransaction.status === "completed" ? "Completed" : "failed"}
+                    {selectedTransaction.status === "completed"
+                      ? "Completed"
+                      : "failed"}
                   </Text>
                 </View>
               </>
@@ -343,23 +483,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.7)", 
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
   },
   modalContent: {
     width: "80%",
-    backgroundColor: "#1d1d1d", 
+    backgroundColor: "#1d1d1d",
     padding: 20,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: "#266A61", 
-    shadowColor: "#000", 
+    borderColor: "#266A61",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 4,
     },
     shadowOpacity: 0.3,
     shadowRadius: 5,
-    elevation: 5, 
+    elevation: 5,
   },
   modalTitle: {
     fontSize: 24,
@@ -369,7 +509,7 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 18,
-    color: "#979ea8", 
+    color: "#979ea8",
     marginBottom: 5,
   },
   statusContainer: {

@@ -9,11 +9,11 @@ import {
   PanResponder,
   Image,
 } from "react-native";
-import { useRoute, useNavigation } from "@react-navigation/native"; 
-import { ArrowLeft } from "lucide-react-native"; 
+import { useRoute, useNavigation } from "@react-navigation/native";
+import { ArrowLeft, ChevronLeft } from "lucide-react-native";
+import TopBar from "./TopBar";
 
 const SendMoneyScreen = () => {
-
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -46,7 +46,9 @@ const SendMoneyScreen = () => {
       setAmount((prevAmount) => prevAmount.slice(0, -1) || "0");
     } else {
       // Otherwise, append the value to the amount, or set as the first digit
-      setAmount((prevAmount) => (prevAmount === "0" ? value : prevAmount + value));
+      setAmount((prevAmount) =>
+        prevAmount === "0" ? value : prevAmount + value
+      );
     }
   };
 
@@ -121,7 +123,7 @@ const SendMoneyScreen = () => {
   const renderKeypadButton = (value) => (
     <TouchableOpacity
       style={styles.keypadButton}
-      onPress={() => handleKeypadPress(value)} 
+      onPress={() => handleKeypadPress(value)}
     >
       <Text style={styles.keypadButtonText}>{value}</Text>
     </TouchableOpacity>
@@ -129,11 +131,7 @@ const SendMoneyScreen = () => {
 
   return (
     <SafeAreaView style={{ backgroundColor: "black", flex: 1 }}>
-      <View style={styles.topBar}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <ArrowLeft color="#D3D3D3" />
-        </TouchableOpacity>
-      </View>
+      <TopBar />
 
       <View style={styles.nameArea}>
         <View style={styles.profileContainer}>
@@ -143,11 +141,13 @@ const SendMoneyScreen = () => {
           </View>
         </View>
 
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.transparentCancelButton}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.transparentCancelButton}
+        >
           <Text style={styles.cancelButtonText}>x</Text>
         </TouchableOpacity>
       </View>
-
 
       <View style={styles.secondBar}>
         <Animated.View
@@ -155,8 +155,15 @@ const SendMoneyScreen = () => {
             transform: [{ translateX: shakeAnimation }],
           }}
         >
-          <Text style={{ fontWeight: "700", fontSize: 75, color: "white", marginBottom: 5 }}>
-            ${formatAmount(amount)} 
+          <Text
+            style={{
+              fontWeight: "700",
+              fontSize: 75,
+              color: "white",
+              marginBottom: 5,
+            }}
+          >
+            ${formatAmount(amount)}
           </Text>
         </Animated.View>
       </View>
@@ -166,14 +173,14 @@ const SendMoneyScreen = () => {
           ["1", "2", "3"],
           ["4", "5", "6"],
           ["7", "8", "9"],
-          [".", "0", "DEL"], 
+          [".", "0", "DEL"],
         ].map((row, rowIndex) => (
           <View key={rowIndex} style={styles.keypadRow}>
             {row.map((value, buttonIndex) => (
               <TouchableOpacity
                 key={buttonIndex} // Add a unique key for each button
                 style={styles.keypadButton}
-                onPress={() => handleKeypadPress(value)} 
+                onPress={() => handleKeypadPress(value)}
               >
                 <Text style={styles.keypadButtonText}>{value}</Text>
               </TouchableOpacity>
@@ -188,7 +195,7 @@ const SendMoneyScreen = () => {
             {swiped ? "Sent!" : "Swipe to send"}
           </Text>
           <Animated.View
-            {...panResponder.panHandlers} 
+            {...panResponder.panHandlers}
             style={[
               styles.swipeButton,
               {
@@ -204,9 +211,9 @@ const SendMoneyScreen = () => {
 
 const styles = StyleSheet.create({
   topBar: {
-    height: "6%",
-    backgroundColor: "black",
     justifyContent: "center",
+    paddingVertical: 7,
+    paddingHorizontal: 10,
     alignItems: "start",
   },
   nameArea: {
@@ -257,7 +264,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingRight: "10",
     color: "grey",
-    fontSize: 25
+    fontSize: 25,
   },
   secondBar: {
     justifyContent: "center",
