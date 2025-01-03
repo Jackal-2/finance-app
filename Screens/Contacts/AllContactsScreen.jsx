@@ -4,14 +4,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur'; 
 
 const AllContactsScreen = ({ route, navigation }) => {
-  const { imagesData } = route.params; 
-
+  const { imagesData } = route.params;
 
   const handleAddContact = () => {
     console.log("Add new contact");
   };
 
-  // Handle the contact press (this is where you could navigate to a contact details screen, for example)
   const handleContactPress = (contact) => {
     console.log(`Contact pressed: ${contact.name}`);
     // Navigate to the SendMoneyScreen with selected contact info
@@ -24,7 +22,6 @@ const AllContactsScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-
       <LinearGradient
         colors={['#266A61', '#0F0F0F']} 
         style={styles.background}
@@ -39,7 +36,7 @@ const AllContactsScreen = ({ route, navigation }) => {
         </BlurView>
       </LinearGradient>
 
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView horizontal={false} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
         {imagesData.map((contact) => (
           <TouchableOpacity 
             key={contact.id} 
@@ -60,13 +57,12 @@ const AllContactsScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"white"
+    backgroundColor:"black"
   },
   background: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
- 
   },
   blurContainer: {
     flex: 1,
@@ -103,7 +99,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flexGrow: 1,
-    backgroundColor:"#white"
+    backgroundColor:"black"
   },
   contactContainer: {
     flexDirection: 'row',
@@ -124,12 +120,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   contactName: {
-    color: 'black',
+    color: '#CCC',
     fontSize: 20,
     fontWeight: '600',
   },
   contactCardNumber: {
-    color: 'black',
+    color: '#ccc',
     fontSize: 14,
   },
 });

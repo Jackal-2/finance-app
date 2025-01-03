@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, Image, Modal, Button, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useEffect } from "react"; 
-import CustomButton from "../CustomButton"; 
+import CustomButton from "../../components/CustomButton"; 
 
 const { width, height } = Dimensions.get('window'); // Get screen width and height
 
@@ -71,7 +71,6 @@ const HomeScreen = ({ route, navigation }) => {
       source: require("../../assets/peak.jpg"),
       name: "Estaban",
       navigateTo: "Send",
-
     },
   ];
 
@@ -173,6 +172,7 @@ const HomeScreen = ({ route, navigation }) => {
               fontSize: width * 0.04,
               fontWeight: "bold",
             }}
+            onPress={() => navigation.navigate('Request')}
           />
           <CustomButton
             title="Send"
@@ -190,14 +190,7 @@ const HomeScreen = ({ route, navigation }) => {
               fontSize: width * 0.04,
               fontWeight: "bold",
             }}
-            onPress={() => navigation.navigate('Send', {
-              contactName: "Wendy",
-              contactPhoto: require("../../assets/peak3.jpg"),
-              contactCard: "**** 1234",
-              totalBalance,
-              setTotalBalance,
-              setTransactionData,
-            })}
+            onPress={() => navigation.navigate('Contacts', { imagesData })} // Navigate to AllContactsScreen
           />
         </View>
       </View>
@@ -268,7 +261,7 @@ const HomeScreen = ({ route, navigation }) => {
       </View>
 
       <SafeAreaView style={{ height: 500 }}>
-        <ScrollView horizontal={false} showsVerticalScrollIndicator={false} style={{marginBottom: 130 }}>
+        <ScrollView horizontal={false} showsVerticalScrollIndicator={false} style={{ marginBottom: 130 }}>
           {transactionData.map((transaction) => (
             <TouchableOpacity
               key={transaction.id}
@@ -277,7 +270,7 @@ const HomeScreen = ({ route, navigation }) => {
               <View
                 style={{
                   height: 100,
-                  width: width * 0.9, // Adjust width based on screen size
+                  width:"430",
                   borderRadius: 12,
                   marginTop: 10,
                   flexDirection: "row",
@@ -291,7 +284,7 @@ const HomeScreen = ({ route, navigation }) => {
                   <Text style={{ color: "#dce0e6", fontSize: width * 0.05 }}>{transaction.name}</Text>
                   <Text style={{ color: "#979ea8", fontSize: width * 0.04, marginTop: 5 }}>{transaction.date}</Text>
                 </View>
-                <Text style={{ position: "absolute", right: 15, fontSize: width * 0.04, color: "#979ea8" }}>
+                <Text style={{ position: "absolute", right: 10, fontSize: width * 0.04, color: "#979ea8" }}>
                   {transaction.amount}
                 </Text>
               </View>

@@ -28,7 +28,6 @@ const ForgotPasswordScreen = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>Forgot Password</Text>
 
-      {/* Description Text */}
       <Text style={styles.descriptionText}>
         Enter your email address, and we'll send you a link to reset your password. 
         If your email is associated with an account, you'll receive a link to reset your password.
@@ -42,14 +41,12 @@ const ForgotPasswordScreen = () => {
         onChangeText={setEmail}
         keyboardType="email-address"
       />
-
-      {/* Message Text */}
       <Text style={styles.messageText}>{message}</Text>
 
       <Button
         title="Reset Password"
         onPress={handleResetPassword}
-        color="#266A61" // Green color
+        color="#266A61" 
       />
     </ScrollView>
   );
@@ -60,31 +57,30 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0F0F0F', // Dark background
-    padding: 20,
+    backgroundColor: '#0F0F0F', 
   },
 
   header: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: '#266A61', // Green color for header
+    color: '#266A61', 
     marginBottom: 20,
     textAlign: 'center',
   },
 
   input: {
     height: 50,
-    borderColor: '#266A61', // Green border for input
+    borderColor: '#266A61', 
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 20,
     paddingLeft: 10,
-    color: '#fff', // White text color
+    color: '#fff', 
     width: '100%',
   },
 
   descriptionText: {
-    color: '#ccc',  // Lighter text color for description
+    color: '#ccc',  
     fontSize: 16,
     marginBottom: 20,
     textAlign: 'center',

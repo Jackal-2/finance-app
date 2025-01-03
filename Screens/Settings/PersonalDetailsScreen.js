@@ -41,13 +41,11 @@ const PersonalDetailsScreen = ({ navigation }) => {
                 </BlurView>
             </LinearGradient>
 
-            {/* Name */}
             <View style={styles.inputGroup}>
                 <Text style={styles.label}>Name</Text>
                 <Text style={styles.value}>{name}</Text>
             </View>
 
-            {/* Email */}
             <View style={styles.inputGroup}>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={styles.label}>Email</Text>
@@ -72,7 +70,6 @@ const PersonalDetailsScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            {/* Phone Number */}
             <View style={styles.inputGroup}>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={styles.label}>Phone Number</Text>
@@ -119,86 +116,86 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
-        marginBottom: height * 0.1, // Adjust bottom margin based on screen size
+        marginBottom: height * 0.1,
     },
     background: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: height * 0.05, // Adjust bottom margin based on screen size
+        marginBottom: height * 0.05,
     },
     blurContainer: {
         flex: 1,
         justifyContent: 'flex-start',
         width: '100%',
-        paddingTop: height * 0.07, // Adjust padding based on screen size
+        paddingTop: height * 0.07,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: height * 0.03, // Adjust margin based on screen size
-        paddingTop: height * 0.02, // Adjust padding based on screen size
+        marginBottom: height * 0.03,
+        paddingTop: height * 0.02,
     },
     title: {
-        fontSize: width * 0.07, // Adjust font size based on screen width
+        fontSize: width * 0.07,
         color: '#fff',
         fontWeight: 'bold',
-        paddingLeft: width * 0.03, // Adjust padding based on screen width
+        paddingLeft: width * 0.03,
     },
     inputGroup: {
         backgroundColor: '#fff',
-        padding: width * 0.05, // Adjust padding based on screen width
-        marginBottom: height * 0.05, // Adjust bottom margin based on screen size
+        padding: width * 0.05,
+        marginBottom: height * 0.05,
         borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 6,
-        elevation: 3, // for Android
+        elevation: 3,
     },
     label: {
-        fontSize: width * 0.04, // Adjust font size based on screen width
+        fontSize: width * 0.04,
         fontWeight: '600',
         color: '#333',
-        marginBottom: height * 0.01, // Adjust margin based on screen height
+        marginBottom: height * 0.01,
     },
     verified: {
-        fontSize: width * 0.03, // Adjust font size based on screen width
+        fontSize: width * 0.03,
         color: '#333',
-        marginBottom: height * 0.01, // Adjust margin based on screen height
-        paddingLeft: width * 0.02, // Adjust padding based on screen width
+        marginBottom: height * 0.01,
+        paddingLeft: width * 0.02,
     },
     value: {
-        fontSize: width * 0.04, // Adjust font size based on screen width
+        fontSize: width * 0.04,
         color: '#555',
-        marginBottom: height * 0.01, // Adjust margin based on screen height
+        marginBottom: height * 0.01,
     },
     input: {
-        height: height * 0.06, // Adjust height based on screen height
+        height: height * 0.06,
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 8,
-        paddingLeft: width * 0.03, // Adjust padding based on screen width
-        fontSize: width * 0.04, // Adjust font size based on screen width
-        marginBottom: height * 0.02, // Adjust bottom margin based on screen height
+        paddingLeft: width * 0.03,
+        fontSize: width * 0.04,
+        marginBottom: height * 0.02,
     },
     editButton: {
         color: '#007BFF',
-        fontSize: width * 0.04, // Adjust font size based on screen width
+        fontSize: width * 0.04,
         fontWeight: '600',
         textAlign: 'right',
     },
     saveButton: {
         backgroundColor: '#007BFF',
-        paddingVertical: height * 0.02, // Adjust padding based on screen height
+        paddingVertical: height * 0.02,
         borderRadius: 8,
-        marginTop: height * 0.03, // Adjust top margin based on screen height
+        marginTop: height * 0.03,
         alignItems: 'center',
     },
     saveButtonText: {
         color: '#fff',
-        fontSize: width * 0.05, // Adjust font size based on screen width
+        fontSize: width * 0.05,
         fontWeight: 'bold',
     },
 });

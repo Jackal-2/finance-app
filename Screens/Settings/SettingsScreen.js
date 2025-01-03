@@ -73,48 +73,49 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-    paddingTop: height * 0.05, // Adjust padding top based on screen height
-    paddingHorizontal: width * 0.05, // Adjust padding horizontally based on screen width
+    paddingTop: height * 0.05,
+    paddingHorizontal: width * 0.05,
   },
   backButton: {
-    paddingTop: height * 0.03, // Adjust top padding based on screen height
-    paddingBottom: height * 0.02, // Adjust bottom padding based on screen height
+    paddingTop: height * 0.03,
+    paddingBottom: height * 0.02,
   },
   profileSection: {
     alignItems: 'center',
-    marginBottom: height * 0.05, // Adjust margin bottom based on screen height
+    marginBottom: height * 0.05,
+    marginTop: 40
   },
   profileImage: {
-    width: width * 0.25, // Adjust image size based on screen width
-    height: width * 0.25, // Adjust image size based on screen width
-    borderRadius: width * 0.125, // Adjust border radius for circular image
-    marginBottom: height * 0.02, // Adjust margin bottom based on screen height
+    width: width * 0.25,
+    height: width * 0.25,
+    borderRadius: width * 0.125,
+    marginBottom: height * 0.02,
   },
   profileName: {
-    fontSize: width * 0.05, // Adjust font size based on screen width
+    fontSize: width * 0.05,
     fontWeight: 'bold',
     color: 'white',
   },
   profileUsername: {
-    fontSize: width * 0.04, // Adjust font size based on screen width
+    fontSize: width * 0.04,
     color: '#e6e7e8',
   },
   optionItem: {
-    marginBottom: height * 0.03, // Adjust margin bottom based on screen height
-    paddingVertical: height * 0.02, // Adjust padding vertically based on screen height
-    paddingHorizontal: width * 0.05, // Adjust padding horizontally based on screen width
+    marginBottom: height * 0.03,
+    paddingVertical: height * 0.02,
+    paddingHorizontal: width * 0.05,
     backgroundColor: '#333',
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 8, // Added border-radius for a more polished look
+    borderRadius: 8,
   },
   optionText: {
-    fontSize: width * 0.045, // Adjust font size based on screen width
+    fontSize: width * 0.045,
     color: 'white',
-    marginLeft: width * 0.03, // Adjust margin left based on screen width
+    marginLeft: width * 0.03,
   },
   logOutContainer: {
-    marginTop: height * 0.05, // Adjust margin top based on screen height
+    marginTop: height * 0.05,
   },
 });
 

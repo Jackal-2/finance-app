@@ -2,18 +2,19 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Provider as PaperProvider } from "react-native-paper";
-import HomeScreen from "./components/Homepage/HomeScreen";
-import SettingsScreen from "./components/Settings/SettingsScreen";
-import SendMoneyScreen from "./components/SendMoneyScreen";
-import AllContactsScreen from "./components/Contacts/AllContactsScreen";
-import NotificationsScreen from "./components/Homepage/NotificationsScreen";
-import PersonalDetailsScreen from "./components/Settings/PersonalDetailsScreen";
-import SecurityScreen from "./components/Settings/SecurityScreen";
-import BankAccountsPage from "./components/Settings/BankAccountScreen";
-import LoginScreen from "./components/Homepage/LoginScreen";
-import NewContactScreen from "./components/Contacts/NewContactScreen";
-import SignUpScreen from "./components/Homepage/SignUpScreen";
-import ForgotPasswordScreen from "./components/Homepage/ForgotPasswordScreen";
+import HomeScreen from "./Screens/Homepage/HomeScreen";
+import SettingsScreen from "./Screens/Settings/SettingsScreen";
+import SendMoneyScreen from "./Screens/Homepage/SendMoneyScreen";
+import AllContactsScreen from "./Screens/Contacts/AllContactsScreen";
+import NotificationsScreen from "./Screens/Homepage/NotificationsScreen";
+import PersonalDetailsScreen from "./Screens/Settings/PersonalDetailsScreen";
+import SecurityScreen from "./Screens/Settings/SecurityScreen";
+import BankAccountsPage from "./Screens/Settings/BankAccountScreen";
+import LoginScreen from "./Screens/Homepage/LoginScreen";
+import NewContactScreen from "./Screens/Contacts/NewContactScreen";
+import SignUpScreen from "./Screens/Homepage/SignUpScreen";
+import ForgotPasswordScreen from "./Screens/Homepage/ForgotPasswordScreen";
+import RequestMoneyScreen from "./Screens/Homepage/RequestScreen";
 
 
 const Stack = createStackNavigator();
@@ -40,6 +41,7 @@ const App = () => {
           <Stack.Screen name="Newcontact" component={NewContactScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
+          <Stack.Screen name="Request" component={RequestMoneyScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>

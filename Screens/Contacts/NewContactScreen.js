@@ -36,7 +36,7 @@ const NewContactScreen = () => {
 
 
             <TouchableOpacity style={styles.saveButton} onPress={handleSaveContact}>
-                <Text style={styles.saveButtonText}>Save Contact</Text>
+                <Text style={styles.saveButtonText}>Add</Text>
             </TouchableOpacity>
         </View>
     );
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        color: '#fff',
+        color: '#ccc',
         marginBottom: 8,
     },
     inputWrapper: {

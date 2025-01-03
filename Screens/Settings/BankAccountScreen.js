@@ -55,7 +55,6 @@ const BankAccountsPage = () => {
 
     return (
         <ScrollView style={styles.container}>
-            {/* Display existing linked bank accounts */}
             <View style={styles.accountsList}>
                 <Text style={styles.linkedTitle}>Linked Accounts</Text>
                 {existingBankAccounts.length > 0 ? (
@@ -73,7 +72,6 @@ const BankAccountsPage = () => {
                 )}
             </View>
 
-            {/* Link an external bank account */}
             <View style={styles.sectionContainer}>
                 <Text style={styles.subtitle}>Link External Bank Account</Text>
 
@@ -94,7 +92,6 @@ const BankAccountsPage = () => {
                 />
             </View>
 
-            {/* Account Type Input */}
             <View style={styles.sectionContainer}>
                 <Text style={styles.label}>Account Type (Checking/Savings)</Text>
                 <TextInput
@@ -121,66 +118,66 @@ const BankAccountsPage = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: width * 0.05, // Adjust padding based on screen width
+        padding: width * 0.05,
         backgroundColor: 'white',
-        paddingTop: height * 0.05, // Adjust padding top based on screen height
+        paddingTop: height * 0.05,
     },
     title: {
-        fontSize: width * 0.06, // Adjust font size based on screen width
+        fontSize: width * 0.06,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: height * 0.03, // Adjust bottom margin based on screen height
+        marginBottom: height * 0.03,
         color: '#fff',
     },
     subtitle: {
-        fontSize: width * 0.05, // Adjust font size based on screen width
+        fontSize: width * 0.05,
         fontWeight: 'bold',
-        marginVertical: height * 0.02, // Adjust vertical margin based on screen height
+        marginVertical: height * 0.02,
         color: '#266A61',
     },
     label: {
-        fontSize: width * 0.045, // Adjust font size based on screen width
+        fontSize: width * 0.045,
         fontWeight: 'bold',
-        marginVertical: height * 0.015, // Adjust vertical margin based on screen height
+        marginVertical: height * 0.015,
         color: '#266A61',
     },
     input: {
         borderWidth: 1,
-        padding: width * 0.04, // Adjust padding based on screen width
-        marginBottom: height * 0.025, // Adjust margin bottom based on screen height
+        padding: width * 0.04,
+        marginBottom: height * 0.025,
         borderRadius: 5,
-        color: '#000', // Changed text color to black for readability
+        color: '#000',
     },
     accountsList: {
-        marginBottom: height * 0.05, // Adjust bottom margin based on screen height
+        marginBottom: height * 0.05,
     },
     card: {
-        marginBottom: height * 0.025, // Adjust margin bottom based on screen height
+        marginBottom: height * 0.025,
         backgroundColor: '#333',
     },
     cardTitle: {
         color: '#266A61',
-        fontSize: width * 0.05, // Adjust font size based on screen width
+        fontSize: width * 0.05,
     },
     cardText: {
         color: '#fff',
-        fontSize: width * 0.04, // Adjust font size based on screen width
+        fontSize: width * 0.04,
     },
     noAccountsText: {
         color: '#fff',
-        fontSize: width * 0.045, // Adjust font size based on screen width
+        fontSize: width * 0.045,
         fontStyle: 'italic',
     },
     sectionContainer: {
-        marginBottom: height * 0.03, // Adjust margin bottom based on screen height
+        marginBottom: height * 0.03,
     },
     buttonContainer: {
-        marginTop: height * 0.05, // Adjust top margin based on screen height
+        marginTop: height * 0.05,
     },
     linkedTitle: {
-        fontSize: width * 0.05, // Adjust font size based on screen width
+        fontSize: width * 0.05,
         fontWeight: 'bold',
-        marginVertical: height * 0.02, // Adjust vertical margin based on screen height
+        marginVertical: height * 0.02,
         color: '#266A61',
     },
 });

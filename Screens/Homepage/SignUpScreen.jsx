@@ -9,11 +9,20 @@ const SignUpScreen = () => {
   const [dob, setDob] = useState(null); // initial dob is null
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [username, setUsername] = useState('');  // New state for username
+  const [password, setPassword] = useState('');  // New state for password
+  const [confirmPassword, setConfirmPassword] = useState('');  // New state for confirm password
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
 
   const handleSignUp = () => {
-    if (!firstName || !lastName || !dob || !email || !phone) {
+    // Validate fields
+    if (!firstName || !lastName || !dob || !email || !phone || !username || !password || !confirmPassword) {
       Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
       return;
     }
 
@@ -93,6 +102,29 @@ const SignUpScreen = () => {
         value={phone}
         onChangeText={setPhone}
       />
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        placeholderTextColor="#ccc"  
+        value={username}
+        onChangeText={setUsername}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        placeholderTextColor="#ccc"  
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Confirm Password"
+        placeholderTextColor="#ccc"  
+        secureTextEntry
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+      />
 
       <Button
         title="Sign Up"
@@ -133,7 +165,7 @@ const styles = StyleSheet.create({
     color: '#266A61', 
   },
   datePicker: {
-    flex: 1, // This can be adjusted as per your design preferences
+    flex: 1, 
     marginVertical: 20,
   }
 });

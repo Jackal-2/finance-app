@@ -134,59 +134,64 @@ const SecurityScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingBottom: "30"
     },
     gradientContainer: {
-        height: height * 0.25, // Adjust the gradient container height based on screen height
+        height: height * 0.25,
     },
     blurContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'flex-start',
-        paddingLeft: width * 0.05, // Adjust padding based on screen width
+        paddingLeft: width * 0.05,
+
     },
     topSection: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+
     },
     title: {
-        fontSize: width * 0.08, // Adjust font size based on screen width
+        fontSize: width * 0.08,
         color: '#fff',
         fontWeight: 'bold',
         paddingTop: "20",
     },
     formContainer: {
         flex: 1,
-        padding: width * 0.05, // Adjust padding based on screen width
+        padding: width * 0.05,
         justifyContent: 'flex-start',
+
     },
     section: {
-        marginVertical: height * 0.02, // Adjust vertical spacing based on screen height
-        paddingTop: height * 0.01,  // Adjust padding based on screen height
+        marginVertical: height * 0.02,
+        paddingTop: height * 0.01,
+
     },
     label: {
-        fontSize: width * 0.04, // Adjust font size based on screen width
-        marginBottom: height * 0.01, // Adjust bottom margin based on screen height
+        fontSize: width * 0.04,
+        marginBottom: height * 0.01,
         color: '#333',
     },
     input: {
         borderWidth: 1,
         borderColor: '#ccc',
-        padding: width * 0.04, // Adjust padding based on screen width
-        marginBottom: height * 0.02, // Adjust margin bottom based on screen height
+        padding: width * 0.04,
+        marginBottom: height * 0.02,
         borderRadius: 5,
         backgroundColor: '#f5f5f5',
         color: '#333',
     },
     button: {
         backgroundColor: '#266A61',
-        padding: width * 0.05, // Adjust padding based on screen width
+        padding: width * 0.05,
         borderRadius: 5,
         alignItems: 'center',
     },
     buttonText: {
         color: '#fff',
-        fontSize: width * 0.04, // Adjust font size based on screen width
+        fontSize: width * 0.04,
     },
 });
 
