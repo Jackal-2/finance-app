@@ -10,10 +10,10 @@ import NotificationsScreen from "./Screens/Homepage/NotificationsScreen";
 import PersonalDetailsScreen from "./Screens/Settings/PersonalDetailsScreen";
 import SecurityScreen from "./Screens/Settings/SecurityScreen";
 import BankAccountsPage from "./Screens/Settings/BankAccountScreen";
-import LoginScreen from "./Screens/Homepage/LoginScreen";
+import LoginScreen from "./Screens/Auth/LoginScreen";
 import NewContactScreen from "./Screens/Contacts/NewContactScreen";
-import SignUpScreen from "./Screens/Homepage/SignUpScreen";
-import ForgotPasswordScreen from "./Screens/Homepage/ForgotPasswordScreen";
+import SignUpScreen from "./Screens/Auth/SignUpScreen";
+import ForgotPasswordScreen from "./Screens/Auth/ForgotPasswordScreen";
 import RequestMoneyScreen from "./Screens/Homepage/RequestScreen";
 
 
