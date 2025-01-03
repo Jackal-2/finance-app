@@ -1,23 +1,23 @@
-// BankAccountScreen.js
-
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, Alert, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper'; // Import Paper components for UI
 
+// Get the screen dimensions
+const { width, height } = Dimensions.get('window');
 
 // Sample bank account data (this would usually come from an API)
 let existingBankAccounts = [
     { id: 1, accountNumber: '1234-5678-9876', routingNumber: '111000025', type: 'Checking' },
 ];
 
-const BankAccountScreen = () => {
-    const { setLinkedBankAccount } = useBankAccount(); // Access the context function to set linked bank account
+const BankAccountsPage = () => {
     const [accountNumber, setAccountNumber] = useState('');
     const [routingNumber, setRoutingNumber] = useState('');
-    const [accountType, setAccountType] = useState('');
+    const [accountType, setAccountType] = useState(''); // User will manually type "Checking" or "Savings"
     const [isLinking, setIsLinking] = useState(false);
-    const [accountLinked, setAccountLinked] = useState(false);
+    const [accountLinked, setAccountLinked] = useState(false); // Track if account is already linked
 
+    // Simulated API call for linking the bank account
     const linkBankAccount = async () => {
         if (!accountNumber || !routingNumber || !accountType) {
             Alert.alert('Error', 'Please provide account number, routing number, and account type.');
@@ -31,17 +31,10 @@ const BankAccountScreen = () => {
 
         setIsLinking(true);
         try {
-            // Simulate network request delay
+            // Simulating an API call (this would be an actual call to your backend or third-party service)
             setTimeout(() => {
                 existingBankAccounts.push({
                     id: existingBankAccounts.length + 1,
-                    accountNumber,
-                    routingNumber,
-                    type: accountType,
-                });
-
-                // Set the linked account in the context
-                setLinkedBankAccount({
                     accountNumber,
                     routingNumber,
                     type: accountType,
@@ -52,8 +45,8 @@ const BankAccountScreen = () => {
                 setRoutingNumber('');
                 setAccountType('');
                 setIsLinking(false);
-                setAccountLinked(true);
-            }, 2000);
+                setAccountLinked(true); // Mark as linked once successful
+            }, 2000); // Simulating a network request delay
         } catch (error) {
             setIsLinking(false);
             Alert.alert('Error', 'Failed to link bank account. Please try again.');
@@ -62,7 +55,7 @@ const BankAccountScreen = () => {
 
     return (
         <ScrollView style={styles.container}>
-            {/* Display linked bank accounts */}
+            {/* Display existing linked bank accounts */}
             <View style={styles.accountsList}>
                 <Text style={styles.linkedTitle}>Linked Accounts</Text>
                 {existingBankAccounts.length > 0 ? (
@@ -80,9 +73,10 @@ const BankAccountScreen = () => {
                 )}
             </View>
 
-            {/* Link External Bank Account Section */}
+            {/* Link an external bank account */}
             <View style={styles.sectionContainer}>
                 <Text style={styles.subtitle}>Link External Bank Account</Text>
+
                 <TextInput
                     style={styles.input}
                     placeholder="Enter account number"
@@ -90,6 +84,7 @@ const BankAccountScreen = () => {
                     value={accountNumber}
                     onChangeText={setAccountNumber}
                 />
+
                 <TextInput
                     style={styles.input}
                     placeholder="Enter routing number"
@@ -115,7 +110,7 @@ const BankAccountScreen = () => {
                 <Button
                     title={isLinking ? 'Linking...' : 'Link Bank Account'}
                     onPress={linkBankAccount}
-                    disabled={isLinking || accountLinked}
+                    disabled={isLinking || accountLinked} // Disable if linking or account already linked
                     color="black"
                 />
             </View>
@@ -126,59 +121,68 @@ const BankAccountScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
+        padding: width * 0.05, // Adjust padding based on screen width
         backgroundColor: 'white',
-        paddingTop: 20,
+        paddingTop: height * 0.05, // Adjust padding top based on screen height
+    },
+    title: {
+        fontSize: width * 0.06, // Adjust font size based on screen width
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: height * 0.03, // Adjust bottom margin based on screen height
+        color: '#fff',
     },
     subtitle: {
-        fontSize: 18,
+        fontSize: width * 0.05, // Adjust font size based on screen width
         fontWeight: 'bold',
-        marginVertical: 15,
+        marginVertical: height * 0.02, // Adjust vertical margin based on screen height
         color: '#266A61',
     },
     label: {
-        fontSize: 16,
+        fontSize: width * 0.045, // Adjust font size based on screen width
         fontWeight: 'bold',
-        marginVertical: 5,
+        marginVertical: height * 0.015, // Adjust vertical margin based on screen height
         color: '#266A61',
     },
     input: {
         borderWidth: 1,
-        padding: 10,
-        marginBottom: 15,
+        padding: width * 0.04, // Adjust padding based on screen width
+        marginBottom: height * 0.025, // Adjust margin bottom based on screen height
         borderRadius: 5,
+        color: '#000', // Changed text color to black for readability
     },
     accountsList: {
-        marginBottom: 30,
-        paddingTop: '60',
+        marginBottom: height * 0.05, // Adjust bottom margin based on screen height
     },
     card: {
-        marginBottom: 15,
+        marginBottom: height * 0.025, // Adjust margin bottom based on screen height
         backgroundColor: '#333',
     },
     cardTitle: {
         color: '#266A61',
+        fontSize: width * 0.05, // Adjust font size based on screen width
     },
     cardText: {
         color: '#fff',
+        fontSize: width * 0.04, // Adjust font size based on screen width
     },
     noAccountsText: {
         color: '#fff',
-        fontSize: 16,
+        fontSize: width * 0.045, // Adjust font size based on screen width
         fontStyle: 'italic',
     },
     sectionContainer: {
-        marginBottom: 25,
+        marginBottom: height * 0.03, // Adjust margin bottom based on screen height
     },
     buttonContainer: {
-        marginTop: 20,
+        marginTop: height * 0.05, // Adjust top margin based on screen height
     },
     linkedTitle: {
-        fontSize: 18,
+        fontSize: width * 0.05, // Adjust font size based on screen width
         fontWeight: 'bold',
-        marginVertical: 15,
+        marginVertical: height * 0.02, // Adjust vertical margin based on screen height
         color: '#266A61',
     },
 });
 
-export default BankAccountScreen; // Make sure to export the component as default
+export default BankAccountsPage;

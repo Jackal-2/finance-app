@@ -8,12 +8,16 @@ import {
     Alert,
     StyleSheet,
     TouchableOpacity,
+    Dimensions,
 } from 'react-native';
 import TouchID from 'react-native-touch-id';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 
-const SecurityHandlingOptions = () => {
+// Get screen dimensions
+const { width, height } = Dimensions.get('window');
+
+const SecurityScreen = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -132,13 +136,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     gradientContainer: {
-        height: 180,
+        height: height * 0.25, // Adjust the gradient container height based on screen height
     },
     blurContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'flex-start',
-        paddingLeft: 20
+        paddingLeft: width * 0.05, // Adjust padding based on screen width
     },
     topSection: {
         flex: 1,
@@ -146,45 +150,44 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontSize: 30,
+        fontSize: width * 0.08, // Adjust font size based on screen width
         color: '#fff',
         fontWeight: 'bold',
-        paddingTop: "20"
-
+        paddingTop: "20",
     },
     formContainer: {
         flex: 1,
-        padding: 20,
+        padding: width * 0.05, // Adjust padding based on screen width
         justifyContent: 'flex-start',
     },
     section: {
-        marginVertical: 15,
-        paddingTop: 10,
+        marginVertical: height * 0.02, // Adjust vertical spacing based on screen height
+        paddingTop: height * 0.01,  // Adjust padding based on screen height
     },
     label: {
-        fontSize: 16,
-        marginBottom: 5,
+        fontSize: width * 0.04, // Adjust font size based on screen width
+        marginBottom: height * 0.01, // Adjust bottom margin based on screen height
         color: '#333',
     },
     input: {
         borderWidth: 1,
         borderColor: '#ccc',
-        padding: 10,
-        marginBottom: 15,
+        padding: width * 0.04, // Adjust padding based on screen width
+        marginBottom: height * 0.02, // Adjust margin bottom based on screen height
         borderRadius: 5,
         backgroundColor: '#f5f5f5',
         color: '#333',
     },
     button: {
         backgroundColor: '#266A61',
-        padding: 12,
+        padding: width * 0.05, // Adjust padding based on screen width
         borderRadius: 5,
         alignItems: 'center',
     },
     buttonText: {
         color: '#fff',
-        fontSize: 16,
+        fontSize: width * 0.04, // Adjust font size based on screen width
     },
 });
 
-export default SecurityHandlingOptions;
+export default SecurityScreen;

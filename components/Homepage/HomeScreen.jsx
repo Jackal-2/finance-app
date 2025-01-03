@@ -1,18 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
-  Image,
-  Modal,
-  Button,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView, Image, Modal, Button, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useState, useEffect } from "react"; 
 import CustomButton from "../CustomButton"; 
+
+const { width, height } = Dimensions.get('window'); // Get screen width and height
 
 const HomeScreen = ({ route, navigation }) => {
   // Define the initial transaction data
@@ -119,7 +111,7 @@ const HomeScreen = ({ route, navigation }) => {
             alignItems: "center",
             justifyContent: "space-between",
             marginHorizontal: 20,
-            marginBottom: "35",
+            marginBottom: 10,
           }}
         >
           <View
@@ -134,8 +126,8 @@ const HomeScreen = ({ route, navigation }) => {
               <Ionicons name="options" size={25} color="white" />
             </TouchableOpacity>
             <View>
-              <Text style={{ color: "#979ea8", fontSize: 20 }}>Good Morning</Text>
-              <Text style={{ color: "white", fontSize: 20 }}>Malone</Text>
+              <Text style={{ color: "#979ea8", fontSize: width * 0.05 }}>Good Morning</Text>
+              <Text style={{ color: "white", fontSize: width * 0.05 }}>Malone</Text>
             </View>
           </View>
 
@@ -146,12 +138,12 @@ const HomeScreen = ({ route, navigation }) => {
 
         <View style={{ display: "flex", marginHorizontal: 20 }}>
           <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-            <Text style={{ color: "#979ea8", fontSize: 20 }}>Your Total Balance</Text>
+            <Text style={{ color: "#979ea8", fontSize: width * 0.05 }}>Your Total Balance</Text>
             <TouchableOpacity onPress={toggleBalanceVisibility}>
               <Ionicons name={isBalanceVisible ? "eye-off" : "eye"} size={30} color="white" />
             </TouchableOpacity>
           </View>
-          <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
+          <Text style={{ color: "white", fontSize: width * 0.08, fontWeight: "bold" }}>
             {isBalanceVisible ? formatBalance(totalBalance) : "****"}
           </Text>
         </View>
@@ -174,11 +166,11 @@ const HomeScreen = ({ route, navigation }) => {
               borderRadius: 30,
               alignItems: "center",
               justifyContent: "center",
-              width: "45%",
+              width: width * 0.4,
             }}
             textStyle={{
               color: "#FFFFFF",
-              fontSize: 18,
+              fontSize: width * 0.04,
               fontWeight: "bold",
             }}
           />
@@ -191,11 +183,11 @@ const HomeScreen = ({ route, navigation }) => {
               borderRadius: 30,
               alignItems: "center",
               justifyContent: "center",
-              width: "45%",
+              width: width * 0.4,
             }}
             textStyle={{
               color: "black",
-              fontSize: 18,
+              fontSize: width * 0.04,
               fontWeight: "bold",
             }}
             onPress={() => navigation.navigate('Send', {
@@ -221,9 +213,9 @@ const HomeScreen = ({ route, navigation }) => {
             marginBottom: 10,
           }}
         >
-          <Text style={{ color: "#dce0e6", fontSize: 25, fontWeight: "600" }}>Quick send</Text>
+          <Text style={{ color: "#dce0e6", fontSize: width * 0.06, fontWeight: "600" }}>Quick send</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Contacts', { imagesData })}>
-            <Text style={{ color: "#979ea8", fontSize: 14 }}>View all</Text>
+            <Text style={{ color: "#979ea8", fontSize: width * 0.04 }}>View all</Text>
           </TouchableOpacity>
         </View>
 
@@ -272,7 +264,7 @@ const HomeScreen = ({ route, navigation }) => {
       </View>
 
       <View style={{ paddingTop: 20, paddingBottom: 10, alignItems: "center" }}>
-        <Text style={{ color: "#dce0e6", fontSize: 20 }}>Transactions</Text>
+        <Text style={{ color: "#dce0e6", fontSize: width * 0.05 }}>Transactions</Text>
       </View>
 
       <SafeAreaView style={{ height: 500 }}>
@@ -285,7 +277,7 @@ const HomeScreen = ({ route, navigation }) => {
               <View
                 style={{
                   height: 100,
-                  width: 440,
+                  width: width * 0.9, // Adjust width based on screen size
                   borderRadius: 12,
                   marginTop: 10,
                   flexDirection: "row",
@@ -296,10 +288,10 @@ const HomeScreen = ({ route, navigation }) => {
               >
                 <Image style={{ height: 100, width: 100, borderRadius: 20 }} source={transaction.source} />
                 <View style={{ marginLeft: 15 }}>
-                  <Text style={{ color: "#dce0e6", fontSize: 20 }}>{transaction.name}</Text>
-                  <Text style={{ color: "#979ea8", fontSize: 15, marginTop: 5 }}>{transaction.date}</Text>
+                  <Text style={{ color: "#dce0e6", fontSize: width * 0.05 }}>{transaction.name}</Text>
+                  <Text style={{ color: "#979ea8", fontSize: width * 0.04, marginTop: 5 }}>{transaction.date}</Text>
                 </View>
-                <Text style={{ position: "absolute", right: 15, fontSize: 15, color: "#979ea8" }}>
+                <Text style={{ position: "absolute", right: 15, fontSize: width * 0.04, color: "#979ea8" }}>
                   {transaction.amount}
                 </Text>
               </View>

@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button, Image, Dimensions } from 'react-native';
 import { ArrowLeft } from 'lucide-react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+
+// Get the screen dimensions
+const { width, height } = Dimensions.get('window');
 
 const SettingsScreen = ({ navigation }) => {
 
@@ -29,10 +32,6 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <ArrowLeft color="#D3D3D3" size={24} />
-      </TouchableOpacity>
-
 
       {/* Profile Section */}
       <View style={styles.profileSection}>
@@ -52,17 +51,16 @@ const SettingsScreen = ({ navigation }) => {
         <MaterialIcons name="payment" size={24} color="white" />
         <Text style={styles.optionText}>Payment Methods</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.optionItem} onPress={() => navigation.navigate('Transfer')}>
+
+      <TouchableOpacity style={styles.optionItem} onPress={() => navigation.navigate('')}>
         <MaterialIcons name="compare-arrows" size={24} color="white" />
         <Text style={styles.optionText}>Transfer</Text>
       </TouchableOpacity>
-
 
       <TouchableOpacity style={styles.optionItem} onPress={() => navigation.navigate('Security')}>
         <MaterialIcons name="security" size={24} color="white" />
         <Text style={styles.optionText}>Security</Text>
       </TouchableOpacity>
-
 
       <View style={styles.logOutContainer}>
         <Button title="Log Out" onPress={() => navigation.navigate('Login')} color="red" />
@@ -75,55 +73,48 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-    paddingTop: 40,
-    paddingHorizontal: 20,
+    paddingTop: height * 0.05, // Adjust padding top based on screen height
+    paddingHorizontal: width * 0.05, // Adjust padding horizontally based on screen width
   },
   backButton: {
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: height * 0.03, // Adjust top padding based on screen height
+    paddingBottom: height * 0.02, // Adjust bottom padding based on screen height
   },
-  optionItem: {
-    marginBottom: 20,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    backgroundColor: '#333',
-    flexDirection: 'row',
-    alignItems: 'center',
-
-  },
-
   profileSection: {
     alignItems: 'center',
-    marginBottom: 30,
-
-
+    marginBottom: height * 0.05, // Adjust margin bottom based on screen height
   },
   profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 40,
-    marginRight: 20,
+    width: width * 0.25, // Adjust image size based on screen width
+    height: width * 0.25, // Adjust image size based on screen width
+    borderRadius: width * 0.125, // Adjust border radius for circular image
+    marginBottom: height * 0.02, // Adjust margin bottom based on screen height
   },
-
   profileName: {
-    fontSize: 18,
+    fontSize: width * 0.05, // Adjust font size based on screen width
     fontWeight: 'bold',
     color: 'white',
   },
-
   profileUsername: {
-    fontSize: 14,
+    fontSize: width * 0.04, // Adjust font size based on screen width
     color: '#e6e7e8',
-
   },
-
+  optionItem: {
+    marginBottom: height * 0.03, // Adjust margin bottom based on screen height
+    paddingVertical: height * 0.02, // Adjust padding vertically based on screen height
+    paddingHorizontal: width * 0.05, // Adjust padding horizontally based on screen width
+    backgroundColor: '#333',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 8, // Added border-radius for a more polished look
+  },
   optionText: {
-    fontSize: 18,
+    fontSize: width * 0.045, // Adjust font size based on screen width
     color: 'white',
-    marginLeft: 10,
+    marginLeft: width * 0.03, // Adjust margin left based on screen width
   },
   logOutContainer: {
-    marginTop: 40,
+    marginTop: height * 0.05, // Adjust margin top based on screen height
   },
 });
 

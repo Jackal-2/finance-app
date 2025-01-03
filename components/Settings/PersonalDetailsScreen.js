@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 
+// Get the screen dimensions
+const { width, height } = Dimensions.get('window');
 
 const PersonalDetailsScreen = ({ navigation }) => {
     // Initial details
@@ -16,7 +18,7 @@ const PersonalDetailsScreen = ({ navigation }) => {
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
     const [isEditingDob, setIsEditingDob] = useState(false);
-    const [isEditingPhone, setIsEditingPhone] = useState(false);  // New state for phone editing
+    const [isEditingPhone, setIsEditingPhone] = useState(false);
 
     // Handle save changes
     const handleSave = () => {
@@ -39,7 +41,6 @@ const PersonalDetailsScreen = ({ navigation }) => {
                 </BlurView>
             </LinearGradient>
 
-
             {/* Name */}
             <View style={styles.inputGroup}>
                 <Text style={styles.label}>Name</Text>
@@ -50,9 +51,8 @@ const PersonalDetailsScreen = ({ navigation }) => {
             <View style={styles.inputGroup}>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={styles.label}>Email</Text>
-                    <Text style={styles.verified} >verified</Text>
+                    <Text style={styles.verified}>verified</Text>
                     <Ionicons name="checkmark-circle" size={15} color="green" />
-
                 </View>
                 {isEditingEmail ? (
                     <TextInput
@@ -74,10 +74,9 @@ const PersonalDetailsScreen = ({ navigation }) => {
 
             {/* Phone Number */}
             <View style={styles.inputGroup}>
-
                 <View style={{ flexDirection: "row" }}>
                     <Text style={styles.label}>Phone Number</Text>
-                    <Text style={styles.verified} >verified</Text>
+                    <Text style={styles.verified}>verified</Text>
                     <Ionicons name="checkmark-circle" size={15} color="green" />
                 </View>
 
@@ -120,95 +119,86 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "white",
-        marginBottom: 200
+        marginBottom: height * 0.1, // Adjust bottom margin based on screen size
     },
     background: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 40
-
+        marginBottom: height * 0.05, // Adjust bottom margin based on screen size
     },
     blurContainer: {
         flex: 1,
         justifyContent: 'flex-start',
         width: '100%',
-        paddingTop: 60,
+        paddingTop: height * 0.07, // Adjust padding based on screen size
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 20,
-        paddingTop: 20,
-    },
-    headerText: {
-        color: 'white',
-        fontSize: 30,
-        fontWeight: 'bold',
-        paddingLeft: "15",
+        marginBottom: height * 0.03, // Adjust margin based on screen size
+        paddingTop: height * 0.02, // Adjust padding based on screen size
     },
     title: {
-        fontSize: 30,
+        fontSize: width * 0.07, // Adjust font size based on screen width
         color: '#fff',
         fontWeight: 'bold',
-        paddingLeft: "10",
-        paddingTop: "20"
+        paddingLeft: width * 0.03, // Adjust padding based on screen width
     },
     inputGroup: {
         backgroundColor: '#fff',
-        padding: 15,
-        marginBottom: 20,
+        padding: width * 0.05, // Adjust padding based on screen width
+        marginBottom: height * 0.05, // Adjust bottom margin based on screen size
         borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 6,
         elevation: 3, // for Android
-        marginBottom: 40
     },
     label: {
-        fontSize: 16,
+        fontSize: width * 0.04, // Adjust font size based on screen width
         fontWeight: '600',
         color: '#333',
-        marginBottom: 8,
+        marginBottom: height * 0.01, // Adjust margin based on screen height
     },
     verified: {
-        fontSize: 12,
+        fontSize: width * 0.03, // Adjust font size based on screen width
         color: '#333',
-        marginBottom: 8,
-        paddingLeft: "10"
+        marginBottom: height * 0.01, // Adjust margin based on screen height
+        paddingLeft: width * 0.02, // Adjust padding based on screen width
     },
     value: {
-        fontSize: 16,
+        fontSize: width * 0.04, // Adjust font size based on screen width
         color: '#555',
-        marginBottom: 8,
+        marginBottom: height * 0.01, // Adjust margin based on screen height
     },
     input: {
-        height: 45,
+        height: height * 0.06, // Adjust height based on screen height
         borderColor: '#ccc',
         borderWidth: 1,
         borderRadius: 8,
-        paddingLeft: 12,
-        fontSize: 16,
-        marginBottom: 10,
+        paddingLeft: width * 0.03, // Adjust padding based on screen width
+        fontSize: width * 0.04, // Adjust font size based on screen width
+        marginBottom: height * 0.02, // Adjust bottom margin based on screen height
     },
     editButton: {
         color: '#007BFF',
-        fontSize: 16,
+        fontSize: width * 0.04, // Adjust font size based on screen width
         fontWeight: '600',
         textAlign: 'right',
     },
     saveButton: {
         backgroundColor: '#007BFF',
-        paddingVertical: 12,
+        paddingVertical: height * 0.02, // Adjust padding based on screen height
         borderRadius: 8,
-        marginTop: 20,
+        marginTop: height * 0.03, // Adjust top margin based on screen height
         alignItems: 'center',
     },
     saveButtonText: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: width * 0.05, // Adjust font size based on screen width
         fontWeight: 'bold',
     },
 });

@@ -1,13 +1,18 @@
-// src/screens/LoginScreen.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar } from 'react-native';
+import { useNavigation } from '@react-navigation/native';  // Import useNavigation hook
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = ({ navigation }) => {
+    // Access the navigation prop using the useNavigation hook
+    const navigation = useNavigation();
+
+    const handleLogin = () => {
         console.log('Logging in with:', email, password);
+        // You can navigate to another screen after login here if needed
+        // Example: navigation.navigate('Home');
     };
 
     return (
@@ -37,9 +42,10 @@ const LoginScreen = () => {
             </TouchableOpacity>
 
             <TouchableOpacity>
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+                <Text style={styles.forgotPasswordText} onPress={() => navigation.navigate('Forgot Password')}>Forgot Password?</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                 <Text style={styles.signupText}>Sign Up</Text>
             </TouchableOpacity>
 
