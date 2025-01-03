@@ -200,19 +200,22 @@ const styles = StyleSheet.create({
     color: "white",
   },
   input: {
+    width: "100%",
+    height: 50,
+    borderColor: "#266A61",
     borderWidth: 1,
-    borderColor: "#ccc",
-    padding: width * 0.04, // Adjust padding based on screen width
-    marginBottom: height * 0.02, // Adjust margin bottom based on screen height
-    borderRadius: 5,
-    backgroundColor: "#f5f5f5",
-    color: "#333",
+    borderRadius: 10,
+    marginBottom: 20,
+    paddingLeft: 15,
+    color: "#fff",
+    backgroundColor: "#333",
   },
   button: {
     backgroundColor: "#266A61",
     padding: width * 0.05, // Adjust padding based on screen width
     borderRadius: 5,
     alignItems: "center",
+    marginTop: 10,
   },
   buttonText: {
     color: "#fff",

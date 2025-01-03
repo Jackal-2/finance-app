@@ -211,12 +211,15 @@ const styles = StyleSheet.create({
     color: "#266A61",
   },
   input: {
+    width: "100%",
+    height: 50,
+    borderColor: "#266A61",
     borderWidth: 1,
-    borderColor: "gray",
-    padding: width * 0.04, // Adjust padding based on screen width
-    marginBottom: height * 0.025, // Adjust margin bottom based on screen height
-    borderRadius: 5,
-    color: "white", // Changed text color to black for readability
+    borderRadius: 10,
+    marginBottom: 20,
+    paddingLeft: 15,
+    color: "#fff",
+    backgroundColor: "#333",
   },
   accountsList: {},
   card: {

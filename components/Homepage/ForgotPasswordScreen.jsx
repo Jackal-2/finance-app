@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, ScrollView } from 'react-native';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+  ScrollView,
+} from "react-native";
 
 const ForgotPasswordScreen = () => {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');  // Keep message state outside any conditional render logic
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState(""); // Keep message state outside any conditional render logic
 
   const handleResetPassword = () => {
     // Simple email validation
     const emailRegex = /\S+@\S+\.\S+/;
     if (!email || !emailRegex.test(email)) {
-      Alert.alert('Error', 'Please enter a valid email address.');
+      Alert.alert("Error", "Please enter a valid email address.");
       return;
     }
 
@@ -18,9 +26,9 @@ const ForgotPasswordScreen = () => {
 
     if (isEmailAssociated) {
       // Simulate sending the password reset link
-      setMessage('A password reset link has been sent to your email.');
+      setMessage("A password reset link has been sent to your email.");
     } else {
-      setMessage('This email is not associated with any account.');
+      setMessage("This email is not associated with any account.");
     }
   };
 
@@ -30,8 +38,9 @@ const ForgotPasswordScreen = () => {
 
       {/* Description Text */}
       <Text style={styles.descriptionText}>
-        Enter your email address, and we'll send you a link to reset your password. 
-        If your email is associated with an account, you'll receive a link to reset your password.
+        Enter your email address, and we'll send you a link to reset your
+        password. If your email is associated with an account, you'll receive a
+        link to reset your password.
       </Text>
 
       <TextInput
@@ -58,43 +67,44 @@ const ForgotPasswordScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#0F0F0F', // Dark background
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#0F0F0F", // Dark background
     padding: 20,
   },
 
   header: {
     fontSize: 30,
-    fontWeight: 'bold',
-    color: '#266A61', // Green color for header
+    fontWeight: "bold",
+    color: "#266A61", // Green color for header
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   input: {
+    width: "100%",
     height: 50,
-    borderColor: '#266A61', // Green border for input
+    borderColor: "#266A61",
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 20,
-    paddingLeft: 10,
-    color: '#fff', // White text color
-    width: '100%',
+    paddingLeft: 15,
+    color: "#fff",
+    backgroundColor: "#333",
   },
 
   descriptionText: {
-    color: '#ccc',  // Lighter text color for description
+    color: "#ccc", // Lighter text color for description
     fontSize: 16,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   messageText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 
