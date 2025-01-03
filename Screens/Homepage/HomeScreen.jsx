@@ -30,7 +30,6 @@ const HomeScreen = ({ route, navigation }) => {
     { id: 3, source: require("../../assets/peak1.jpg"), name: "Pablo", navigateTo: "Send" },
     { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", navigateTo: "Send" },
     { id: 5, source: require("../../assets/peak.jpg"), name: "Estaban", navigateTo: "Send" },
-    
   ];
 
   // Function to format the number with commas
@@ -71,10 +70,9 @@ const HomeScreen = ({ route, navigation }) => {
 
   // Function to format the amount with a negative sign for sent transactions
   const formatTransactionAmount = (amount, type) => {
-    if (type === "sent") {
-      return `-${amount}`;
-    }
-    return amount;
+    // Remove non-numeric characters and check if it should be negative
+    const numericAmount = parseFloat(amount.replace(/[^0-9.-]+/g, ""));
+    return type === "sent" ? `-$${numericAmount.toLocaleString()}` : `$${numericAmount.toLocaleString()}`;
   };
 
   return (
@@ -290,7 +288,9 @@ const HomeScreen = ({ route, navigation }) => {
               <>
                 <Text style={styles.modalTitle}>{selectedTransaction.name}</Text>
                 <Text style={styles.modalText}>Date: {selectedTransaction.date}</Text>
-                <Text style={styles.modalText}>Amount: {selectedTransaction.amount}</Text>
+                <Text style={styles.modalText}>
+                  Amount: {formatTransactionAmount(selectedTransaction.amount, selectedTransaction.type)}
+                </Text>
                 <View style={styles.statusContainer}>
                   {selectedTransaction.status === "completed" ? (
                     <Ionicons name="checkmark-circle" size={40} color="green" />
