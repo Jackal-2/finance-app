@@ -1,20 +1,23 @@
+// BankAccountScreen.js
+
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet, ScrollView } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper'; // Import Paper components for UI
+
 
 // Sample bank account data (this would usually come from an API)
 let existingBankAccounts = [
     { id: 1, accountNumber: '1234-5678-9876', routingNumber: '111000025', type: 'Checking' },
 ];
 
-const BankAccountsPage = () => {
+const BankAccountScreen = () => {
+    const { setLinkedBankAccount } = useBankAccount(); // Access the context function to set linked bank account
     const [accountNumber, setAccountNumber] = useState('');
     const [routingNumber, setRoutingNumber] = useState('');
-    const [accountType, setAccountType] = useState(''); // User will manually type "Checking" or "Savings"
+    const [accountType, setAccountType] = useState('');
     const [isLinking, setIsLinking] = useState(false);
-    const [accountLinked, setAccountLinked] = useState(false); // Track if account is already linked
+    const [accountLinked, setAccountLinked] = useState(false);
 
-    // Simulated API call for linking the bank account
     const linkBankAccount = async () => {
         if (!accountNumber || !routingNumber || !accountType) {
             Alert.alert('Error', 'Please provide account number, routing number, and account type.');
@@ -28,10 +31,17 @@ const BankAccountsPage = () => {
 
         setIsLinking(true);
         try {
-            // Simulating an API call (this would be an actual call to your backend or third-party service)
+            // Simulate network request delay
             setTimeout(() => {
                 existingBankAccounts.push({
                     id: existingBankAccounts.length + 1,
+                    accountNumber,
+                    routingNumber,
+                    type: accountType,
+                });
+
+                // Set the linked account in the context
+                setLinkedBankAccount({
                     accountNumber,
                     routingNumber,
                     type: accountType,
@@ -42,8 +52,8 @@ const BankAccountsPage = () => {
                 setRoutingNumber('');
                 setAccountType('');
                 setIsLinking(false);
-                setAccountLinked(true); // Mark as linked once successful
-            }, 2000); // Simulating a network request delay
+                setAccountLinked(true);
+            }, 2000);
         } catch (error) {
             setIsLinking(false);
             Alert.alert('Error', 'Failed to link bank account. Please try again.');
@@ -52,7 +62,7 @@ const BankAccountsPage = () => {
 
     return (
         <ScrollView style={styles.container}>
-            {/* Display existing linked bank accounts */}
+            {/* Display linked bank accounts */}
             <View style={styles.accountsList}>
                 <Text style={styles.linkedTitle}>Linked Accounts</Text>
                 {existingBankAccounts.length > 0 ? (
@@ -70,10 +80,9 @@ const BankAccountsPage = () => {
                 )}
             </View>
 
-            {/* Link an external bank account */}
+            {/* Link External Bank Account Section */}
             <View style={styles.sectionContainer}>
                 <Text style={styles.subtitle}>Link External Bank Account</Text>
-
                 <TextInput
                     style={styles.input}
                     placeholder="Enter account number"
@@ -81,7 +90,6 @@ const BankAccountsPage = () => {
                     value={accountNumber}
                     onChangeText={setAccountNumber}
                 />
-
                 <TextInput
                     style={styles.input}
                     placeholder="Enter routing number"
@@ -107,7 +115,7 @@ const BankAccountsPage = () => {
                 <Button
                     title={isLinking ? 'Linking...' : 'Link Bank Account'}
                     onPress={linkBankAccount}
-                    disabled={isLinking || accountLinked} // Disable if linking or account already linked
+                    disabled={isLinking || accountLinked}
                     color="black"
                 />
             </View>
@@ -121,13 +129,6 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: 'white',
         paddingTop: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 20,
-        color: '#fff',
     },
     subtitle: {
         fontSize: 18,
@@ -146,11 +147,10 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 15,
         borderRadius: 5,
-        color: '#fff',
     },
     accountsList: {
         marginBottom: 30,
-        paddingTop: "60"
+        paddingTop: '60',
     },
     card: {
         marginBottom: 15,
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
     },
     sectionContainer: {
-        marginBottom: 25, // Adds space between each section (inputs, picker, button)
+        marginBottom: 25,
     },
     buttonContainer: {
         marginTop: 20,
@@ -181,4 +181,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default BankAccountsPage;
+export default BankAccountScreen; // Make sure to export the component as default

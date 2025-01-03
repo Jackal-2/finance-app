@@ -52,7 +52,7 @@ const SettingsScreen = ({ navigation }) => {
         <MaterialIcons name="payment" size={24} color="white" />
         <Text style={styles.optionText}>Payment Methods</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.optionItem} onPress={() => navigation.navigate('')}>
+      <TouchableOpacity style={styles.optionItem} onPress={() => navigation.navigate('Transfer')}>
         <MaterialIcons name="compare-arrows" size={24} color="white" />
         <Text style={styles.optionText}>Transfer</Text>
       </TouchableOpacity>
