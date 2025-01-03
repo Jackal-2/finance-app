@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { DatePickerModal } from 'react-native-paper-dates'; // Ensure this library is correctly installed
 import { format } from 'date-fns';
 
@@ -52,7 +52,7 @@ const SignUpScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.header}>Sign Up</Text>
 
       <TextInput
@@ -131,13 +131,13 @@ const SignUpScreen = () => {
         onPress={handleSignUp}
         color="#266A61" 
       />
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     padding: 20,
     justifyContent: 'center',
     backgroundColor: '#0F0F0F', 
@@ -161,8 +161,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 10,
-    fontWeight: '600',
-    color: '#266A61', 
+    fontWeight: '600', 
   },
   datePicker: {
     flex: 1, 

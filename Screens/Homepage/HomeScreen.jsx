@@ -7,21 +7,31 @@ import CustomButton from "../../components/CustomButton";
 const { width, height } = Dimensions.get('window'); // Get screen width and height
 
 const HomeScreen = ({ route, navigation }) => {
-  // Define the initial transaction data
+  // Define the initial transaction data with a type field
   const [transactionData, setTransactionData] = useState([
-    { id: 1, source: require("../../assets/peak3.jpg"), name: "Wendy", date: "21/12/2024", amount: "$1,850.98", status: "completed" },
-    { id: 2, source: require("../../assets/peak2.jpg"), name: "Denise", date: "18/12/24", amount: "$2,400.98", status: "completed" },
-    { id: 3, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/11/24", amount: "$100.67", status: "completed" },
-    { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/12/24", amount: "$800.78", status: "completed" },
-    { id: 5, source: require("../../assets/peak.jpg"), name: "Estaban", date: "22/11/24", amount: "$50.12", status: "completed" },
-    { id: 6, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/09/24", amount: "$390.31", status: "completed" },
-    { id: 7, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/90/24", amount: "$0", status: "failed" },
+    { id: 1, source: require("../../assets/peak3.jpg"), name: "Wendy", date: "21/12/2024", amount: "$1,850.98", status: "completed", type: "received" },
+    { id: 2, source: require("../../assets/peak2.jpg"), name: "Denise", date: "18/12/24", amount: "$2,400.98", status: "completed", type: "sent" },
+    { id: 3, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/11/24", amount: "$100.67", status: "completed", type: "received" },
+    { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/12/24", amount: "$800.78", status: "completed", type: "sent" },
+    { id: 5, source: require("../../assets/peak.jpg"), name: "Estaban", date: "22/11/24", amount: "$50.12", status: "completed", type: "received" },
+    { id: 6, source: require("../../assets/peak4.jpg"), name: "Thugger", date: "01/09/24", amount: "$390.31", status: "completed", type: "sent" },
+    { id: 7, source: require("../../assets/peak1.jpg"), name: "Pablo", date: "31/90/24", amount: "$0", status: "failed", type: "received" },
   ]);
 
   const [totalBalance, setTotalBalance] = useState(12739.58); // Set initial total balance
   const [isBalanceVisible, setIsBalanceVisible] = useState(true); // State to toggle visibility of total balance
   const [isModalVisible, setIsModalVisible] = useState(false); // State to toggle modal visibility
   const [selectedTransaction, setSelectedTransaction] = useState(null); // Store selected transaction
+
+  // Define imagesData here
+  const imagesData = [
+    { id: 1, source: require("../../assets/peak3.jpg"), name: "Wendy", navigateTo: "Send" },
+    { id: 2, source: require("../../assets/peak2.jpg"), name: "Denise", navigateTo: "Send" },
+    { id: 3, source: require("../../assets/peak1.jpg"), name: "Pablo", navigateTo: "Send" },
+    { id: 4, source: require("../../assets/peak4.jpg"), name: "Thugger", navigateTo: "Send" },
+    { id: 5, source: require("../../assets/peak.jpg"), name: "Estaban", navigateTo: "Send" },
+    
+  ];
 
   // Function to format the number with commas
   const formatBalance = (amount) => {
@@ -40,40 +50,6 @@ const HomeScreen = ({ route, navigation }) => {
     }
   }, [route.params?.newTransaction, route.params?.updatedBalance]); // Run when newTransaction or updatedBalance is updated in route.params
 
-  // Define quick send contacts
-  const imagesData = [
-    {
-      id: 1,
-      source: require("../../assets/peak3.jpg"),
-      name: "Wendy",
-      navigateTo: "Send",
-    },
-    {
-      id: 2,
-      source: require("../../assets/peak2.jpg"),
-      name: "Denise",
-      navigateTo: "Send",
-    },
-    {
-      id: 3,
-      source: require("../../assets/peak1.jpg"),
-      name: "Pablo",
-      navigateTo: "Send",
-    },
-    {
-      id: 4,
-      source: require("../../assets/peak4.jpg"),
-      name: "Thugger",
-      navigateTo: "Send",
-    },
-    {
-      id: 5,
-      source: require("../../assets/peak.jpg"),
-      name: "Estaban",
-      navigateTo: "Send",
-    },
-  ];
-
   // Function to handle the opening of the modal with transaction details
   const handleTransactionPress = (transaction) => {
     setSelectedTransaction(transaction);
@@ -91,6 +67,14 @@ const HomeScreen = ({ route, navigation }) => {
 
   const toggleBalanceVisibility = () => {
     setIsBalanceVisible(prevState => !prevState); // Toggle the visibility
+  };
+
+  // Function to format the amount with a negative sign for sent transactions
+  const formatTransactionAmount = (amount, type) => {
+    if (type === "sent") {
+      return `-${amount}`;
+    }
+    return amount;
   };
 
   return (
@@ -190,7 +174,7 @@ const HomeScreen = ({ route, navigation }) => {
               fontSize: width * 0.04,
               fontWeight: "bold",
             }}
-            onPress={() => navigation.navigate('Contacts', { imagesData })} // Navigate to AllContactsScreen
+            onPress={() => navigation.navigate('Contacts', { imagesData })} // Pass imagesData when navigating to Contacts
           />
         </View>
       </View>
@@ -270,7 +254,7 @@ const HomeScreen = ({ route, navigation }) => {
               <View
                 style={{
                   height: 100,
-                  width:"430",
+                  width: 430,
                   borderRadius: 12,
                   marginTop: 10,
                   flexDirection: "row",
@@ -285,7 +269,7 @@ const HomeScreen = ({ route, navigation }) => {
                   <Text style={{ color: "#979ea8", fontSize: width * 0.04, marginTop: 5 }}>{transaction.date}</Text>
                 </View>
                 <Text style={{ position: "absolute", right: 10, fontSize: width * 0.04, color: "#979ea8" }}>
-                  {transaction.amount}
+                  {formatTransactionAmount(transaction.amount, transaction.type)}
                 </Text>
               </View>
             </TouchableOpacity>

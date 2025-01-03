@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Provider as PaperProvider } from "react-native-paper";
 import HomeScreen from "./Screens/Homepage/HomeScreen";
 import SettingsScreen from "./Screens/Settings/SettingsScreen";
-import SendMoneyScreen from "./Screens/Homepage/SendMoneyScreen";
+import SendMoneyScreen from "./Screens/Send/SendMoneyScreen";
 import AllContactsScreen from "./Screens/Contacts/AllContactsScreen";
 import NotificationsScreen from "./Screens/Homepage/NotificationsScreen";
 import PersonalDetailsScreen from "./Screens/Settings/PersonalDetailsScreen";
@@ -15,6 +15,7 @@ import NewContactScreen from "./Screens/Contacts/NewContactScreen";
 import SignUpScreen from "./Screens/Auth/SignUpScreen";
 import ForgotPasswordScreen from "./Screens/Auth/ForgotPasswordScreen";
 import RequestMoneyScreen from "./Screens/Homepage/RequestScreen";
+import TransferScreen from "./Screens/Settings/TransferScreen";
 
 
 const Stack = createStackNavigator();
@@ -42,6 +43,7 @@ const App = () => {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
           <Stack.Screen name="Request" component={RequestMoneyScreen} />
+          <Stack.Screen name="Transfer" component={TransferScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>

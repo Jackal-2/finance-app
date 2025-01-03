@@ -71,7 +71,7 @@ const SecurityScreen = () => {
             <LinearGradient colors={['#266A61', '#0F0F0F']} style={styles.gradientContainer}>
                 <BlurView intensity={50} style={styles.blurContainer}>
                     <View style={styles.topSection}>
-                        <Text style={styles.title}>Security Settings</Text>
+                        <Text style={styles.title}>Security</Text>
                     </View>
                 </BlurView>
             </LinearGradient>
