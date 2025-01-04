@@ -147,7 +147,7 @@ const BankAccountsPage = () => {
             onPress={linkBankAccount}
             disabled={isLinking || accountLinked}
           >
-            <Text style={{ color: "#266A61", fontSize: 24, fontWeight: "700" }}>
+            <Text style={{ color: "#266A61", fontSize: 24, }}>
               {isLinking ? "Linking..." : "Link Bank Account"}
             </Text>
           </TouchableOpacity>
