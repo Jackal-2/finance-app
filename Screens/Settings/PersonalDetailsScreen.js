@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  ScrollView,
   Dimensions,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
