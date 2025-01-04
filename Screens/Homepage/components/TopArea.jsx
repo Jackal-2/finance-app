@@ -49,7 +49,7 @@ const TopArea = ({
           }}
         >
           <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-            <Ionicons name="options" size={25} color="white" />
+            <Ionicons name="options" size={30} color="white" />
           </TouchableOpacity>
           <View>
             <Text style={{ color: "#979ea8", fontSize: 19 }}>Good Morning</Text>
