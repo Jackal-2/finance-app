@@ -54,10 +54,11 @@ const ForgotPasswordScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0F0F0F', 
+    backgroundColor: '#0F0F0F',
+    padding: 20, 
   },
 
   header: {
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: '#fff', 
     width: '100%',
+    backgroundColor: '#333',
   },
 
   descriptionText: {

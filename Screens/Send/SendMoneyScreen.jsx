@@ -45,8 +45,14 @@ const SendMoneyScreen = () => {
     if (value === "DEL") {
       setAmount((prevAmount) => prevAmount.slice(0, -1) || "0");
     } else {
-      // Otherwise, append the value to the amount, or set as the first digit
-      setAmount((prevAmount) => (prevAmount === "0" ? value : prevAmount + value));
+      // If value is the decimal point, handle it carefully
+      if (value === "." && !amount.includes(".")) {
+        // Prevent more than one decimal point
+        setAmount((prevAmount) => (prevAmount === "0" ? "0." : prevAmount + "."));
+      } else if (value !== ".") {
+        // Otherwise, append the number
+        setAmount((prevAmount) => (prevAmount === "0" ? value : prevAmount + value));
+      }
     }
   };
 
@@ -147,7 +153,6 @@ const SendMoneyScreen = () => {
           <Text style={styles.cancelButtonText}>x</Text>
         </TouchableOpacity>
       </View>
-
 
       <View style={styles.secondBar}>
         <Animated.View

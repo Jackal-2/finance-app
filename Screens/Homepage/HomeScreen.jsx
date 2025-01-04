@@ -19,7 +19,7 @@ const HomeScreen = ({ route, navigation }) => {
   ]);
 
   const [totalBalance, setTotalBalance] = useState(12739.58); // Set initial total balance
-  const [isBalanceVisible, setIsBalanceVisible] = useState(true); // State to toggle visibility of total balance
+  const [isBalanceVisible, setIsBalanceVisible] = useState(false); // Initially, the balance is hidden
   const [isModalVisible, setIsModalVisible] = useState(false); // State to toggle modal visibility
   const [selectedTransaction, setSelectedTransaction] = useState(null); // Store selected transaction
 
@@ -64,6 +64,7 @@ const HomeScreen = ({ route, navigation }) => {
     setSelectedTransaction(null); // Clear the selected transaction when modal is closed
   };
 
+  // Toggle visibility of the total balance
   const toggleBalanceVisibility = () => {
     setIsBalanceVisible(prevState => !prevState); // Toggle the visibility
   };
@@ -92,7 +93,7 @@ const HomeScreen = ({ route, navigation }) => {
             alignItems: "center",
             justifyContent: "space-between",
             marginHorizontal: 20,
-            marginBottom: 10,
+            marginBottom: 40,
           }}
         >
           <View
@@ -172,7 +173,7 @@ const HomeScreen = ({ route, navigation }) => {
               fontSize: width * 0.04,
               fontWeight: "bold",
             }}
-            onPress={() => navigation.navigate('Contacts', { imagesData })} // Pass imagesData when navigating to Contacts
+            onPress={() => navigation.navigate('Contacts', { imagesData })} 
           />
         </View>
       </View>
@@ -259,6 +260,7 @@ const HomeScreen = ({ route, navigation }) => {
                   alignItems: "center",
                   paddingLeft: 15,
                   position: "relative",
+                  
                 }}
               >
                 <Image style={{ height: 100, width: 100, borderRadius: 20 }} source={transaction.source} />
@@ -266,7 +268,7 @@ const HomeScreen = ({ route, navigation }) => {
                   <Text style={{ color: "#dce0e6", fontSize: width * 0.05 }}>{transaction.name}</Text>
                   <Text style={{ color: "#979ea8", fontSize: width * 0.04, marginTop: 5 }}>{transaction.date}</Text>
                 </View>
-                <Text style={{ position: "absolute", right: 10, fontSize: width * 0.04, color: "#979ea8" }}>
+                <Text style={{ position: "absolute", right: 10, fontSize: width * 0.04, color: transaction.type === "sent" ? "#979ea8" : "#dce0e6", }}>
                   {formatTransactionAmount(transaction.amount, transaction.type)}
                 </Text>
               </View>
