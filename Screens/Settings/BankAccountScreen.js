@@ -83,7 +83,7 @@ const BankAccountsPage = () => {
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <ChevronLeft color="white" size={30} />
             </TouchableOpacity>
-            <Text style={styles.topTitle}>Personal Details</Text>
+            <Text style={styles.topTitle}>Payment Methods</Text>
           </View>
         </BlurView>
       </LinearGradient>

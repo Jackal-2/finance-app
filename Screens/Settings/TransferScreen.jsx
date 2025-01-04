@@ -1,6 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import { Picker } from "@react-native-picker/picker"; // Make sure Picker is imported
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Dimensions,
+} from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import { LinearGradient } from "expo-linear-gradient";
+import { BlurView } from "expo-blur";
+import { ChevronLeft } from "lucide-react-native";
+
+const { width, height } = Dimensions.get("window");
 
 const TransferScreen = () => {
   // States to handle transfer logic
@@ -62,79 +75,102 @@ const TransferScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Transfer to My Account</Text>
+      <LinearGradient
+        colors={["#266A61", "#0F0F0F"]}
+        style={styles.gradientContainer}
+      >
+        <BlurView intensity={50} style={styles.blurContainer}>
+          <View style={styles.topSection}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <ChevronLeft color="white" size={30} />
+            </TouchableOpacity>
+            <Text style={styles.title}>Transfer to My Account</Text>
+          </View>
+        </BlurView>
+      </LinearGradient>
+      {/* <Text style={styles.header}>Transfer to My Account</Text> */}
 
-      {/* From Bank Selection */}
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>From</Text>
+      <View style={{ paddingHorizontal: 15, marginTop: 25 }}>
+        {/* From Bank Selection */}
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>From</Text>
 
-        {/* Tapping on this TextInput activates the Picker */}
+          {/* Tapping on this TextInput activates the Picker */}
+          <TouchableOpacity
+            onPress={() => setIsPickerVisible(true)} // Show the Picker on tap
+            style={styles.pickerContainer}
+          >
+            <Text style={styles.selectedBankText}>
+              {selectedBank ? selectedBank : "Select a Bank"}{" "}
+              {/* Show selected bank or placeholder */}
+            </Text>
+          </TouchableOpacity>
+
+          {/* Conditional Rendering of Picker Dropdown */}
+          {isPickerVisible && (
+            <View style={{ height: 150 }}>
+              <Picker
+                selectedValue={selectedBank}
+                style={styles.picker}
+                onValueChange={(itemValue) => {
+                  setSelectedBank(itemValue); // Update the selected bank
+                  setIsPickerVisible(false); // Hide the picker after selection
+                }}
+              >
+                <Picker.Item label="Select a Bank" value="" />
+                {linkedBanks.map((bank) => (
+                  <Picker.Item
+                    key={bank.id}
+                    label={`${bank.name} - **** **** **** ${getLastFourDigits(
+                      bank.accountNumber
+                    )}`}
+                    value={bank.name}
+                    style={styles.pickerItem} // Ensuring white text for the dropdown items
+                  />
+                ))}
+              </Picker>
+            </View>
+          )}
+        </View>
+
+        {/* Amount to Transfer */}
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Amount to Transfer</Text>
+          <View style={styles.inputWithDollar}>
+            <Text style={styles.dollarSign}>$</Text>
+            <TextInput
+              style={styles.input}
+              value={amount}
+              onChangeText={handleAmountChange} // Using custom function for amount input
+              placeholder="Enter amount"
+              placeholderTextColor="#aaa"
+              keyboardType="numeric"
+            />
+          </View>
+        </View>
+
         <TouchableOpacity
-          onPress={() => setIsPickerVisible(true)} // Show the Picker on tap
-          style={styles.pickerContainer}
+          style={styles.transferButton}
+          onPress={handleTransfer}
         >
-          <Text style={styles.selectedBankText}>
-            {selectedBank ? selectedBank : "Select a Bank"} {/* Show selected bank or placeholder */}
-          </Text>
+          <Text style={styles.buttonText}>Transfer</Text>
         </TouchableOpacity>
 
-        {/* Conditional Rendering of Picker Dropdown */}
-        {isPickerVisible && (
-          <View style={{ height: 150 }}>
-            <Picker
-              selectedValue={selectedBank}
-              style={styles.picker}
-              onValueChange={(itemValue) => {
-                setSelectedBank(itemValue); // Update the selected bank
-                setIsPickerVisible(false); // Hide the picker after selection
+        {isTransferSuccessful !== null && (
+          <View style={styles.statusMessage}>
+            <Text
+              style={{
+                color: isTransferSuccessful ? "green" : "red",
+                fontWeight: "bold",
               }}
             >
-              <Picker.Item label="Select a Bank" value="" />
-              {linkedBanks.map((bank) => (
-                <Picker.Item
-                  key={bank.id}
-                  label={`${bank.name} - **** **** **** ${getLastFourDigits(bank.accountNumber)}`}
-                  value={bank.name}
-                  style={styles.pickerItem} // Ensuring white text for the dropdown items
-                />
-              ))}
-            </Picker>
+              {isTransferSuccessful
+                ? "Transfer Successful!"
+                : "Transfer Failed"}
+            </Text>
           </View>
         )}
       </View>
-
-      {/* Amount to Transfer */}
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Amount to Transfer</Text>
-        <View style={styles.inputWithDollar}>
-          <Text style={styles.dollarSign}>$</Text>
-          <TextInput
-            style={styles.input}
-            value={amount}
-            onChangeText={handleAmountChange} // Using custom function for amount input
-            placeholder="Enter amount"
-            placeholderTextColor="#aaa"
-            keyboardType="numeric"
-          />
-        </View>
-      </View>
-
-      <TouchableOpacity style={styles.transferButton} onPress={handleTransfer}>
-        <Text style={styles.buttonText}>Transfer</Text>
-      </TouchableOpacity>
-
-      {isTransferSuccessful !== null && (
-        <View style={styles.statusMessage}>
-          <Text
-            style={{
-              color: isTransferSuccessful ? "green" : "red",
-              fontWeight: "bold",
-            }}
-          >
-            {isTransferSuccessful ? "Transfer Successful!" : "Transfer Failed"}
-          </Text>
-        </View>
-      )}
     </View>
   );
 };
@@ -143,8 +179,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#0F0F0F", // Dark background color
+
+    // paddingHorizontal: 20,
+  },
+  gradientContainer: {
+    height: "14%",
     justifyContent: "center",
-    paddingHorizontal: 20,
+    alignItems: "center",
+  },
+  blurContainer: {
+    flex: 1,
+    justifyContent: "flex-start",
+    width: "100%",
+    paddingTop: height * 0.07,
+  },
+  topSection: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 10,
+  },
+  title: {
+    fontSize: width * 0.07,
+    color: "#fff",
+    fontWeight: "bold",
+    paddingLeft: width * 0.03,
   },
   header: {
     fontSize: 28,
@@ -155,7 +213,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 20,
-
   },
   label: {
     color: "#fff",

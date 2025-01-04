@@ -49,77 +49,81 @@ const PersonalDetailsScreen = ({ navigation }) => {
           </View>
         </BlurView>
       </LinearGradient>
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Name</Text>
-        <Text style={styles.value}>{name}</Text>
-      </View>
-
-      <View style={styles.inputGroup}>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.label}>Email</Text>
-          <Text style={styles.verified}>verified</Text>
-          <Ionicons name="checkmark-circle" size={15} color="green" />
-        </View>
-        {isEditingEmail ? (
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            placeholder="Enter your email"
-            placeholderTextColor="#B0B0B0"
-            autoFocus={true}
-          />
-        ) : (
-          <Text style={styles.value}>{email}</Text>
-        )}
-        <TouchableOpacity onPress={() => setIsEditingEmail(!isEditingEmail)}>
-          <Text style={styles.editButton}>
-            {isEditingEmail ? "Cancel" : "Edit"}
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.inputGroup}>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.label}>Phone Number</Text>
-          <Text style={styles.verified}>verified</Text>
-          <Ionicons name="checkmark-circle" size={15} color="green" />
+      <View style={{ paddingHorizontal: width * 0.025 }}>
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Name</Text>
+          <Text style={styles.value}>{name}</Text>
         </View>
 
-        {isEditingPhone ? (
-          <TextInput
-            style={styles.input}
-            value={phone}
-            onChangeText={setPhone}
-            keyboardType="phone-pad"
-            placeholder="Enter your phone number"
-            placeholderTextColor="#B0B0B0"
-            autoFocus={true}
-          />
-        ) : (
-          <Text style={styles.value}>{phone}</Text>
+        <View style={styles.inputGroup}>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={styles.label}>Email</Text>
+            <Text style={styles.verified}>verified</Text>
+            <Ionicons name="checkmark-circle" size={15} color="green" />
+          </View>
+          {isEditingEmail ? (
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              placeholder="Enter your email"
+              placeholderTextColor="#B0B0B0"
+              autoFocus={true}
+            />
+          ) : (
+            <Text style={styles.value}>{email}</Text>
+          )}
+          <TouchableOpacity onPress={() => setIsEditingEmail(!isEditingEmail)}>
+            <Text style={styles.editButton}>
+              {isEditingEmail ? "Cancel" : "Edit"}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.inputGroup}>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={styles.label}>Phone Number</Text>
+            <Text style={styles.verified}>verified</Text>
+            <Ionicons name="checkmark-circle" size={15} color="green" />
+          </View>
+
+          {isEditingPhone ? (
+            <TextInput
+              style={styles.input}
+              value={phone}
+              onChangeText={setPhone}
+              keyboardType="phone-pad"
+              placeholder="Enter your phone number"
+              placeholderTextColor="#B0B0B0"
+              autoFocus={true}
+            />
+          ) : (
+            <Text style={styles.value}>{phone}</Text>
+          )}
+          <TouchableOpacity onPress={() => setIsEditingPhone(!isEditingPhone)}>
+            <Text style={styles.editButton}>
+              {isEditingPhone ? "Cancel" : "Edit"}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Date of Birth */}
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Date of Birth</Text>
+          <Text style={styles.value}>{dob}</Text>
+        </View>
+
+        {/* Save Button */}
+        {(isEditingName ||
+          isEditingEmail ||
+          isEditingDob ||
+          isEditingPhone) && (
+          <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+            <Text style={styles.saveButtonText}>Save Changes</Text>
+          </TouchableOpacity>
         )}
-        <TouchableOpacity onPress={() => setIsEditingPhone(!isEditingPhone)}>
-          <Text style={styles.editButton}>
-            {isEditingPhone ? "Cancel" : "Edit"}
-          </Text>
-        </TouchableOpacity>
       </View>
-
-      {/* Date of Birth */}
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Date of Birth</Text>
-        <Text style={styles.value}>{dob}</Text>
-      </View>
-
-      {/* Save Button */}
-      {(isEditingName || isEditingEmail || isEditingDob || isEditingPhone) && (
-        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.saveButtonText}>Save Changes</Text>
-        </TouchableOpacity>
-      )}
     </View>
   );
 };
