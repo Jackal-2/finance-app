@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');  // Keep message state outside any conditional render logic
+  const [emailError, setEmailError] = useState(''); // New state for email error message
 
   const handleResetPassword = () => {
     // Simple email validation
     const emailRegex = /\S+@\S+\.\S+/;
+    
+    // Clear the error first to prevent lingering error messages
+    setEmailError('');
+
     if (!email || !emailRegex.test(email)) {
-      Alert.alert('Error', 'Please enter a valid email address.');
+      setEmailError('Please enter a valid email address.'); // Set email error if invalid
       return;
     }
 
@@ -25,7 +30,7 @@ const ForgotPasswordScreen = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.header}>Forgot Password</Text>
 
       <Text style={styles.descriptionText}>
@@ -41,6 +46,10 @@ const ForgotPasswordScreen = () => {
         onChangeText={setEmail}
         keyboardType="email-address"
       />
+      
+      {/* Always render the error message in the same place */}
+      {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+
       <Text style={styles.messageText}>{message}</Text>
 
       <Button
@@ -48,7 +57,7 @@ const ForgotPasswordScreen = () => {
         onPress={handleResetPassword}
         color="#266A61" 
       />
-    </ScrollView>
+    </View>
   );
 };
 
@@ -92,6 +101,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     marginBottom: 20,
+    textAlign: 'center',
+  },
+
+  // Error message styling
+  errorText: {
+    color: 'white', // White color for error message
+    fontSize: 10,
+    marginBottom: 10,
     textAlign: 'center',
   },
 });

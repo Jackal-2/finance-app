@@ -23,22 +23,42 @@ const SignUpScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState(""); // New state for confirm password
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
 
+  // Regular expressions for validation
+  const nameRegex = /^[A-Za-z-]*$/;  // Only letters and hyphens for names
+  const emailRegex = /\S+@\S+\.\S+/; // Email validation
+  const phoneRegex = /^[0-9]{10}$/; // Phone number with exactly 10 digits
+
   const handleSignUp = () => {
     // Validate fields
-    if (
-      !firstName ||
-      !lastName ||
-      !dob ||
-      !email ||
-      !phone ||
-      !username ||
-      !password ||
-      !confirmPassword
-    ) {
+    if (!firstName || !lastName || !dob || !email || !phone || !username || !password || !confirmPassword) {
       Alert.alert("Error", "Please fill in all fields");
       return;
     }
 
+    // First and last name validation
+    if (!nameRegex.test(firstName)) {
+      Alert.alert("Error", "First name can only contain letters and hyphens.");
+      return;
+    }
+
+    if (!nameRegex.test(lastName)) {
+      Alert.alert("Error", "Last name can only contain letters and hyphens.");
+      return;
+    }
+
+    // Email validation
+    if (!emailRegex.test(email)) {
+      Alert.alert("Error", "Please enter a valid email address.");
+      return;
+    }
+
+    // Phone number validation
+    if (!phoneRegex.test(phone)) {
+      Alert.alert("Error", "Phone number must be 10 digits.");
+      return;
+    }
+
+    // Password and confirm password check
     if (password !== confirmPassword) {
       Alert.alert("Error", "Passwords do not match");
       return;
@@ -68,6 +88,24 @@ const SignUpScreen = () => {
     }
   };
 
+  // Prevent numbers and non-letter characters in First and Last Name fields
+  const handleNameChange = (setter) => (text) => {
+    if (nameRegex.test(text)) {
+      setter(text);
+    }
+  };
+
+  // Function to handle phone number input (only numeric and max 10 digits)
+  const handlePhoneChange = (text) => {
+    // Remove any non-numeric characters
+    const numericText = text.replace(/[^0-9]/g, "");
+    
+    // Only allow up to 10 digits
+    if (numericText.length <= 10) {
+      setPhone(numericText);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Sign Up</Text>
@@ -77,14 +115,14 @@ const SignUpScreen = () => {
         placeholder="First Name"
         placeholderTextColor="#ccc"
         value={firstName}
-        onChangeText={setFirstName}
+        onChangeText={handleNameChange(setFirstName)} // Use custom handler to validate input
       />
       <TextInput
         style={styles.input}
         placeholder="Last Name"
         placeholderTextColor="#ccc"
         value={lastName}
-        onChangeText={setLastName}
+        onChangeText={handleNameChange(setLastName)} // Use custom handler to validate input
       />
 
       {/* Date of Birth Section */}
@@ -121,7 +159,7 @@ const SignUpScreen = () => {
         placeholderTextColor="#ccc"
         keyboardType="phone-pad"
         value={phone}
-        onChangeText={setPhone}
+        onChangeText={handlePhoneChange} // Use the custom handler for phone number
       />
       <TextInput
         style={styles.input}

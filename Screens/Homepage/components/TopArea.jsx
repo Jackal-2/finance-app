@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: width * 0.4,
+    marginBottom: 3
   },
   whiteButtonText: {
     color: "black",

@@ -85,7 +85,7 @@ const SettingsScreen = ({ navigation }) => {
 
       <View style={styles.logOutContainer}>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={{ color: "red", fontSize: 24, fontWeight: "700" }}>
+          <Text style={{ color: "red", fontSize: 20, }}>
             Log Out
           </Text>
         </TouchableOpacity>

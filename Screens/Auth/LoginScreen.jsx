@@ -12,14 +12,27 @@ import { useNavigation } from "@react-navigation/native"; // Import useNavigatio
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState(""); // To track email validation error
 
-  // Access the navigation prop using the useNavigation hook
+  // Ensure that useNavigation is always called at the top level
   const navigation = useNavigation();
 
+  // Regular expression for basic email validation (contains "@" and domain)
+  const validateEmail = (email) => {
+    const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    return regex.test(email);
+  };
+
   const handleLogin = () => {
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address (e.g., user@domain.com).");
+      return; // Prevent login if email is invalid
+    }
+
+    setEmailError(""); // Reset error if email is valid
     console.log("Logging in with:", email, password);
-    // You can navigate to another screen after login here if needed
-    // Example: navigation.navigate('Home');
+    // Navigate to home or desired screen after login
+    navigation.navigate("Home");  // Example navigation to 'Home'
   };
 
   return (
@@ -27,6 +40,7 @@ const LoginScreen = () => {
       <StatusBar barStyle="light-content" backgroundColor="#000" />
       <Text style={styles.title}>Login</Text>
 
+      {/* Email input */}
       <TextInput
         style={styles.input}
         placeholder="Enter your email"
@@ -34,7 +48,10 @@ const LoginScreen = () => {
         value={email}
         onChangeText={setEmail}
       />
+      {/* Display error message for invalid email */}
+      {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
 
+      {/* Password input */}
       <TextInput
         style={styles.input}
         placeholder="Enter your password"
@@ -63,6 +80,7 @@ const LoginScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
+
       <View
         style={{
           display: "flex",
@@ -130,6 +148,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     textDecorationLine: "underline",
+  },
+  errorText: {
+    color: "white",
+    fontSize: 14,
+    marginBottom: 10,
   },
 });
 

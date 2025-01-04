@@ -7,22 +7,27 @@ import {
   StyleSheet,
   Alert,
   Dimensions,
+  Modal,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 import { ChevronLeft } from "lucide-react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome"; // Icon library
 
 const { width, height } = Dimensions.get("window");
 
 const TransferScreen = () => {
   // States to handle transfer logic
-  const [amount, setAmount] = useState("");
-  const [selectedBank, setSelectedBank] = useState(""); // State for selected bank
-  const [isTransferSuccessful, setIsTransferSuccessful] = useState(null);
-  const [isPickerVisible, setIsPickerVisible] = useState(false); // State to toggle picker visibility
+  const [amount, setAmount] = useState(""); // Amount entered by the user
+  const [selectedBank, setSelectedBank] = useState(""); // Selected bank
+  const [isTransferSuccessful, setIsTransferSuccessful] = useState(null); // Transfer success or failure
+  const [isPickerVisible, setIsPickerVisible] = useState(false); // Toggle for bank picker visibility
+  const [isModalVisible, setIsModalVisible] = useState(false); // Modal visibility for showing success transfer details
 
-  // List of linked banks (static list for demonstration), each bank now has a full account number
+  // List of linked banks (with dummy data for demonstration)
   const linkedBanks = [
     { id: 1, name: "Bank of America", accountNumber: "1234567890123456" },
     { id: 2, name: "Chase Bank", accountNumber: "9876543210987654" },
@@ -33,23 +38,29 @@ const TransferScreen = () => {
 
   // Function to get the last four digits of the account number
   const getLastFourDigits = (accountNumber) => {
-    return accountNumber.slice(-4); // Get last 4 digits
+    return accountNumber.slice(-4);
   };
 
   // Function to handle the transfer action
   const handleTransfer = () => {
+    Keyboard.dismiss(); // Dismiss the keyboard when the transfer is initiated
+
     if (!selectedBank) {
       Alert.alert("Select a Bank", "Please select a bank to transfer from.");
       return;
     }
-    if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+
+    // Remove commas for validation
+    const rawAmount = amount.replace(/,/g, "");
+
+    if (!rawAmount || isNaN(rawAmount) || parseFloat(rawAmount) <= 0) {
       Alert.alert("Invalid Amount", "Please enter a valid amount to transfer.");
       return;
     }
 
-    // Here, you could connect to a real API or handle the transfer logic.
-    // For now, we'll just simulate a successful transfer.
+    // Simulate a successful transfer
     setIsTransferSuccessful(true);
+    setIsModalVisible(true);  // Show the modal after successful transfer
   };
 
   // Function to handle amount input with formatting
@@ -57,14 +68,13 @@ const TransferScreen = () => {
     // Remove all non-numeric characters except the dot
     let numericValue = text.replace(/[^0-9.]/g, "");
 
-    // Check if the value is valid and then format it with commas
     if (numericValue === "") {
       setAmount(""); // Clear the input if the field is empty
     } else {
       // Format the value with commas for thousands, millions, etc.
       let formattedValue = parseFloat(numericValue).toLocaleString();
 
-      // Ensure the value does not exceed 1 million
+      // Ensure the value doesn't exceed 1 million
       if (parseFloat(numericValue) > 1000000) {
         formattedValue = "1,000,000";
       }
@@ -73,114 +83,136 @@ const TransferScreen = () => {
     }
   };
 
+  // Function to handle closing of the modal and resetting fields
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    setIsTransferSuccessful(null); // Reset the transfer success flag
+    setAmount(""); // Reset the amount field
+    setSelectedBank(""); // Reset the selected bank
+  };
+
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        colors={["#266A61", "#0F0F0F"]}
-        style={styles.gradientContainer}
-      >
-        <BlurView intensity={50} style={styles.blurContainer}>
-          <View style={styles.topSection}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <ChevronLeft color="white" size={30} />
-            </TouchableOpacity>
-            <Text style={styles.title}>Transfer to My Account</Text>
-          </View>
-        </BlurView>
-      </LinearGradient>
-      {/* <Text style={styles.header}>Transfer to My Account</Text> */}
-
-      <View style={{ paddingHorizontal: 15, marginTop: 25 }}>
-        {/* From Bank Selection */}
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>From</Text>
-
-          {/* Tapping on this TextInput activates the Picker */}
-          <TouchableOpacity
-            onPress={() => setIsPickerVisible(true)} // Show the Picker on tap
-            style={styles.pickerContainer}
-          >
-            <Text style={styles.selectedBankText}>
-              {selectedBank ? selectedBank : "Select a Bank"}{" "}
-              {/* Show selected bank or placeholder */}
-            </Text>
-          </TouchableOpacity>
-
-          {/* Conditional Rendering of Picker Dropdown */}
-          {isPickerVisible && (
-            <View style={{ height: 150 }}>
-              <Picker
-                selectedValue={selectedBank}
-                style={styles.picker}
-                onValueChange={(itemValue) => {
-                  setSelectedBank(itemValue); // Update the selected bank
-                  setIsPickerVisible(false); // Hide the picker after selection
-                }}
-              >
-                <Picker.Item label="Select a Bank" value="" />
-                {linkedBanks.map((bank) => (
-                  <Picker.Item
-                    key={bank.id}
-                    label={`${bank.name} - **** **** **** ${getLastFourDigits(
-                      bank.accountNumber
-                    )}`}
-                    value={bank.name}
-                    style={styles.pickerItem} // Ensuring white text for the dropdown items
-                  />
-                ))}
-              </Picker>
-            </View>
-          )}
-        </View>
-
-        {/* Amount to Transfer */}
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Amount to Transfer</Text>
-          <View style={styles.inputWithDollar}>
-            <Text style={styles.dollarSign}>$</Text>
-            <TextInput
-              style={styles.input}
-              value={amount}
-              onChangeText={handleAmountChange} // Using custom function for amount input
-              placeholder="Enter amount"
-              placeholderTextColor="#aaa"
-              keyboardType="numeric"
-            />
-          </View>
-        </View>
-
-        <TouchableOpacity
-          style={styles.transferButton}
-          onPress={handleTransfer}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <LinearGradient
+          colors={["#266A61", "#0F0F0F"]}
+          style={styles.gradientContainer}
         >
-          <Text style={styles.buttonText}>Transfer</Text>
-        </TouchableOpacity>
+          <BlurView intensity={50} style={styles.blurContainer}>
+            <View style={styles.topSection}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <ChevronLeft color="white" size={30} />
+              </TouchableOpacity>
+              <Text style={styles.title}>Transfer to My Account</Text>
+            </View>
+          </BlurView>
+        </LinearGradient>
 
-        {isTransferSuccessful !== null && (
-          <View style={styles.statusMessage}>
-            <Text
-              style={{
-                color: isTransferSuccessful ? "green" : "red",
-                fontWeight: "bold",
-              }}
+        <View style={{ paddingHorizontal: 15, marginTop: 25 }}>
+          {/* From Bank Selection */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>From</Text>
+
+            {/* Tapping on this TextInput activates the Picker */}
+            <TouchableOpacity
+              onPress={() => setIsPickerVisible(true)} // Show the Picker on tap
+              style={styles.pickerContainer}
             >
-              {isTransferSuccessful
-                ? "Transfer Successful!"
-                : "Transfer Failed"}
-            </Text>
+              <Text style={styles.selectedBankText}>
+                {selectedBank ? selectedBank : "Select a Bank"}
+              </Text>
+            </TouchableOpacity>
+
+            {/* Conditional Rendering of Picker Dropdown */}
+            {isPickerVisible && (
+              <View style={{ height: 150 }}>
+                <Picker
+                  selectedValue={selectedBank}
+                  style={styles.picker}
+                  onValueChange={(itemValue) => {
+                    setSelectedBank(itemValue); // Update the selected bank
+                    setIsPickerVisible(false); // Hide the picker after selection
+                  }}
+                >
+                  <Picker.Item label="Select a Bank" value="" />
+                  {linkedBanks.map((bank) => (
+                    <Picker.Item
+                      key={bank.id}
+                      label={`${bank.name} - **** **** **** ${getLastFourDigits(
+                        bank.accountNumber
+                      )}`}
+                      value={bank.name}
+                      style={styles.pickerItem}
+                    />
+                  ))}
+                </Picker>
+              </View>
+            )}
           </View>
-        )}
+
+          {/* Amount to Transfer */}
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Amount to Transfer</Text>
+            <View style={styles.inputWithDollar}>
+              <Text style={styles.dollarSign}>$</Text>
+              <TextInput
+                style={styles.input}
+                value={amount}
+                onChangeText={handleAmountChange} // Using custom function for amount input
+                placeholder="Enter amount"
+                placeholderTextColor="#aaa"
+                keyboardType="numeric"
+              />
+            </View>
+          </View>
+
+          <TouchableOpacity
+            style={styles.transferButton}
+            onPress={handleTransfer}
+          >
+            <Text style={styles.buttonText}>Transfer</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Modal for showing the success details */}
+        <Modal
+          visible={isModalVisible}
+          transparent={true}
+          animationType="fade"
+          onRequestClose={handleCloseModal} // Close the modal when tapping outside
+        >
+          <View style={styles.modalBackground}>
+            <View style={styles.modalContent}>
+              {isTransferSuccessful && (
+                <View style={styles.successContainer}>
+                  <FontAwesome name="check-circle" size={30} color="green" />
+                  <Text style={styles.successText}>Transfer Initiated</Text>
+                </View>
+              )}
+              <Text style={styles.modalText}>
+                Transfer from: {selectedBank}
+              </Text>
+              <Text style={styles.modalText}>
+                Amount: ${amount}
+              </Text>
+              <TouchableOpacity
+                onPress={handleCloseModal} // Close the modal and reset fields
+                style={styles.modalButton}
+              >
+                <Text style={styles.modalButtonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0F0F0F", // Dark background color
-
-    // paddingHorizontal: 20,
+    backgroundColor: "#0F0F0F", // Primary background color
   },
   gradientContainer: {
     height: "14%",
@@ -204,13 +236,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingLeft: width * 0.03,
   },
-  header: {
-    fontSize: 28,
-    color: "#266A61",
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 40,
-  },
   inputContainer: {
     marginBottom: 20,
   },
@@ -226,7 +251,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: "center",
     paddingHorizontal: 10,
-    backgroundColor: "black", // Darker background for the dropdown container
+    backgroundColor: "black",
   },
   selectedBankText: {
     color: "#ccc",
@@ -234,11 +259,11 @@ const styles = StyleSheet.create({
   },
   picker: {
     height: 150,
-    color: "#fff", // Ensuring white color for picker text
-    backgroundColor: "white", // Dark background for the dropdown to contrast with white text
+    color: "#fff",
+    backgroundColor: "white",
   },
   pickerItem: {
-    color: "#fff", // Ensure that the picker items have white text
+    color: "#fff",
     fontSize: 16,
   },
   inputWithDollar: {
@@ -263,7 +288,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   transferButton: {
-    backgroundColor: "#266A61", // Green button color
+    backgroundColor: "#266A61",
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: "center",
@@ -274,9 +299,44 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  statusMessage: {
-    marginTop: 20,
+  modalBackground: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "rgba(15, 15, 15, 0.8)", // Modal background dark color
+  },
+  modalContent: {
+    backgroundColor: "#333", // Darker shade for the modal content
+    padding: 20,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  modalText: {
+    fontSize: 18,
+    color: "#fff", // White text for better contrast
+    marginBottom: 10,
+  },
+  successContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 15,
+  },
+  successText: {
+    fontSize: 18,
+    color: "#266A61", 
+    marginLeft: 10,
+  },
+  modalButton: {
+    marginTop: 15,
+    backgroundColor: "#266A61",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  modalButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

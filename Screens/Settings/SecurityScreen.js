@@ -7,8 +7,8 @@ import {
   Switch,
   Alert,
   StyleSheet,
-  TouchableOpacity,
   Dimensions,
+  TouchableOpacity
 } from "react-native";
 import TouchID from "react-native-touch-id";
 import { LinearGradient } from "expo-linear-gradient";
@@ -51,28 +51,37 @@ const SecurityScreen = ({ navigation }) => {
     // Actual implementation would require connecting to 2FA service (e.g., Firebase or Twilio)
   };
 
-  // Enable Face ID login
-  const handleFaceIDEnable = () => {
-    TouchID.isSupported()
-      .then(() => {
-        TouchID.authenticate("Authenticate to enable Face ID login")
-          .then(() => {
-            setIsFaceIDEnabled(true);
-            Alert.alert(
-              "Face ID Enabled",
-              "Face ID authentication has been successfully enabled."
-            );
-          })
-          .catch((error) => {
-            Alert.alert(
-              "Error",
-              "Face ID authentication failed: " + error.message
-            );
-          });
-      })
-      .catch(() => {
-        Alert.alert("Error", "Face ID is not supported on this device.");
-      });
+  // Handle Face ID toggle
+  const handleFaceIDToggle = (value) => {
+    if (value) {
+      // Try to enable Face ID
+      TouchID.isSupported()
+        .then(() => {
+          TouchID.authenticate("Authenticate to enable Face ID login")
+            .then(() => {
+              setIsFaceIDEnabled(true);
+              Alert.alert(
+                "Face ID Enabled",
+                "Face ID authentication has been successfully enabled."
+              );
+            })
+            .catch((error) => {
+              setIsFaceIDEnabled(false); // Disable the switch if authentication fails
+              Alert.alert(
+                "Error",
+                "Face ID authentication failed: " + error.message
+              );
+            });
+        })
+        .catch(() => {
+          setIsFaceIDEnabled(false); // Disable the switch if Face ID is not supported
+          Alert.alert("Error", "Face ID is not supported on this device.");
+        });
+    } else {
+      // Disable Face ID login (you would typically revoke this in your backend or local storage)
+      setIsFaceIDEnabled(false);
+      Alert.alert("Face ID Disabled", "Face ID authentication has been disabled.");
+    }
   };
 
   return (
@@ -130,15 +139,10 @@ const SecurityScreen = ({ navigation }) => {
 
         <View style={styles.section}>
           <Text style={styles.label}>Enable Face ID Login</Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleFaceIDEnable}
-            disabled={isFaceIDEnabled}
-          >
-            <Text style={styles.buttonText}>
-              {isFaceIDEnabled ? "Face ID Enabled" : "Enable Face ID"}
-            </Text>
-          </TouchableOpacity>
+          <Switch
+            value={isFaceIDEnabled}
+            onValueChange={handleFaceIDToggle} // Using the toggle handler
+          />
         </View>
       </View>
     </View>
@@ -197,17 +201,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     color: "#fff",
     backgroundColor: "#333",
-  },
-  button: {
-    backgroundColor: "#266A61",
-    padding: width * 0.05,
-    borderRadius: 5,
-    alignItems: "center",
-    marginTop: 10,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: width * 0.04,
   },
 });
 

@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Alert,
   Modal,
   FlatList,
   StyleSheet,
@@ -12,15 +11,15 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
-import { Ionicons } from "@expo/vector-icons";
 import { ChevronLeft } from "lucide-react-native";
 
 const { width, height } = Dimensions.get("window");
-const RequestMoneyScreen = () => {
+
+const RequestMoneyScreen = ({ navigation }) => {  // Destructure navigation from props
   const [amount, setAmount] = useState("");
   const [recipient, setRecipient] = useState("");
-  const [note, setNote] = useState("");
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isRequestSentModalVisible, setRequestSentModalVisible] = useState(false);
 
   // Dummy data for recipient list
   const recipients = [
@@ -33,21 +32,45 @@ const RequestMoneyScreen = () => {
   const handleRequestMoney = () => {
     // Basic validation
     if (!amount || !recipient) {
-      Alert.alert("Error", "Please enter both an amount and a recipient");
+      alert("Please enter both an amount and a recipient");
       return;
     }
 
-    // In a real app, you'd send a request to your server to process the money request
-    Alert.alert("Money Request", `Request sent for $${amount} to ${recipient}`);
-    // Clear inputs after sending the request
-    setAmount("");
-    setRecipient("");
-    setNote("");
+    // Trigger modal display with request details
+    setRequestSentModalVisible(true);
   };
 
   const handleRecipientSelect = (selectedRecipient) => {
     setRecipient(selectedRecipient);
     setModalVisible(false);
+  };
+
+  // Modify closeRequestSentModal to navigate to the previous page after resetting fields
+  const closeRequestSentModal = () => {
+    setAmount("");
+    setRecipient("");
+    setRequestSentModalVisible(false);
+    navigation.goBack();  // Navigate back to the previous page
+  };
+
+  // Function to format amount with commas
+  const formatAmount = (value) => {
+    const numericValue = value.replace(/[^0-9.]/g, "");
+    const numericValueFloat = parseFloat(numericValue);
+
+    // Limit to 1 million
+    if (numericValueFloat > 1000000) {
+      return "1,000,000";
+    }
+
+    // Format with commas
+    return numericValueFloat.toLocaleString("en-US");
+  };
+
+  const handleAmountChange = (text) => {
+    const formattedText = text.replace(/[^0-9.]/g, "");
+    const formattedAmount = formatAmount(formattedText);
+    setAmount(formattedAmount);
   };
 
   return (
@@ -62,6 +85,7 @@ const RequestMoneyScreen = () => {
           </View>
         </BlurView>
       </LinearGradient>
+
       <View style={styles.form}>
         <Text style={styles.label}>Amount</Text>
 
@@ -74,11 +98,7 @@ const RequestMoneyScreen = () => {
             placeholder="0.00"
             placeholderTextColor="#ccc" // Placeholder color
             value={amount}
-            onChangeText={(text) => {
-              // Allow only numbers and dots
-              const formattedText = text.replace(/[^0-9.]/g, "");
-              setAmount(formattedText);
-            }}
+            onChangeText={handleAmountChange}
           />
         </View>
 
@@ -131,6 +151,32 @@ const RequestMoneyScreen = () => {
           </View>
         </View>
       </Modal>
+
+      {/* Modal for "Request Sent" */}
+      <Modal
+        visible={isRequestSentModalVisible}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={closeRequestSentModal}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.requestSentModal}>
+            <Text style={styles.requestSentTitle}>Request Sent</Text>
+            <Text style={styles.requestSentText}>
+              Amount: ${amount}
+            </Text>
+            <Text style={styles.requestSentText}>
+              Recipient: {recipient}
+            </Text>
+            <TouchableOpacity
+              style={styles.modalCloseButton}
+              onPress={closeRequestSentModal}  // Close modal and navigate back
+            >
+              <Text style={styles.modalCloseText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -156,7 +202,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingLeft: 10,
-    // marginBottom: height * 0.03,
   },
   title: {
     fontSize: width * 0.07,
@@ -205,10 +250,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
     paddingVertical: 0,
   },
-  noteInput: {
-    height: 100,
-    textAlignVertical: "top",
-  },
   inputContainer: {
     height: 50,
     backgroundColor: "#333",
@@ -250,29 +291,46 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#A9DFBF",
+    color: "white",
     marginBottom: 10,
     textAlign: "center",
   },
   modalItem: {
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#333",
+    padding: 10,
   },
   modalItemText: {
-    fontSize: 18,
     color: "white",
+    fontSize: 18,
   },
   modalCloseButton: {
+    marginTop: 15,
     backgroundColor: "#266A61",
-    paddingVertical: 12,
+    paddingVertical: 10,
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 10,
   },
   modalCloseText: {
-    fontSize: 18,
-    color: "white",
+    color: "#fff",
+    fontSize: 16,
+  },
+  requestSentModal: {
+    backgroundColor: "#1C1C1C",
+    padding: 20,
+    borderRadius: 10,
+    width: "80%",
+  },
+  requestSentTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#266A61",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  requestSentText: {
+    color: "#ccc",
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: "center",
   },
 });
 
