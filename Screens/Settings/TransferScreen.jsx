@@ -11,15 +11,18 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation
 import { Picker } from "@react-native-picker/picker";
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
 import { ChevronLeft } from "lucide-react-native";
-import FontAwesome from "react-native-vector-icons/FontAwesome"; // Icon library
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 const { width, height } = Dimensions.get("window");
 
 const TransferScreen = () => {
+  const navigation = useNavigation(); // Use the navigation hook
+
   // States to handle transfer logic
   const [amount, setAmount] = useState(""); // Amount entered by the user
   const [selectedBank, setSelectedBank] = useState(""); // Selected bank
@@ -60,21 +63,18 @@ const TransferScreen = () => {
 
     // Simulate a successful transfer
     setIsTransferSuccessful(true);
-    setIsModalVisible(true);  // Show the modal after successful transfer
+    setIsModalVisible(true); // Show the modal after successful transfer
   };
 
   // Function to handle amount input with formatting
   const handleAmountChange = (text) => {
-    // Remove all non-numeric characters except the dot
     let numericValue = text.replace(/[^0-9.]/g, "");
 
     if (numericValue === "") {
       setAmount(""); // Clear the input if the field is empty
     } else {
-      // Format the value with commas for thousands, millions, etc.
       let formattedValue = parseFloat(numericValue).toLocaleString();
 
-      // Ensure the value doesn't exceed 1 million
       if (parseFloat(numericValue) > 1000000) {
         formattedValue = "1,000,000";
       }
@@ -109,13 +109,11 @@ const TransferScreen = () => {
         </LinearGradient>
 
         <View style={{ paddingHorizontal: 15, marginTop: 25 }}>
-          {/* From Bank Selection */}
           <View style={styles.inputContainer}>
             <Text style={styles.label}>From</Text>
 
-            {/* Tapping on this TextInput activates the Picker */}
             <TouchableOpacity
-              onPress={() => setIsPickerVisible(true)} // Show the Picker on tap
+              onPress={() => setIsPickerVisible(true)}
               style={styles.pickerContainer}
             >
               <Text style={styles.selectedBankText}>
@@ -123,15 +121,14 @@ const TransferScreen = () => {
               </Text>
             </TouchableOpacity>
 
-            {/* Conditional Rendering of Picker Dropdown */}
             {isPickerVisible && (
               <View style={{ height: 150 }}>
                 <Picker
                   selectedValue={selectedBank}
                   style={styles.picker}
                   onValueChange={(itemValue) => {
-                    setSelectedBank(itemValue); // Update the selected bank
-                    setIsPickerVisible(false); // Hide the picker after selection
+                    setSelectedBank(itemValue);
+                    setIsPickerVisible(false);
                   }}
                 >
                   <Picker.Item label="Select a Bank" value="" />
@@ -150,7 +147,6 @@ const TransferScreen = () => {
             )}
           </View>
 
-          {/* Amount to Transfer */}
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Amount to Transfer</Text>
             <View style={styles.inputWithDollar}>
@@ -158,7 +154,7 @@ const TransferScreen = () => {
               <TextInput
                 style={styles.input}
                 value={amount}
-                onChangeText={handleAmountChange} // Using custom function for amount input
+                onChangeText={handleAmountChange}
                 placeholder="Enter amount"
                 placeholderTextColor="#aaa"
                 keyboardType="numeric"
@@ -174,12 +170,11 @@ const TransferScreen = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Modal for showing the success details */}
         <Modal
           visible={isModalVisible}
           transparent={true}
           animationType="fade"
-          onRequestClose={handleCloseModal} // Close the modal when tapping outside
+          onRequestClose={handleCloseModal}
         >
           <View style={styles.modalBackground}>
             <View style={styles.modalContent}>
@@ -192,11 +187,9 @@ const TransferScreen = () => {
               <Text style={styles.modalText}>
                 Transfer from: {selectedBank}
               </Text>
-              <Text style={styles.modalText}>
-                Amount: ${amount}
-              </Text>
+              <Text style={styles.modalText}>Amount: ${amount}</Text>
               <TouchableOpacity
-                onPress={handleCloseModal} // Close the modal and reset fields
+                onPress={handleCloseModal}
                 style={styles.modalButton}
               >
                 <Text style={styles.modalButtonText}>Close</Text>
@@ -208,7 +201,6 @@ const TransferScreen = () => {
     </TouchableWithoutFeedback>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -82,6 +82,14 @@ const SettingsScreen = ({ navigation }) => {
         <MaterialIcons name="security" size={24} color="white" />
         <Text style={styles.optionText}>Security</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.optionItem}
+        onPress={() => navigation.navigate("Support")}
+      >
+        <MaterialIcons name="support-agent" size={24} color="white" />
+        <Text style={styles.optionText}>Support</Text>
+      </TouchableOpacity>
+
 
       <View style={styles.logOutContainer}>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>

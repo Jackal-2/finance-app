@@ -16,6 +16,7 @@ import SignUpScreen from "./Screens/Auth/SignUpScreen";
 import ForgotPasswordScreen from "./Screens/Auth/ForgotPasswordScreen";
 import RequestMoneyScreen from "./Screens/Homepage/RequestScreen";
 import TransferScreen from "./Screens/Settings/TransferScreen";
+import SupportScreen from "./Screens/Settings/SupportScreen";
 
 
 const Stack = createStackNavigator();
@@ -44,6 +45,7 @@ const App = () => {
           <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
           <Stack.Screen name="Request" component={RequestMoneyScreen} />
           <Stack.Screen name="Transfer" component={TransferScreen} />
+          <Stack.Screen name="Support" component={SupportScreen} />
 
         </Stack.Navigator>
       </NavigationContainer>

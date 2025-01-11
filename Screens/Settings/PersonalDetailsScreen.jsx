@@ -118,10 +118,10 @@ const PersonalDetailsScreen = ({ navigation }) => {
           isEditingEmail ||
           isEditingDob ||
           isEditingPhone) && (
-          <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-            <Text style={styles.saveButtonText}>Save Changes</Text>
-          </TouchableOpacity>
-        )}
+            <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+              <Text style={styles.saveButtonText}>Save Changes</Text>
+            </TouchableOpacity>
+          )}
       </View>
     </View>
   );
@@ -130,7 +130,7 @@ const PersonalDetailsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "#0F0F0F",
     // marginBottom: height * 0.1,
   },
   background: {

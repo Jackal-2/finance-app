@@ -106,6 +106,7 @@ const SecurityScreen = ({ navigation }) => {
           <TextInput
             style={styles.input}
             placeholder="Enter current password"
+            placeholderTextColor="#aaa"
             secureTextEntry
             value={currentPassword}
             onChangeText={setCurrentPassword}
@@ -115,6 +116,7 @@ const SecurityScreen = ({ navigation }) => {
           <TextInput
             style={styles.input}
             placeholder="Enter new password"
+            placeholderTextColor="#aaa"
             secureTextEntry
             value={newPassword}
             onChangeText={setNewPassword}
@@ -124,6 +126,7 @@ const SecurityScreen = ({ navigation }) => {
           <TextInput
             style={styles.input}
             placeholder="Confirm new password"
+            placeholderTextColor="#aaa"
             secureTextEntry
             value={confirmPassword}
             onChangeText={setConfirmPassword}
@@ -153,7 +156,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: "30",
-    backgroundColor: "black",
+    backgroundColor: "#0F0F0F",
   },
   gradientContainer: {
     height: "14%",

@@ -3,18 +3,16 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   Alert,
   StyleSheet,
-  ScrollView,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
 import { Card, Title, Paragraph } from "react-native-paper"; // Import Paper components for UI
 import { LinearGradient } from "expo-linear-gradient";
 import { BlurView } from "expo-blur";
-import { Ionicons } from "@expo/vector-icons";
 import { ChevronLeft } from "lucide-react-native";
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
 
 // Get the screen dimensions
 const { width, height } = Dimensions.get("window");
@@ -30,6 +28,7 @@ let existingBankAccounts = [
 ];
 
 const BankAccountsPage = () => {
+  const navigation = useNavigation(); // Always call hooks at the top level
   const [accountNumber, setAccountNumber] = useState("");
   const [routingNumber, setRoutingNumber] = useState("");
   const [accountType, setAccountType] = useState(""); // User will manually type "Checking" or "Savings"
@@ -141,13 +140,12 @@ const BankAccountsPage = () => {
         </View>
 
         {/* Link Bank Account Button */}
-
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={linkBankAccount}
             disabled={isLinking || accountLinked}
           >
-            <Text style={{ color: "#266A61", fontSize: 24, }}>
+            <Text style={{ color: "#266A61", fontSize: 24 }}>
               {isLinking ? "Linking..." : "Link Bank Account"}
             </Text>
           </TouchableOpacity>
@@ -160,8 +158,7 @@ const BankAccountsPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //
-    backgroundColor: "black",
+    backgroundColor: "#0F0F0F",
   },
   background: {
     height: "14%",
@@ -173,7 +170,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingLeft: 10,
-    // marginBottom: height * 0.03,
   },
   topTitle: {
     fontSize: width * 0.07,
@@ -186,13 +182,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     width: "100%",
     paddingTop: height * 0.07,
-  },
-  title: {
-    fontSize: width * 0.06,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: height * 0.03,
-    color: "#fff",
   },
   subtitle: {
     fontSize: width * 0.05,
@@ -241,16 +230,9 @@ const styles = StyleSheet.create({
     marginBottom: height * 0.03,
   },
   buttonContainer: {
-    // marginTop: height * 0.05,
     position: "relative",
     top: 40,
     alignSelf: "center",
-  },
-  linkedTitle: {
-    fontSize: width * 0.05,
-    fontWeight: "bold",
-    marginVertical: height * 0.02,
-    color: "#266A61",
   },
 });
 
